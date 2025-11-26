@@ -19,10 +19,10 @@ function renderHeader() {
             <nav>
                 <div class="logo">ST KRAKOS</div>
                 <ul>
-                    <li><a href="/" data-route="/">Strona Główna</a></li>
-                    <li><a href="/about" data-route="/about">O nas</a></li>
-                    <li><a href="/services" data-route="/services">Usługi</a></li>
-                    <li><a href="/contact" data-route="/contact">Kontakt</a></li>
+                    <li><a href="#home" data-scroll="home">Strona Główna</a></li>
+                    <li><a href="#about" data-scroll="about">O nas</a></li>
+                    <li><a href="#services" data-scroll="services">Usługi</a></li>
+                    <li><a href="#contact" data-scroll="contact">Kontakt</a></li>
                 </ul>
             </nav>
         `
