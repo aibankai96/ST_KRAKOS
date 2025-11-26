@@ -1,5 +1,4 @@
 import { updateSEO, addStructuredData } from '../utils/seo.js'
-import { validators, validateField, clearValidationErrors } from '../utils/validators.js'
 
 export async function renderHome(container) {
     updateSEO(
@@ -32,35 +31,23 @@ export async function renderHome(container) {
                 <h1>O ST KRAKOS</h1>
                 <div class="about-content">
                     <div class="about-section">
-                        <h2>Eksperci w Sztucznej Inteligencji</h2>
-                        <p>ST KRAKOS to zespół doświadczonych specjalistów AI, którzy pomagają firmom wykorzystać pełny potencjał sztucznej inteligencji. Łączymy głęboką wiedzę techniczną z praktycznym zrozumieniem potrzeb biznesowych, tworząc rozwiązania, które przynoszą realne korzyści.</p>
-                        <p>Nasza ekspertyza obejmuje machine learning, deep learning, przetwarzanie języka naturalnego, computer vision oraz zaawansowaną analitykę danych. Każdy projekt traktujemy indywidualnie, dostosowując technologie AI do unikalnych wyzwań naszych klientów.</p>
+                        <h2>Eksperci w Rozwiązaniach Webowych</h2>
+                        <p>ST KRAKOS to zespół doświadczonych specjalistów, którzy pomagają firmom stworzyć profesjonalne strony internetowe i aplikacje webowe. Łączymy wiedzę techniczną z praktycznym zrozumieniem potrzeb biznesowych, tworząc rozwiązania, które przynoszą realne korzyści.</p>
                     </div>
                     
                     <div class="about-section">
                         <h2>Nasza Misja</h2>
-                        <p>Demokratyzujemy dostęp do sztucznej inteligencji, sprawiając, że zaawansowane technologie AI stają się dostępne dla firm każdej wielkości. Wierzymy, że każda organizacja może skorzystać z AI, niezależnie od branży czy rozmiaru.</p>
-                        <p>Naszym celem jest nie tylko wdrożenie technologii, ale przede wszystkim zapewnienie, że rozwiązania AI rzeczywiście rozwiązują problemy biznesowe i generują wartość dla naszych klientów.</p>
+                        <p>Demokratyzujemy dostęp do nowoczesnych technologii webowych, sprawiając, że profesjonalne strony i aplikacje stają się dostępne dla firm każdej wielkości. Każdy projekt traktujemy indywidualnie, dostosowując rozwiązania do unikalnych potrzeb naszych klientów.</p>
                     </div>
                     
                     <div class="about-section">
                         <h2>Dlaczego warto z nami współpracować?</h2>
                         <ul class="features-list">
-                            <li>✅ Wieloletnie doświadczenie w projektach AI i machine learning</li>
                             <li>✅ Indywidualne podejście - każdy projekt jest unikalny</li>
-                            <li>✅ Najnowsze technologie - wykorzystujemy cutting-edge rozwiązania AI</li>
-                            <li>✅ Kompleksowe wsparcie - od koncepcji po wdrożenie i utrzymanie</li>
-                            <li>✅ Mierzalne rezultaty - każdy projekt ma jasno określone KPI</li>
-                            <li>✅ Transparentność - regularne raporty i komunikacja na każdym etapie</li>
+                            <li>✅ Najnowsze technologie i najlepsze praktyki</li>
+                            <li>✅ Kompleksowe wsparcie - od koncepcji po wdrożenie</li>
+                            <li>✅ Mierzalne rezultaty i transparentna komunikacja</li>
                         </ul>
-                    </div>
-                    
-                    <div class="about-section">
-                        <h2>Nasze Wartości</h2>
-                        <p><strong>Innowacyjność</strong> - Stale śledzimy najnowsze trendy w AI i implementujemy je w praktyce.</p>
-                        <p><strong>Jakość</strong> - Każde rozwiązanie przechodzi rygorystyczne testy i walidację przed wdrożeniem.</p>
-                        <p><strong>Etyka AI</strong> - Zobowiązujemy się do odpowiedzialnego wykorzystania AI, z poszanowaniem prywatności i transparentności.</p>
-                        <p><strong>Partnerstwo</strong> - Traktujemy klientów jako partnerów w procesie transformacji cyfrowej.</p>
                     </div>
                 </div>
             </div>
@@ -68,37 +55,95 @@ export async function renderHome(container) {
         
         <section id="services" class="services">
             <div class="container">
-                <h2>Nasze usługi</h2>
-                <div class="services-grid" id="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">🤖</div>
-                        <h3>Inteligentna Automatyzacja</h3>
-                        <p>Automatyzujemy powtarzalne procesy biznesowe przy użyciu zaawansowanych algorytmów AI, oszczędzając czas i zasoby Twojej firmy.</p>
+                <h2>Nasze Usługi</h2>
+                <p style="text-align: center; font-size: 1.2rem; color: #4a5568; margin-bottom: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+                    Oferujemy kompleksowe rozwiązania webowe dostosowane do Twoich potrzeb. Od szybkich landing page'ów po zaawansowane aplikacje - każdy projekt realizujemy z dbałością o szczegóły i najwyższą jakość.
+                </p>
+                
+                <div class="services-category">
+                    <div class="category-header">
+                        <span class="category-badge fast">⚡ Szybkie Projekty</span>
+                        <p class="category-description">Szybkie, lekkie i estetyczne realizacje, które pozwalają błyskawicznie zaistnieć w sieci lub rozwinąć już istniejącą stronę. Idealne dla firm, które potrzebują szybkiego efektu bez skomplikowanych funkcji.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">🧠</div>
-                        <h3>Machine Learning & Deep Learning</h3>
-                        <p>Budujemy modele uczenia maszynowego dostosowane do Twoich potrzeb, które uczą się i poprawiają z każdym użyciem.</p>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">📄</div>
+                            <h3>Landing Page / One-Page</h3>
+                            <p>Jednostronicowa, nowoczesna i dynamiczna strona prezentująca ofertę, produkt lub firmę. Zawiera sekcje: hero, o nas, oferta, cena, kontakt, dopracowany design, responsywność i animacje.</p>
+                            <p class="service-for"><strong>Dla:</strong> Start-upy, jednoosobowe działalności, eventy, kampanie reklamowe</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🔧</div>
+                            <h3>Modyfikacje Istniejących Stron</h3>
+                            <p>Ulepszenie lub odświeżenie już istniejącej strony. Poprawa błędów, optymalizacja, nowe sekcje, refaktoryzacja kodu, poprawa responsywności i przyspieszenie działania.</p>
+                            <p class="service-for"><strong>Dla:</strong> Firmy, które mają stronę, ale nie chcą tworzyć nowej</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">✨</div>
+                            <h3>Proste Elementy Interaktywne</h3>
+                            <p>Efekty nadające stronie nowoczesny i profesjonalny wygląd. Niestandardowy kursor, animowane przejścia, galerie zdjęć, FAQ z animacjami - wszystko, co zwiększa zaangażowanie użytkowników.</p>
+                            <p class="service-for"><strong>Dla:</strong> Wszystkie firmy chcące ulepszyć swoje strony</p>
+                        </div>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">📊</div>
-                        <h3>Analiza Danych z AI</h3>
-                        <p>Przetwarzamy ogromne ilości danych w czasie rzeczywistym, generując wartościowe insights wspierające strategiczne decyzje.</p>
+                </div>
+
+                <div class="services-category">
+                    <div class="category-header">
+                        <span class="category-badge medium">🎯 Projekty Średnie</span>
+                        <p class="category-description">Realizacje dla firm, które potrzebują pełnej, profesjonalnej strony lub prostego systemu. Łączę atrakcyjny wygląd z funkcjonalnością i wygodą zarządzania treścią.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">💬</div>
-                        <h3>Chatboty i Asystenci AI</h3>
-                        <p>Tworzymy inteligentne asystenty wirtualne, które obsługują klientów 24/7, odpowiadają na pytania i automatyzują obsługę.</p>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">🌐</div>
+                            <h3>Strona Firmowa / Serwis Wielostronicowy</h3>
+                            <p>Pełna strona internetowa z wieloma podstronami (5-15 stron/sekcji), dedykowany projekt graficzny, animacje premium, blog, lekki CMS, formularze kontaktowe, optymalizacja SEO i wydajności.</p>
+                            <p class="service-for"><strong>Dla:</strong> Firmy usługowe, agencje, małe i średnie biznesy</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🔐</div>
+                            <h3>Proste Panele i Backend (CRUD + Logowanie)</h3>
+                            <p>Lekki system webowy do zarządzania danymi. Logowanie, rejestracja, panel administratora, listy użytkowników/produktów/zadań, możliwość dodawania, edytowania i usuwania danych, baza danych, API.</p>
+                            <p class="service-for"><strong>Dla:</strong> Firmy potrzebujące wewnętrznych narzędzi, CRM-ów lite, paneli dla klientów</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">🔗</div>
+                            <h3>Integracje Podstawowe (API / CRM / Automatyzacje)</h3>
+                            <p>Połączenie strony lub aplikacji z zewnętrznymi systemami. Integracja z CRM (HubSpot, Pipedrive), generowanie PDF, wysyłka maili, webhooki, zapisy do Google Sheets, podstawowe automatyzacje.</p>
+                            <p class="service-for"><strong>Dla:</strong> Firmy, które chcą automatyzować swoją pracę</p>
+                        </div>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">🔮</div>
-                        <h3>Predykcyjna Analityka</h3>
-                        <p>Wykorzystujemy AI do przewidywania trendów, zachowań klientów i optymalizacji przyszłych działań biznesowych.</p>
+                </div>
+
+                <div class="services-category">
+                    <div class="category-header">
+                        <span class="category-badge complex">🚀 Projekty Złożone</span>
+                        <p class="category-description">Uproszczone, ale w pełni funkcjonalne aplikacje webowe — idealne jako MVP lub narzędzie dla zespołu. Szybkie wdrożenie, rozsądna cena, możliwość dalszej rozbudowy.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">🎯</div>
-                        <h3>Personalizacja i Rekomendacje</h3>
-                        <p>Implementujemy systemy rekomendacji oparte na AI, które personalizują doświadczenia użytkowników i zwiększają konwersje.</p>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">💻</div>
+                            <h3>Prosta Aplikacja Webowa (MVP)</h3>
+                            <p>Aplikacja z bazą danych, logowaniem i panelem użytkownika. Logowanie, rejestracja, reset hasła, dashboard użytkownika, CRUD na kilku modelach, filtrowanie i sortowanie, zapis do bazy, intuicyjny interfejs.</p>
+                            <p class="service-for"><strong>Dla:</strong> Startupy, firmy usługowe, które chcą narzędzia pod swoje procesy</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">📅</div>
+                            <h3>System Rezerwacji / Zarządzania Wydarzeniami</h3>
+                            <p>Lekki kalendarz z możliwością zapisów. Wybór daty, formularz rezerwacji, zapis do bazy, potwierdzenie e-mail, panel do podglądu rezerwacji.</p>
+                            <p class="service-for"><strong>Dla:</strong> Fryzjerzy, trenerzy, konsultanci, gabinety</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">⚡</div>
+                            <h3>Podstawowy Moduł Real-Time</h3>
+                            <p>Komunikacja w czasie rzeczywistym. Prosty czat, statusy online/offline, live notifications - wszystko, co potrzebne do natychmiastowej komunikacji.</p>
+                            <p class="service-for"><strong>Dla:</strong> Aplikacje komunikacyjne, panele klientów, narzędzia zespołowe</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon">📊</div>
+                            <h3>Uproszczony Dashboard Analityczny</h3>
+                            <p>Panel z wykresami i statystykami. Wykresy (Chart.js itp.), filtrowanie danych, eksport CSV, widok tabel z danymi - wszystko, co potrzebne do analizy danych.</p>
+                            <p class="service-for"><strong>Dla:</strong> Firmy, które potrzebują wglądu w dane bez zaawansowanego BI</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,23 +151,32 @@ export async function renderHome(container) {
         
         <section id="technologies" class="portfolio">
             <div class="container">
-                <h2>Technologie, które wykorzystujemy</h2>
+                <h2>Nasze Narzędzia i Technologie</h2>
+                <p style="text-align: center; font-size: 1.2rem; color: #4a5568; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Wykorzystujemy najnowocześniejsze narzędzia AI i zaawansowane technologie programistyczne, aby tworzyć rozwiązania, które naprawdę działają. Nasz zespół pracuje z najlepszymi narzędziami dostępnymi na rynku, gwarantując najwyższą jakość i efektywność każdego projektu.
+                </p>
                 <div class="portfolio-grid">
                     <div class="portfolio-item">
-                        <div class="portfolio-image">⚡</div>
-                        <h3>Natural Language Processing</h3>
-                        <p>Przetwarzanie języka naturalnego do analizy tekstu, sentymentu i automatycznej klasyfikacji treści</p>
+                        <div class="portfolio-image">🤖</div>
+                        <h3>Zaawansowane Narzędzia AI</h3>
+                        <p>Wykorzystujemy najnowsze narzędzia wspomagane sztuczną inteligencją, które przyspieszają proces tworzenia i optymalizacji rozwiązań. Dzięki temu możemy dostarczyć Ci gotowe rozwiązania szybciej, zachowując najwyższą jakość.</p>
                     </div>
                     <div class="portfolio-item">
-                        <div class="portfolio-image">🔍</div>
-                        <h3>Computer Vision</h3>
-                        <p>Rozpoznawanie obrazów i analiza wizualna dla automatyzacji procesów opartych na dokumentach</p>
+                        <div class="portfolio-image">⚙️</div>
+                        <h3>Profesjonalne Środowisko Programistyczne</h3>
+                        <p>Pracujemy w zaawansowanych środowiskach deweloperskich, które pozwalają nam tworzyć stabilne, bezpieczne i wydajne aplikacje. Każdy projekt jest budowany z wykorzystaniem sprawdzonych narzędzi i najlepszych praktyk branżowych.</p>
                     </div>
                     <div class="portfolio-item">
-                        <div class="portfolio-image">🌐</div>
-                        <h3>AI-Powered Web Solutions</h3>
-                        <p>Inteligentne aplikacje webowe z integracją AI, które adaptują się do potrzeb użytkowników</p>
+                        <div class="portfolio-image">🚀</div>
+                        <h3>Nowoczesne Frameworki i Biblioteki</h3>
+                        <p>Wykorzystujemy najnowsze technologie webowe i frameworki, które zapewniają szybkie działanie, bezpieczeństwo i łatwość utrzymania. Twoja aplikacja będzie działać płynnie na wszystkich urządzeniach i przeglądarkach.</p>
                     </div>
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <p style="font-size: 1.1rem; color: #4a5568; margin-bottom: 2rem;">
+                        Nie musisz znać się na technologiach - my się znamy! Skup się na swoim biznesie, a my zajmiemy się resztą.
+                    </p>
+                    <button class="cta-button primary" data-scroll="contact">Rozpocznij Współpracę</button>
                 </div>
             </div>
         </section>
@@ -130,43 +184,18 @@ export async function renderHome(container) {
         <section id="contact" class="contact-page">
             <div class="container">
                 <h1>Skontaktuj się z nami</h1>
-                <p class="contact-intro">Masz pytania? Chcesz dowiedzieć się więcej o naszych usługach? Napisz do nas!</p>
+                <p class="contact-intro">Masz pytania? Chcesz dowiedzieć się więcej o naszych usługach? Skontaktuj się z nami bezpośrednio!</p>
                 
-                <div class="contact-wrapper">
-                    <form id="contact-form" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Imię i nazwisko</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="subject">Temat</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Wiadomość</label>
-                            <textarea id="message" name="message" rows="6" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="submit-btn">Wyślij wiadomość</button>
-                        <div id="form-message" class="form-message"></div>
-                    </form>
-                    
+                <div class="contact-info-wrapper">
                     <div class="contact-info">
                         <h2>Informacje kontaktowe</h2>
                         <div class="info-item">
                             <strong>Email:</strong>
-                            <p>kontakt@stkrakos.pl</p>
+                            <p><a href="mailto:kontakt@stkrakos.pl">kontakt@stkrakos.pl</a></p>
                         </div>
                         <div class="info-item">
                             <strong>Telefon:</strong>
-                            <p>+48 123 456 789</p>
+                            <p><a href="tel:+48123456789">+48 123 456 789</a></p>
                         </div>
                         <div class="info-item">
                             <strong>Adres:</strong>
@@ -179,7 +208,6 @@ export async function renderHome(container) {
     `
     
     setupNavigation()
-    setupContactForm()
 }
 
 function setupNavigation() {
@@ -198,45 +226,4 @@ function setupNavigation() {
     )
 }
 
-function setupContactForm() {
-    const form = document.getElementById('contact-form')
-    if (!form) return
-    
-    const nameInput = form.name
-    const emailInput = form.email
-    const subjectInput = form.subject
-    const messageInput = form.message
-    
-    nameInput.addEventListener('blur', () => validateField(nameInput, validators.name))
-    emailInput.addEventListener('blur', () => validateField(emailInput, validators.email))
-    subjectInput.addEventListener('blur', () => validateField(subjectInput, validators.subject))
-    messageInput.addEventListener('blur', () => validateField(messageInput, validators.message))
-    
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault()
-        const isValid = [nameInput, emailInput, subjectInput, messageInput]
-            .every((input, i) => validateField(input, [validators.name, validators.email, validators.subject, validators.message][i]))
-        
-        if (!isValid) {
-            return
-        }
-        
-        const messageDiv = document.getElementById('form-message')
-        const submitBtn = form.querySelector('.submit-btn')
-        
-        const formData = Object.fromEntries([...form.elements].filter(e => e.name).map(e => [e.name, e.value.trim()]))
-        Object.assign(submitBtn, { disabled: true, textContent: 'Wysyłanie...' })
-        messageDiv.textContent = ''
-        try {
-            await new Promise(resolve => setTimeout(resolve, 1000))
-            Object.assign(messageDiv, { textContent: 'Dziękujemy! Twoja wiadomość została wysłana.', className: 'form-message success' })
-            form.reset()
-            clearValidationErrors()
-        } catch (error) {
-            Object.assign(messageDiv, { textContent: 'Wystąpił błąd. Spróbuj ponownie.', className: 'form-message error' })
-        } finally {
-            Object.assign(submitBtn, { disabled: false, textContent: 'Wyślij wiadomość' })
-        }
-    })
-}
 
