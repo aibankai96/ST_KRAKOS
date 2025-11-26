@@ -181,6 +181,49 @@ export async function renderHome(container) {
             </div>
         </section>
         
+        <section id="portfolio" class="portfolio-section">
+            <div class="container">
+                <h2>Nasze Realizacje</h2>
+                <p style="text-align: center; font-size: 1.2rem; color: #4a5568; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Oto przykłady naszych projektów realizowanych dla klientów. Każdy projekt to unikalne rozwiązanie dostosowane do potrzeb biznesowych.
+                </p>
+                <div class="portfolio-projects">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Nesyra.com</h3>
+                            <span class="project-badge beta">BETA</span>
+                        </div>
+                        <p class="project-description">
+                            Projekt realizowany dla naszego klienta. Wersja beta strony internetowej, która prezentuje nowoczesne podejście do biznesu. 
+                            <strong>Jesteśmy otwarci na współpracę z wszystkimi, którzy są otwarci na nowe propozycje biznesowe.</strong>
+                        </p>
+                        <div class="project-link">
+                            <a href="https://nesyra.com" target="_blank" rel="noopener noreferrer" class="project-btn">
+                                Zobacz projekt →
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Misja Czysta Woda</h3>
+                            <span class="project-badge client">PROJEKT KLIENTA</span>
+                        </div>
+                        <p class="project-description">
+                            Kolejny projekt realizowany dla naszego klienta - <strong>Misja Czysta Woda</strong>. Strona internetowa dedykowana promocji 
+                            inicjatyw związanych z ochroną środowiska i czystością wód. Projekt łączy nowoczesny design z przekazem ekologicznym, 
+                            tworząc platformę informacyjną dla osób zaangażowanych w ochronę przyrody.
+                        </p>
+                        <div class="project-link">
+                            <a href="https://misjaczystawoda.com" target="_blank" rel="noopener noreferrer" class="project-btn">
+                                Zobacz projekt →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section id="contact" class="contact-page">
             <div class="container">
                 <h1>Skontaktuj się z nami</h1>
@@ -196,10 +239,6 @@ export async function renderHome(container) {
                         <div class="info-item">
                             <strong>Telefon:</strong>
                             <p><a href="tel:+48123456789">+48 123 456 789</a></p>
-                        </div>
-                        <div class="info-item">
-                            <strong>Adres:</strong>
-                            <p>Kraków, Polska</p>
                         </div>
                     </div>
                 </div>

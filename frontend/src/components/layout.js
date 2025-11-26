@@ -18,12 +18,13 @@ function renderHeader() {
         header.innerHTML = `
             <nav>
                 <div class="logo">ST KRAKOS</div>
-                <ul>
-                    <li><a href="#home" data-scroll="home">Strona Główna</a></li>
-                    <li><a href="#about" data-scroll="about">O nas</a></li>
-                    <li><a href="#services" data-scroll="services">Usługi</a></li>
-                    <li><a href="#contact" data-scroll="contact">Kontakt</a></li>
-                </ul>
+                    <ul>
+                        <li><a href="#home" data-scroll="home">Strona Główna</a></li>
+                        <li><a href="#about" data-scroll="about">O nas</a></li>
+                        <li><a href="#services" data-scroll="services">Usługi</a></li>
+                        <li><a href="#portfolio" data-scroll="portfolio">Portfolio</a></li>
+                        <li><a href="#contact" data-scroll="contact">Kontakt</a></li>
+                    </ul>
             </nav>
         `
     }
