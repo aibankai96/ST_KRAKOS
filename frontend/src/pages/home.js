@@ -1,6 +1,4 @@
-import { generateContent } from '../api/client.js'
 import { updateSEO, addStructuredData } from '../utils/seo.js'
-import { addSocialShareButtons } from '../utils/social.js'
 
 export async function renderHome(container) {
     updateSEO(
@@ -19,21 +17,19 @@ export async function renderHome(container) {
     container.innerHTML = `
         <section class="hero">
             <div class="hero-content">
-                <h1>Witamy w ST KRAKOS</h1>
-                <p class="hero-subtitle">Innowacyjne rozwiązania z wykorzystaniem sztucznej inteligencji</p>
+                <h1>Przyszłość Biznesu w Sztucznej Inteligencji</h1>
+                <p class="hero-subtitle">ST KRAKOS - Twój partner w transformacji cyfrowej. Wykorzystujemy zaawansowane technologie AI, aby automatyzować procesy, optymalizować operacje i tworzyć inteligentne rozwiązania dla Twojej firmy.</p>
                 <div class="hero-buttons">
-                    <button class="cta-button primary" data-route="/services">Nasze usługi</button>
-                    <button class="cta-button secondary" data-route="/contact">Skontaktuj się</button>
+                    <button class="cta-button primary" data-route="/services">Poznaj nasze rozwiązania</button>
+                    <button class="cta-button secondary" data-route="/contact">Bezpłatna konsultacja</button>
                 </div>
-                <button class="ai-generate-btn" id="generate-hero">✨ Wygeneruj treść przez AI</button>
             </div>
         </section>
         
         <section class="about-preview">
             <div class="container">
-                <h2>O ST KRAKOS</h2>
-                <p class="about-text" id="about-text">ST KRAKOS to firma specjalizująca się w tworzeniu innowacyjnych rozwiązań z wykorzystaniem sztucznej inteligencji. Oferujemy kompleksowe usługi w zakresie automatyzacji procesów biznesowych, tworzenia inteligentnych aplikacji oraz generowania treści i stron internetowych.</p>
-                <button class="ai-generate-btn" id="generate-about">✨ Wygeneruj opis przez AI</button>
+                <h2>Dlaczego Sztuczna Inteligencja?</h2>
+                <p class="about-text" id="about-text">W erze cyfrowej transformacji, sztuczna inteligencja nie jest już opcją - to konieczność. ST KRAKOS pomaga firmom wykorzystać pełny potencjał AI poprzez inteligentną automatyzację, analizę danych i personalizowane rozwiązania, które zwiększają efektywność, redukują koszty i przyspieszają rozwój biznesu.</p>
             </div>
         </section>
         
@@ -42,48 +38,57 @@ export async function renderHome(container) {
                 <h2>Nasze usługi</h2>
                 <div class="services-grid" id="services-grid">
                     <div class="service-card">
-                        <div class="service-icon">🌐</div>
-                        <h3>Generowanie Stron WWW</h3>
-                        <p>Tworzenie profesjonalnych stron internetowych z wykorzystaniem AI. Szybko, efektywnie i zgodnie z Twoimi potrzebami.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">⚙️</div>
-                        <h3>Automatyzacja Procesów</h3>
-                        <p>Optymalizacja i automatyzacja procesów biznesowych przy użyciu zaawansowanych rozwiązań AI.</p>
-                    </div>
-                    <div class="service-card">
                         <div class="service-icon">🤖</div>
-                        <h3>Rozwiązania AI</h3>
-                        <p>Zaawansowane rozwiązania oparte na sztucznej inteligencji dostosowane do potrzeb Twojej firmy.</p>
+                        <h3>Inteligentna Automatyzacja</h3>
+                        <p>Automatyzujemy powtarzalne procesy biznesowe przy użyciu zaawansowanych algorytmów AI, oszczędzając czas i zasoby Twojej firmy.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🧠</div>
+                        <h3>Machine Learning & Deep Learning</h3>
+                        <p>Budujemy modele uczenia maszynowego dostosowane do Twoich potrzeb, które uczą się i poprawiają z każdym użyciem.</p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon">📊</div>
-                        <h3>Analiza Danych</h3>
-                        <p>Inteligentna analiza danych i generowanie raportów wspierających decyzje biznesowe.</p>
+                        <h3>Analiza Danych z AI</h3>
+                        <p>Przetwarzamy ogromne ilości danych w czasie rzeczywistym, generując wartościowe insights wspierające strategiczne decyzje.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💬</div>
+                        <h3>Chatboty i Asystenci AI</h3>
+                        <p>Tworzymy inteligentne asystenty wirtualne, które obsługują klientów 24/7, odpowiadają na pytania i automatyzują obsługę.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🔮</div>
+                        <h3>Predykcyjna Analityka</h3>
+                        <p>Wykorzystujemy AI do przewidywania trendów, zachowań klientów i optymalizacji przyszłych działań biznesowych.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🎯</div>
+                        <h3>Personalizacja i Rekomendacje</h3>
+                        <p>Implementujemy systemy rekomendacji oparte na AI, które personalizują doświadczenia użytkowników i zwiększają konwersje.</p>
                     </div>
                 </div>
-                <button class="ai-generate-btn" id="generate-services">✨ Wygeneruj usługi przez AI</button>
             </div>
         </section>
         
         <section class="portfolio">
             <div class="container">
-                <h2>Nasze projekty</h2>
+                <h2>Technologie, które wykorzystujemy</h2>
                 <div class="portfolio-grid">
                     <div class="portfolio-item">
-                        <div class="portfolio-image">📱</div>
-                        <h3>System AI dla E-commerce</h3>
-                        <p>Zaawansowany system rekomendacji produktów oparty na AI</p>
+                        <div class="portfolio-image">⚡</div>
+                        <h3>Natural Language Processing</h3>
+                        <p>Przetwarzanie języka naturalnego do analizy tekstu, sentymentu i automatycznej klasyfikacji treści</p>
                     </div>
                     <div class="portfolio-item">
-                        <div class="portfolio-image">💼</div>
-                        <h3>Automatyzacja CRM</h3>
-                        <p>Inteligentny system zarządzania relacjami z klientami</p>
+                        <div class="portfolio-image">🔍</div>
+                        <h3>Computer Vision</h3>
+                        <p>Rozpoznawanie obrazów i analiza wizualna dla automatyzacji procesów opartych na dokumentach</p>
                     </div>
                     <div class="portfolio-item">
-                        <div class="portfolio-image">🎨</div>
-                        <h3>Generator Treści</h3>
-                        <p>Narzędzie do automatycznego generowania treści marketingowych</p>
+                        <div class="portfolio-image">🌐</div>
+                        <h3>AI-Powered Web Solutions</h3>
+                        <p>Inteligentne aplikacje webowe z integracją AI, które adaptują się do potrzeb użytkowników</p>
                     </div>
                 </div>
             </div>
@@ -91,83 +96,14 @@ export async function renderHome(container) {
         
         <section class="contact-preview">
             <div class="container">
-                <h2>Gotowy na współpracę?</h2>
-                <p>Skontaktuj się z nami i dowiedz się, jak możemy pomóc Twojej firmie</p>
-                <button class="cta-button primary" data-route="/contact">Kontakt</button>
+                <h2>Rozpocznij Transformację z AI</h2>
+                <p>Umów się na bezpłatną konsultację i odkryj, jak sztuczna inteligencja może zrewolucjonizować Twój biznes</p>
+                <button class="cta-button primary" data-route="/contact">Bezpłatna Konsultacja</button>
             </div>
         </section>
     `
     
-    setupAIHandlers()
     setupNavigation()
-}
-
-function setupAIHandlers() {
-    const generateHero = document.getElementById('generate-hero')
-    const generateAbout = document.getElementById('generate-about')
-    const generateServices = document.getElementById('generate-services')
-    
-    if (generateHero) {
-        generateHero.addEventListener('click', async () => {
-            const prompt = 'Stwórz krótki, zachęcający tekst hero section dla firmy ST KRAKOS specjalizującej się w rozwiązaniach AI'
-            await generateAndUpdate('hero-subtitle', prompt, 'p')
-        })
-    }
-    
-    if (generateAbout) {
-        generateAbout.addEventListener('click', async () => {
-            const prompt = 'Stwórz krótki opis firmy ST KRAKOS (2-3 zdania) specjalizującej się w rozwiązaniach AI'
-            await generateAndUpdate('about-text', prompt, 'p')
-        })
-    }
-    
-    if (generateServices) {
-        generateServices.addEventListener('click', async () => {
-            const prompt = 'Stwórz listę 4 usług dla firmy ST KRAKOS w formacie: nazwa usługi - krótki opis (max 2 zdania)'
-            await generateAndUpdate('services-grid', prompt, 'div')
-        })
-    }
-}
-
-async function generateAndUpdate(elementId, prompt, elementType) {
-    const element = document.getElementById(elementId)
-    if (!element) return
-    
-    const originalContent = element.innerHTML
-    element.innerHTML = '<span class="loading">Generowanie przez AI...</span>'
-    
-    try {
-        const result = await generateContent(prompt)
-        if (result.success && result.content) {
-            if (elementType === 'div') {
-                element.innerHTML = formatServices(result.content)
-            } else {
-                element.textContent = result.content
-            }
-        } else {
-            element.innerHTML = originalContent
-            alert('Błąd generowania treści przez AI')
-        }
-    } catch (error) {
-        element.innerHTML = originalContent
-        console.error('Error:', error)
-        alert('Błąd połączenia z API')
-    }
-}
-
-function formatServices(content) {
-    const lines = content.split('\n').filter(line => line.trim())
-    return lines.map(line => {
-        const parts = line.split('-')
-        if (parts.length >= 2) {
-            return `<div class="service-card">
-                <div class="service-icon">🚀</div>
-                <h3>${parts[0].trim()}</h3>
-                <p>${parts.slice(1).join('-').trim()}</p>
-            </div>`
-        }
-        return ''
-    }).join('')
 }
 
 function setupNavigation() {

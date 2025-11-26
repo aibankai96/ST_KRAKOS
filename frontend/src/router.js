@@ -2,21 +2,16 @@ import { renderHome } from './pages/home.js'
 import { renderAbout } from './pages/about.js'
 import { renderServices } from './pages/services.js'
 import { renderContact } from './pages/contact.js'
-import { renderAdmin } from './pages/admin.js'
-import { renderBlog } from './pages/blog.js'
-import { renderCMS } from './pages/cms.js'
 
 const routes = {
     '/': renderHome,
     '/about': renderAbout,
     '/services': renderServices,
-    '/contact': renderContact,
-    '/admin': renderAdmin,
-    '/blog': renderBlog,
-    '/cms': renderCMS
+    '/contact': renderContact
 }
 
 export function initRouter() {
+    console.log('Router initialized')
     window.addEventListener('popstate', handleRoute)
     handleRoute()
     
@@ -32,10 +27,26 @@ export function initRouter() {
 
 function handleRoute() {
     const path = window.location.pathname
+    console.log('Handling route:', path)
     const render = routes[path] || routes['/']
     const content = document.getElementById('content')
-    if (content) {
+    
+    if (!content) {
+        console.error('Content container not found in handleRoute')
+        return
+    }
+    
+    if (!render) {
+        console.error('No render function found for path:', path)
+        return
+    }
+    
+    console.log('Rendering page for path:', path)
+    try {
         render(content)
+        console.log('Page rendered successfully')
+    } catch (error) {
+        console.error('Error rendering route:', error)
     }
 }
 

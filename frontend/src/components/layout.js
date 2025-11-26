@@ -1,7 +1,11 @@
 export function renderLayout(container) {
     container.innerHTML = `
         <header id="header"></header>
-        <main id="content"></main>
+        <main id="content">
+            <div style="padding: 2rem; text-align: center;">
+                <p>Ładowanie...</p>
+            </div>
+        </main>
         <footer id="footer"></footer>
     `
     renderHeader()
@@ -18,10 +22,7 @@ function renderHeader() {
                     <li><a href="/" data-route="/">Strona Główna</a></li>
                     <li><a href="/about" data-route="/about">O nas</a></li>
                     <li><a href="/services" data-route="/services">Usługi</a></li>
-                    <li><a href="/blog" data-route="/blog">Blog</a></li>
                     <li><a href="/contact" data-route="/contact">Kontakt</a></li>
-                    <li><a href="/admin" data-route="/admin">🤖 Generator AI</a></li>
-                    <li><a href="/cms" data-route="/cms">📝 CMS</a></li>
                 </ul>
             </nav>
         `
