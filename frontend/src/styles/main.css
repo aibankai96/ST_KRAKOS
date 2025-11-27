@@ -1,32 +1,87 @@
+:root {
+    --color-primary: #FFD700;
+    --color-primary-alt: #FFA500;
+    --color-bg-dark: #0a0e27;
+    --color-bg-mid: #1a1f3a;
+    --color-bg-light: #0f1419;
+    --color-text: #ffffff;
+    --color-text-muted: rgba(255, 255, 255, 0.9);
+    --color-text-light: rgba(255, 255, 255, 0.6);
+    --color-header-bg: rgba(26, 31, 58, 0.95);
+    --color-header-bg-alt: rgba(15, 20, 25, 0.95);
+    --color-gold-rgba-1: rgba(255, 215, 0, 0.1);
+    --color-gold-rgba-2: rgba(255, 215, 0, 0.15);
+    --color-gold-rgba-3: rgba(255, 215, 0, 0.2);
+    --color-gold-rgba-4: rgba(255, 215, 0, 0.3);
+    --color-gold-rgba-5: rgba(255, 215, 0, 0.4);
+    --color-gold-rgba-6: rgba(255, 215, 0, 0.5);
+    --color-orange-rgba: rgba(255, 165, 0, 0.3);
+    --color-shadow-dark: rgba(0, 0, 0, 0.3);
+    --color-shadow-md: rgba(0, 0, 0, 0.5);
+    --color-shadow-lg: rgba(0, 0, 0, 0.6);
+    --gradient-bg: linear-gradient(180deg, var(--color-bg-dark) 0%, var(--color-bg-mid) 50%, var(--color-bg-light) 100%);
+    --gradient-header: linear-gradient(135deg, var(--color-header-bg) 0%, var(--color-header-bg-alt) 100%);
+    --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-alt) 100%);
+    --gradient-primary-reverse: linear-gradient(135deg, var(--color-primary-alt) 0%, var(--color-primary) 100%);
+    --gradient-primary-text: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-alt) 50%, var(--color-primary) 100%);
+    --gradient-gold-line: linear-gradient(90deg, transparent, var(--color-gold-rgba-4), var(--color-gold-rgba-6), var(--color-gold-rgba-4), transparent);
+    --shadow-sm: 0 2px 10px var(--color-shadow-dark);
+    --shadow-md: 0 4px 30px var(--color-shadow-md);
+    --shadow-lg: 0 8px 40px var(--color-shadow-lg);
+    --shadow-gold: 0 0 40px var(--color-gold-rgba-2);
+    --shadow-gold-lg: 0 0 50px var(--color-gold-rgba-3);
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 3rem;
+    --spacing-xl: 4rem;
+    --spacing-xxl: 8rem;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-round: 30px;
+    --radius-full: 50px;
+    --font-xs: 0.85rem;
+    --font-sm: 0.9rem;
+    --font-md: 1rem;
+    --font-lg: 1.1rem;
+    --font-xl: 1.2rem;
+    --font-xxl: 1.5rem;
+    --font-xxxl: 1.8rem;
+    --font-huge: 2.5rem;
+    --font-giant: 4rem;
+    --scroll-offset: 80px;
+    --z-header: 100;
+    --transition: all 0.3s ease;
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
+    scroll-padding-top: var(--scroll-offset);
 }
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', Oxygen, Ubuntu, sans-serif;
     line-height: 1.7;
-    color: #ffffff;
-    background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+    color: var(--color-text);
+    background: var(--gradient-bg);
     min-height: 100vh;
 }
 
 header {
-    background: linear-gradient(135deg, rgba(26, 31, 58, 0.95) 0%, rgba(15, 20, 25, 0.95) 100%);
-    color: white;
+    background: var(--gradient-header);
+    color: var(--color-text);
     padding: 1.2rem 0;
     position: sticky;
     top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.15);
+    z-index: var(--z-header);
+    box-shadow: var(--shadow-md), var(--shadow-gold);
     backdrop-filter: blur(15px);
-    border-bottom: 2px solid rgba(255, 215, 0, 0.4);
+    border-bottom: 2px solid var(--color-gold-rgba-5);
 }
 
 nav {
@@ -35,17 +90,17 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
+    padding: 0 var(--spacing-md);
 }
 
 .logo {
-    font-size: 1.8rem;
+    font-size: var(--font-xxxl);
     font-weight: 700;
-    color: #FFD700;
+    color: var(--color-primary);
     letter-spacing: -0.5px;
     position: relative;
     padding-bottom: 0.3rem;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 3px var(--color-shadow-dark);
 }
 
 .logo::after {
@@ -55,7 +110,7 @@ nav {
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-alt), var(--color-primary));
     background-size: 200% 100%;
     animation: underline-move 3s linear infinite;
     border-radius: 1px;
@@ -64,18 +119,18 @@ nav {
 nav ul {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: var(--spacing-md);
 }
 
 nav a {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-text-muted);
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     font-weight: 500;
-    font-size: 1.1rem;
-    padding: 0.5rem 0;
+    font-size: var(--font-lg);
+    padding: var(--spacing-xs) 0;
     position: relative;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 4px var(--color-shadow-dark);
     letter-spacing: 0.2px;
 }
 
@@ -86,20 +141,20 @@ nav a::after {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, #FFD700, #FFA500);
+    background: var(--gradient-primary);
     transition: width 0.3s ease;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 10px var(--color-gold-rgba-6);
 }
 
 nav a:hover {
-    color: #FFD700;
-    text-shadow: 0 1px 6px rgba(255, 215, 0, 0.4);
+    color: var(--color-primary);
+    text-shadow: 0 1px 6px var(--color-gold-rgba-5);
     transform: translateY(-2px);
 }
 
 nav a:hover::after {
     width: 100%;
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    box-shadow: 0 0 8px var(--color-gold-rgba-5);
 }
 
 main {
@@ -109,14 +164,14 @@ main {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 var(--spacing-md);
 }
 
 .hero {
     text-align: center;
-    padding: 8rem 2rem;
-    background: linear-gradient(135deg, #151a2e 0%, #182030 25%, #1a1f3a 50%, #182030 75%, #151a2e 100%);
-    color: white;
+    padding: var(--spacing-xxl) var(--spacing-md);
+    background: linear-gradient(135deg, #151a2e 0%, #182030 25%, var(--color-bg-mid) 50%, #182030 75%, #151a2e 100%);
+    color: var(--color-text);
     position: relative;
     overflow: hidden;
 }
@@ -416,35 +471,35 @@ main {
 }
 
 .ai-badge-compact .badge-icon {
-    font-size: 1.2rem;
-    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.5));
+    font-size: var(--font-xl);
+    filter: drop-shadow(0 0 6px var(--color-gold-rgba-6));
 }
 
 .ai-badge-compact .badge-text {
-    color: #FFD700;
-    font-size: 0.85rem;
+    color: var(--color-primary);
+    font-size: var(--font-xs);
     font-weight: 600;
     letter-spacing: 0.5px;
-    text-shadow: 0 1px 8px rgba(255, 215, 0, 0.3);
+    text-shadow: 0 1px 8px var(--color-gold-rgba-4);
     white-space: nowrap;
 }
 
 .hero h1 {
-    font-size: 4rem;
+    font-size: var(--font-giant);
     margin-bottom: 1.5rem;
     font-weight: 800;
     line-height: 1.2;
     letter-spacing: -1px;
     position: relative;
     z-index: 1;
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+    background: var(--gradient-primary-text);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.3));
+    filter: drop-shadow(0 2px 8px var(--color-gold-rgba-4));
     display: inline-block;
     width: 100%;
-    padding-bottom: 0.5rem;
+    padding-bottom: var(--spacing-xs);
 }
 
 .hero h1::after {
@@ -454,14 +509,14 @@ main {
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, transparent, #FFD700, #FFA500, #FFD700, transparent);
+    background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-primary-alt), var(--color-primary), transparent);
     background-size: 200% 100%;
     animation: underline-move 3s linear infinite;
     border-radius: 2px;
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
+    font-size: var(--font-xxl);
     margin-bottom: 2.5rem;
     line-height: 1.9;
     max-width: 800px;
@@ -469,9 +524,9 @@ main {
     margin-right: auto;
     position: relative;
     z-index: 1;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-text-muted);
     font-weight: 500;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.1);
+    text-shadow: 0 2px 10px var(--color-shadow-lg), 0 0 20px var(--color-gold-rgba-1);
     letter-spacing: 0.3px;
 }
 
@@ -483,50 +538,50 @@ main {
 }
 
 .cta-button {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-lg);
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: all 0.3s;
+    transition: var(--transition);
     font-weight: 600;
 }
 
 .cta-button.primary {
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-    color: #0a0e27;
+    background: var(--gradient-primary);
+    color: var(--color-bg-dark);
     border: none;
-    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 4px 20px var(--color-gold-rgba-5), 0 0 30px var(--color-gold-rgba-3);
     position: relative;
     z-index: 1;
     font-weight: 700;
-    transition: all 0.3s;
+    transition: var(--transition);
 }
 
 .cta-button.primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 30px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.3);
-    background: linear-gradient(135deg, #FFA500 0%, #FFD700 100%);
+    box-shadow: 0 6px 30px var(--color-gold-rgba-6), 0 0 40px var(--color-gold-rgba-4);
+    background: var(--gradient-primary-reverse);
 }
 
 .cta-button.secondary {
     background: transparent;
-    color: #FFD700;
-    border: 2px solid #FFD700;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
     backdrop-filter: blur(10px);
     position: relative;
     z-index: 1;
     font-weight: 600;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-    transition: all 0.3s;
+    box-shadow: 0 0 20px var(--color-gold-rgba-4);
+    transition: var(--transition);
 }
 
 .cta-button.secondary:hover {
-    background: rgba(255, 215, 0, 0.1);
-    border-color: #FFA500;
-    color: #FFA500;
+    background: var(--color-gold-rgba-1);
+    border-color: var(--color-primary-alt);
+    color: var(--color-primary-alt);
     transform: translateY(-3px);
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 30px var(--color-gold-rgba-6);
 }
 
 .ai-generate-btn {
@@ -644,9 +699,9 @@ main {
 .category-badge.fast,
 .category-badge.medium,
 .category-badge.complex {
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-    color: #0a0e27;
-    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: var(--gradient-primary);
+    color: var(--color-bg-dark);
+    box-shadow: 0 4px 20px var(--color-gold-rgba-6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .category-header h3 {
@@ -678,7 +733,7 @@ main {
 }
 
 .service-for strong {
-    color: rgba(255, 215, 0, 0.9);
+    color: var(--color-gold-rgba-6);
     font-weight: 600;
     font-style: normal;
 }
@@ -839,9 +894,9 @@ main {
 }
 
 .portfolio {
-    padding: 3rem 0;
-    background: linear-gradient(180deg, #0f1419 0%, #0a0e27 50%, #1a1f3a 100%);
-    color: white;
+    padding: var(--spacing-lg) 0;
+    background: var(--gradient-bg);
+    color: var(--color-text);
     position: relative;
 }
 
@@ -873,18 +928,18 @@ main {
 
 .portfolio-item {
     background: linear-gradient(135deg, rgba(26, 31, 58, 0.9) 0%, rgba(15, 20, 25, 0.95) 100%);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.1);
-    transition: all 0.3s;
-    border: 2px solid rgba(255, 215, 0, 0.3);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 20px var(--color-shadow-md), 0 0 30px var(--color-gold-rgba-1);
+    transition: var(--transition);
+    border: 2px solid var(--color-gold-rgba-4);
     backdrop-filter: blur(10px);
 }
 
 .portfolio-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 50px rgba(255, 215, 0, 0.2);
-    border-color: #FFD700;
+    box-shadow: var(--shadow-lg), var(--shadow-gold-lg);
+    border-color: var(--color-primary);
 }
 
 .portfolio-image {
@@ -1346,34 +1401,34 @@ footer {
 
 .stat-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(255, 215, 0, 0.5);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), 0 0 50px rgba(255, 215, 0, 0.2);
+    border-color: var(--color-gold-rgba-6);
+    box-shadow: var(--shadow-lg), var(--shadow-gold-lg);
 }
 
 .stat-number {
     font-size: 3.5rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 1rem;
-    filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.4));
+    margin-bottom: var(--spacing-sm);
+    filter: drop-shadow(0 2px 8px var(--color-gold-rgba-5));
 }
 
 .stat-label {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-lg);
+    color: var(--color-text-muted);
     line-height: 1.6;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-xs);
     font-weight: 500;
 }
 
 .stat-source {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-xs);
+    color: var(--color-text-light);
     font-style: italic;
-    margin-top: 0.5rem;
+    margin-top: var(--spacing-xs);
 }
 
 .about-page::before {
@@ -1383,7 +1438,7 @@ footer {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.5), rgba(255, 215, 0, 0.3), transparent);
+    background: var(--gradient-gold-line);
     background-size: 200% 100%;
     animation: gold-line-move 4s linear infinite;
 }
@@ -1394,9 +1449,9 @@ footer {
 }
 
 .portfolio-section {
-    padding: 3rem 0;
-    background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
-    color: white;
+    padding: var(--spacing-lg) 0;
+    background: var(--gradient-bg);
+    color: var(--color-text);
     position: relative;
 }
 
@@ -1407,7 +1462,7 @@ footer {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.5), rgba(255, 215, 0, 0.3), transparent);
+    background: var(--gradient-gold-line);
     background-size: 200% 100%;
     animation: gold-line-move 4s linear infinite;
 }
@@ -1416,17 +1471,17 @@ footer {
     text-align: center;
     font-size: 2.8rem;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+    background: var(--gradient-primary-text);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 800;
     letter-spacing: -1px;
-    filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.3));
+    filter: drop-shadow(0 2px 8px var(--color-gold-rgba-4));
     position: relative;
     display: inline-block;
     width: 100%;
-    padding-bottom: 0.5rem;
+    padding-bottom: var(--spacing-xs);
 }
 
 .portfolio-section h2::after {
@@ -1436,7 +1491,7 @@ footer {
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, transparent, #FFD700, #FFA500, #FFD700, transparent);
+    background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-primary-alt), var(--color-primary), transparent);
     background-size: 200% 100%;
     animation: underline-move 3s linear infinite;
     border-radius: 2px;
@@ -1452,18 +1507,18 @@ footer {
 
 .project-card {
     background: linear-gradient(135deg, rgba(26, 31, 58, 0.9) 0%, rgba(15, 20, 25, 0.95) 100%);
-    border-radius: 16px;
+    border-radius: var(--radius-xl);
     padding: 2.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.1);
-    transition: all 0.3s;
-    border: 2px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 4px 20px var(--color-shadow-md), 0 0 30px var(--color-gold-rgba-1);
+    transition: var(--transition);
+    border: 2px solid var(--color-gold-rgba-4);
     backdrop-filter: blur(10px);
 }
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 50px rgba(255, 215, 0, 0.2);
-    border-color: #FFD700;
+    box-shadow: var(--shadow-lg), var(--shadow-gold-lg);
+    border-color: var(--color-primary);
 }
 
 .project-header {
@@ -1476,11 +1531,11 @@ footer {
 }
 
 .project-header h3 {
-    font-size: 1.8rem;
-    color: #FFD700;
+    font-size: var(--font-xxxl);
+    color: var(--color-primary);
     margin: 0;
     font-weight: 700;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    text-shadow: 0 0 15px var(--color-gold-rgba-6);
 }
 
 .project-badge {
@@ -1495,12 +1550,11 @@ footer {
 
 .project-badge.beta {
     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: white;
+    color: var(--color-text);
 }
-
 .project-badge.client {
     background: linear-gradient(135deg, #00d4ff 0%, #5b8def 100%);
-    color: white;
+    color: var(--color-text);
 }
 
 .project-description {
@@ -1514,9 +1568,9 @@ footer {
 }
 
 .project-description strong {
-    color: #FFD700;
+    color: var(--color-primary);
     font-weight: 600;
-    text-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+    text-shadow: 0 2px 8px var(--color-gold-rgba-5);
 }
 
 .project-link {
@@ -1525,21 +1579,21 @@ footer {
 
 .project-btn {
     display: inline-block;
-    padding: 0.8rem 2rem;
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-    color: #0a0e27;
+    padding: 0.8rem var(--spacing-md);
+    background: var(--gradient-primary);
+    color: var(--color-bg-dark);
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     font-weight: 600;
-    transition: all 0.3s;
-    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.2);
+    transition: var(--transition);
+    box-shadow: 0 4px 20px var(--color-gold-rgba-5), 0 0 30px var(--color-gold-rgba-3);
 }
 
 .project-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 30px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.3);
-    background: linear-gradient(135deg, #FFA500 0%, #FFD700 100%);
-    color: #0a0e27;
+    box-shadow: 0 6px 30px var(--color-gold-rgba-6), 0 0 40px var(--color-gold-rgba-4);
+    background: var(--gradient-primary-reverse);
+    color: var(--color-bg-dark);
 }
 
 .about-page h1,
@@ -1547,7 +1601,7 @@ footer {
     text-align: center;
     font-size: 2.8rem;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+    background: var(--gradient-primary-text);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1555,10 +1609,10 @@ footer {
     letter-spacing: -1px;
     position: relative;
     z-index: 1;
-    filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.3));
+    filter: drop-shadow(0 2px 8px var(--color-gold-rgba-4));
     display: inline-block;
     width: 100%;
-    padding-bottom: 0.5rem;
+    padding-bottom: var(--spacing-xs);
 }
 
 .about-page h1::after,
@@ -1726,9 +1780,9 @@ footer {
 }
 
 .features-list li strong {
-    color: #FFD700;
+    color: var(--color-primary);
     font-weight: 700;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    text-shadow: 0 0 10px var(--color-gold-rgba-6);
 }
 
 .services-page {
