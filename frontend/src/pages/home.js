@@ -61,6 +61,11 @@ export async function renderHome(container) {
                     Oferujemy kompleksowe rozwiązania webowe dostosowane do Twoich potrzeb. Od szybkich landing page'ów po zaawansowane aplikacje - każdy projekt realizujemy z dbałością o szczegóły i najwyższą jakość.
                 </p>
                 
+                <div class="certificate-info">
+                    <div class="certificate-icon">🏆</div>
+                    <p class="certificate-text">Po zrealizowaniu projektu otrzymujesz certyfikat potwierdzający, że Twoja firma wykorzystuje sztuczną inteligencję w swojej działalności.</p>
+                </div>
+                
                 <div class="services-category">
                     <div class="category-header">
                         <span class="category-badge fast">⚡ Szybkie Projekty</span>
