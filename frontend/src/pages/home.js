@@ -1,6 +1,7 @@
 import { updateSEO, addStructuredData } from '../utils/seo.js'
+import { scrollToSection } from '../router.js'
 
-export async function renderHome(container) {
+export function renderHome(container) {
     updateSEO(
         'ST KRAKOS - Innowacyjne rozwiązania AI',
         'ST KRAKOS oferuje zaawansowane rozwiązania z wykorzystaniem sztucznej inteligencji. Generowanie stron, automatyzacja procesów i analiza danych.',
@@ -280,7 +281,6 @@ export async function renderHome(container) {
         </section>
     `
     
-    setupNavigation()
     setupStatsAnimation()
 }
 
@@ -291,55 +291,22 @@ function setupStatsAnimation() {
     const statNumbers = statsSection.querySelectorAll('.stat-number')
     let hasAnimated = false
     
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !hasAnimated) {
-                hasAnimated = true
-                statNumbers.forEach(stat => {
-                    const target = parseFloat(stat.getAttribute('data-target'))
-                    const prefix = stat.getAttribute('data-prefix') || ''
-                    const suffix = stat.getAttribute('data-suffix') || ''
-                    const duration = 2000
-                    const steps = 60
-                    const increment = target / steps
-                    let current = 0
-                    const stepTime = duration / steps
-                    
-                    const timer = setInterval(() => {
-                        current += increment
-                        if (current >= target) {
-                            current = target
-                            clearInterval(timer)
-                        }
-                        
-                        if (suffix === 'T') {
-                            stat.textContent = `${prefix}${current.toFixed(1)}${suffix}`
-            } else {
-                            stat.textContent = `${prefix}${Math.floor(current)}${suffix}`
-                        }
-                    }, stepTime)
-                })
-            }
-        })
-    }, { threshold: 0.3 })
-    
-    observer.observe(statsSection)
+    new IntersectionObserver((entries) => {
+        if (entries[0]?.isIntersecting && !hasAnimated) {
+            hasAnimated = true
+            statNumbers.forEach(stat => {
+                const target = parseFloat(stat.getAttribute('data-target'))
+                const prefix = stat.getAttribute('data-prefix') || ''
+                const suffix = stat.getAttribute('data-suffix') || ''
+                const step = target / 60
+                let current = 0
+                
+                const timer = setInterval(() => {
+                    current = Math.min(current + step, target)
+                    stat.textContent = `${prefix}${suffix === 'T' ? current.toFixed(1) : Math.floor(current)}${suffix}`
+                    if (current >= target) clearInterval(timer)
+                }, 2000 / 60)
+            })
+        }
+    }, { threshold: 0.3 }).observe(statsSection)
 }
-
-function setupNavigation() {
-    document.querySelectorAll('button[data-scroll], a[data-scroll]').forEach(btn => 
-        btn.addEventListener('click', (e) => {
-            e.preventDefault()
-            const sectionId = btn.getAttribute('data-scroll')
-            if (sectionId) {
-                const section = document.getElementById(sectionId)
-                if (section) {
-                    window.scrollTo({ top: section.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' })
-                    window.history.pushState({}, '', `#${sectionId}`)
-                }
-            }
-        })
-    )
-}
-
-

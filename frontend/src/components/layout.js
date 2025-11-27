@@ -1,44 +1,26 @@
+const navItems = [
+    { scroll: 'home', text: 'Strona Główna' },
+    { scroll: 'ai-stats', text: 'AI w Liczbach' },
+    { scroll: 'about', text: 'O nas' },
+    { scroll: 'services', text: 'Usługi' },
+    { scroll: 'portfolio', text: 'Portfolio' },
+    { scroll: 'contact', text: 'Kontakt' }
+]
+
+const renderHeader = () => {
+    const header = document.getElementById('header')
+    if (!header) return
+    header.innerHTML = `<nav><div class="logo">ST KRAKOS</div><ul>${navItems.map(({scroll, text}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${text}</a></li>`).join('')}</ul></nav>`
+}
+
+const renderFooter = () => {
+    const footer = document.getElementById('footer')
+    if (footer) footer.innerHTML = `<div class="footer-content"><p>&copy; 2025 ST KRAKOS. Wszystkie prawa zastrzeżone.</p></div>`
+}
+
 export function renderLayout(container) {
-    container.innerHTML = `
-        <header id="header"></header>
-        <main id="content">
-            <div style="padding: 2rem; text-align: center;">
-                <p>Ładowanie...</p>
-            </div>
-        </main>
-        <footer id="footer"></footer>
-    `
+    container.innerHTML = `<header id="header"></header><main id="content"><div style="padding: 2rem; text-align: center;"><p>Ładowanie...</p></div></main><footer id="footer"></footer>`
     renderHeader()
     renderFooter()
-}
-
-function renderHeader() {
-    const header = document.getElementById('header')
-    if (header) {
-        header.innerHTML = `
-            <nav>
-                <div class="logo">ST KRAKOS</div>
-                    <ul>
-                        <li><a href="#home" data-scroll="home">Strona Główna</a></li>
-                        <li><a href="#ai-stats" data-scroll="ai-stats">AI w Liczbach</a></li>
-                        <li><a href="#about" data-scroll="about">O nas</a></li>
-                        <li><a href="#services" data-scroll="services">Usługi</a></li>
-                        <li><a href="#portfolio" data-scroll="portfolio">Portfolio</a></li>
-                        <li><a href="#contact" data-scroll="contact">Kontakt</a></li>
-                    </ul>
-            </nav>
-        `
-    }
-}
-
-function renderFooter() {
-    const footer = document.getElementById('footer')
-    if (footer) {
-        footer.innerHTML = `
-            <div class="footer-content">
-                <p>&copy; 2025 ST KRAKOS. Wszystkie prawa zastrzeżone.</p>
-            </div>
-        `
-    }
 }
 

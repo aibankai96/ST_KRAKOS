@@ -1,43 +1,19 @@
 import axios from 'axios'
 
-const api = axios.create({
-    baseURL: '/api',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
+const api = axios.create({ baseURL: '/api', headers: { 'Content-Type': 'application/json' } })
 
-export async function generatePage(prompt, pageType = 'landing') {
+const apiCall = async (method, endpoint, data) => {
     try {
-        const response = await api.post('/generate-page', {
-            prompt,
-            page_type: pageType,
-            title: 'ST KRAKOS'
-        })
+        const response = await api[method](endpoint, data)
         return response.data
     } catch (error) {
-        console.error('Error generating page:', error)
+        console.error(`API Error (${endpoint}):`, error)
         throw error
     }
 }
 
-export async function generateContent(prompt) {
-    try {
-        const response = await api.post('/generate-content', { prompt })
-        return response.data
-    } catch (error) {
-        console.error('Error generating content:', error)
-        throw error
-    }
-}
-
-export async function checkHealth() {
-    try {
-        const response = await api.get('/health')
-        return response.data
-    } catch (error) {
-        console.error('Health check failed:', error)
-        throw error
-    }
-}
+export const generatePage = (prompt, pageType = 'landing') => 
+    apiCall('post', '/generate-page', { prompt, page_type: pageType, title: 'ST KRAKOS' })
+export const generateContent = (prompt) => apiCall('post', '/generate-content', { prompt })
+export const checkHealth = () => apiCall('get', '/health')
 

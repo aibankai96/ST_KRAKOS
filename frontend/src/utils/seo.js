@@ -1,38 +1,11 @@
-export function updateSEO(title, description, keywords = '') {
-    document.title = title || 'ST KRAKOS - Strona Firmowa'
-    
-    let metaDescription = document.querySelector('meta[name="description"]')
-    if (!metaDescription) {
-        metaDescription = document.createElement('meta')
-        metaDescription.name = 'description'
-        document.head.appendChild(metaDescription)
-    }
-    metaDescription.content = description || 'ST KRAKOS - Innowacyjne rozwiązania z wykorzystaniem sztucznej inteligencji'
-    
-    if (keywords) {
-        let metaKeywords = document.querySelector('meta[name="keywords"]')
-        if (!metaKeywords) {
-            metaKeywords = document.createElement('meta')
-            metaKeywords.name = 'keywords'
-            document.head.appendChild(metaKeywords)
-        }
-        metaKeywords.content = keywords
-    }
-    
-    updateOGTags(title, description)
+const DEFAULTS = {
+    title: 'ST KRAKOS - Strona Firmowa',
+    description: 'ST KRAKOS - Innowacyjne rozwiązania z wykorzystaniem sztucznej inteligencji',
+    ogTitle: 'ST KRAKOS',
+    ogDescription: 'Innowacyjne rozwiązania z wykorzystaniem AI'
 }
 
-function updateOGTags(title, description) {
-    const ogTitle = getOrCreateMeta('property', 'og:title')
-    const ogDescription = getOrCreateMeta('property', 'og:description')
-    const ogUrl = getOrCreateMeta('property', 'og:url')
-    
-    ogTitle.content = title || 'ST KRAKOS'
-    ogDescription.content = description || 'Innowacyjne rozwiązania z wykorzystaniem AI'
-    ogUrl.content = window.location.href
-}
-
-function getOrCreateMeta(attr, value) {
+const getOrCreateMeta = (attr, value) => {
     let meta = document.querySelector(`meta[${attr}="${value}"]`)
     if (!meta) {
         meta = document.createElement('meta')
@@ -42,13 +15,25 @@ function getOrCreateMeta(attr, value) {
     return meta
 }
 
+const updateOGTags = (title, description) => {
+    getOrCreateMeta('property', 'og:title').content = title || DEFAULTS.ogTitle
+    getOrCreateMeta('property', 'og:description').content = description || DEFAULTS.ogDescription
+    getOrCreateMeta('property', 'og:url').content = window.location.href
+}
+
+export function updateSEO(title, description, keywords = '') {
+    document.title = title || DEFAULTS.title
+    getOrCreateMeta('name', 'description').content = description || DEFAULTS.description
+    if (keywords) getOrCreateMeta('name', 'keywords').content = keywords
+    updateOGTags(title, description)
+}
+
 export function addStructuredData(data) {
-    let script = document.querySelector('script[type="application/ld+json"]')
-    if (!script) {
-        script = document.createElement('script')
-        script.type = 'application/ld+json'
-        document.head.appendChild(script)
-    }
+    const script = document.querySelector('script[type="application/ld+json"]') || (() => {
+        const s = Object.assign(document.createElement('script'), { type: 'application/ld+json' })
+        document.head.appendChild(s)
+        return s
+    })()
     script.textContent = JSON.stringify(data)
 }
 

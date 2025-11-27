@@ -1,37 +1,39 @@
-// Wspólny moduł walidacji formularzy - optymalizowany kod
+const ERR_MSG = {
+    name: 'Imię i nazwisko musi mieć 2-100 znaków',
+    email: 'Podaj poprawny adres email',
+    subject: 'Temat musi mieć 3-200 znaków',
+    message: 'Wiadomość musi mieć 10-2000 znaków'
+}
+
+const lengthCheck = (v, min, max, err) => {
+    const t = v.trim()
+    return (t.length >= min && t.length <= max) ? true : err
+}
+
 export const validators = {
-    name: (v) => { const t = v.trim(); return (t.length >= 2 && t.length <= 100) ? true : 'Imię i nazwisko musi mieć 2-100 znaków' },
-    email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? true : 'Podaj poprawny adres email',
-    subject: (v) => { const t = v.trim(); return (t.length >= 3 && t.length <= 200) ? true : 'Temat musi mieć 3-200 znaków' },
-    message: (v) => { const t = v.trim(); return (t.length >= 10 && t.length <= 2000) ? true : 'Wiadomość musi mieć 10-2000 znaków' }
+    name: (v) => lengthCheck(v, 2, 100, ERR_MSG.name),
+    email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? true : ERR_MSG.email,
+    subject: (v) => lengthCheck(v, 3, 200, ERR_MSG.subject),
+    message: (v) => lengthCheck(v, 10, 2000, ERR_MSG.message)
 }
 
-export function validateField(input, validator) {
+export const validateField = (input, validator) => {
     const result = validator(input.value)
-    if (result === true) {
-        clearError(input)
-        return true
-    }
-    showError(input, result)
-    return false
+    return result === true ? (clearError(input), true) : (showError(input, result), false)
 }
 
-export function showError(input, message) {
+export const showError = (input, message) => {
     clearError(input)
     input.classList.add('error')
-    const errorDiv = document.createElement('div')
-    errorDiv.className = 'field-error'
-    errorDiv.textContent = message
-    input.parentNode.appendChild(errorDiv)
+    input.parentNode.appendChild(Object.assign(document.createElement('div'), { className: 'field-error', textContent: message }))
 }
 
-export function clearError(input) {
+export const clearError = (input) => {
     input.classList.remove('error')
     input.parentNode.querySelector('.field-error')?.remove()
 }
 
-export function clearValidationErrors() {
-    document.querySelectorAll('.field-error').forEach(el => el.remove())
-    document.querySelectorAll('.error').forEach(el => el.classList.remove('error'))
+export const clearValidationErrors = () => {
+    document.querySelectorAll('.field-error, .error').forEach(el => el.remove() || el.classList.remove('error'))
 }
 
