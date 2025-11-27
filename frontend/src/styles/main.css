@@ -974,16 +974,6 @@ main {
     opacity: 0.95;
 }
 
-.loading {
-    display: inline-block;
-    animation: pulse 1.5s ease-in-out infinite;
-    color: #667eea;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
 
 @keyframes fadeInUp {
     from {
@@ -1646,16 +1636,6 @@ footer {
     text-shadow: 0 0 10px var(--color-gold-rgba-6);
 }
 
-.services-page {
-    padding: 4rem 0;
-}
-
-.services-page h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #2c3e50;
-}
 
 .services-intro {
     text-align: center;
@@ -1748,28 +1728,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .services-list {
-        grid-template-columns: 1fr;
-    }
-    
-    .about-page h1,
-    .services-page h1 {
+    .about-page h1 {
         font-size: 2rem;
-    }
-    
-    .admin-wrapper {
-        grid-template-columns: 1fr;
-    }
-    
-    .preview-frame {
-        height: 400px;
-    }
-    
-    .preview-actions {
-        flex-direction: column;
-    }
-    
-    .action-btn {
-        width: 100%;
     }
 }
