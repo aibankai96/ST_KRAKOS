@@ -594,10 +594,20 @@ main {
     font-weight: 400;
 }
 
+.services,
+.portfolio,
+.contact-page,
+.about-page,
+.ai-stats-section,
+.portfolio-section {
+    padding: var(--spacing-lg) 0;
+    background: var(--gradient-bg);
+    color: var(--color-text);
+    position: relative;
+}
 .services {
     padding: 3rem 0;
     background: linear-gradient(180deg, #1a1f3a 0%, #0f1419 50%, #0a0e27 100%);
-    position: relative;
 }
 
 .services::before,
@@ -746,14 +756,12 @@ main {
     padding-bottom: var(--spacing-xs);
 }
 .services h2,
-.portfolio h2,
-.about-preview h2 {
+.portfolio h2 {
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
 }
 .services h2::after,
 .portfolio h2::after,
-.about-preview h2::after,
 .portfolio-section h2::after,
 .about-page h1::after,
 .contact-page h1::after {
@@ -769,17 +777,9 @@ main {
     border-radius: 2px;
 }
 .ai-stats-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 60%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-primary-alt), var(--color-primary), transparent);
-    background-size: 200% 100%;
-    animation: underline-move 3s linear infinite;
-    border-radius: 2px;
 }
 
 @keyframes underline-move {
@@ -838,10 +838,9 @@ main {
 .service-card {
     padding: 2rem;
     background: linear-gradient(135deg, rgba(26, 31, 58, 0.95) 0%, rgba(15, 20, 25, 0.98) 100%);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.08);
+    border-radius: var(--radius-lg);
     text-align: center;
-    border: 1px solid rgba(255, 215, 0, 0.2);
+    border: 1px solid var(--color-gold-rgba-3);
     overflow: hidden;
     height: 100%;
     display: flex;
@@ -849,8 +848,7 @@ main {
 }
 .stat-card {
     text-align: center;
-    border: 2px solid rgba(255, 215, 0, 0.2);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--color-gold-rgba-3);
 }
 .project-card {
     border-radius: var(--radius-xl);
@@ -905,21 +903,8 @@ main {
     margin-bottom: 0.5rem;
 }
 
-.portfolio {
-    padding: var(--spacing-lg) 0;
-    background: var(--gradient-bg);
-    color: var(--color-text);
-    position: relative;
-}
 
 
-.portfolio h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    color: white;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
 
 .portfolio-grid {
     display: grid;
@@ -1063,8 +1048,6 @@ footer {
 .contact-page {
     padding: 3rem 0;
     background: linear-gradient(180deg, #0f1419 0%, #0a0e27 100%);
-    color: white;
-    position: relative;
 }
 .technologies-cta {
     text-align: center;
@@ -1262,13 +1245,10 @@ footer {
 .about-page {
     padding: 4rem 0;
     background: linear-gradient(180deg, #0f1419 0%, #1a1f3a 50%, #0a0e27 100%);
-    position: relative;
 }
-
 .ai-stats-section {
     padding: 4rem 0;
     background: linear-gradient(180deg, #1a1f3a 0%, #0f1419 50%, #1a1f3a 100%);
-    position: relative;
 }
 
 
@@ -1289,8 +1269,7 @@ footer {
     border-color: var(--color-primary);
 }
 .service-card:hover {
-    border-color: rgba(255, 215, 0, 0.4);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 50px rgba(255, 215, 0, 0.15);
+    border-color: var(--color-gold-rgba-5);
 }
 .stat-card:hover {
     border-color: var(--color-gold-rgba-6);
@@ -1437,10 +1416,6 @@ footer {
     color: var(--color-bg-dark);
 }
 
-.about-page h1,
-.contact-page h1 {
-    z-index: 1;
-}
 
 .section-intro {
     text-align: center;
