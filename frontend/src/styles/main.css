@@ -238,38 +238,6 @@ main {
     }
 }
 
-@keyframes lion-move-around-reverse {
-    0% { 
-        top: 80%;
-        left: 80%;
-        transform: scale(1);
-        opacity: 0.3;
-    }
-    25% {
-        top: 70%;
-        left: 20%;
-        transform: scale(1.05);
-        opacity: 0.4;
-    }
-    50% {
-        top: 30%;
-        left: 10%;
-        transform: scale(1);
-        opacity: 0.3;
-    }
-    75% {
-        top: 20%;
-        left: 60%;
-        transform: scale(1.05);
-        opacity: 0.4;
-    }
-    100% { 
-        top: 80%;
-        left: 80%;
-        transform: scale(1);
-        opacity: 0.3;
-    }
-}
 
 .hero::after {
     content: '';
@@ -307,16 +275,6 @@ main {
     100% { background-position: 60px 60px, 90px 90px; }
 }
 
-@keyframes pulse-glow {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
-    50% { transform: scale(1.1) rotate(180deg); opacity: 0.6; }
-}
-
-@keyframes grid-move {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(50px, 50px); }
-}
-
 @keyframes ai-pulse {
     0%, 100% { 
         opacity: 0.5;
@@ -326,12 +284,6 @@ main {
         opacity: 0.8;
         transform: scale(1.05);
     }
-}
-
-
-@keyframes pulse-glow {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
-    50% { transform: scale(1.1) rotate(180deg); opacity: 0.6; }
 }
 
 .hero-content {
@@ -448,10 +400,6 @@ main {
     75% { transform: rotate(10deg) scale(1.1); }
 }
 
-@keyframes badge-underline-move {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
 
 .ai-badge-compact {
     display: inline-flex;
@@ -780,6 +728,10 @@ main {
 }
 
 @keyframes underline-move {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+@keyframes gold-line-move {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
 }
