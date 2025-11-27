@@ -40,24 +40,64 @@
 
 ---
 
-## ❌ Prawdopodobnie NIEUŻYWANE Klasy (wymagają weryfikacji)
+## ❌ NIEUŻYWANE Klasy - Do Usunięcia
 
-### Do sprawdzenia:
-- `.about-preview` - nie znaleziono w HTML/JS
-- `.contact-preview` - nie znaleziono w HTML/JS
-- `.services-page` - nie znaleziono w HTML/JS
-- `.admin-panel` - nie znaleziono w HTML/JS
-- `.admin-wrapper` - nie znaleziono w HTML/JS
-- `.admin-intro` - nie znaleziono w HTML/JS
-- `.generator-form` - nie znaleziono w HTML/JS
-- `.ai-generate-btn` - nie znaleziono w HTML/JS
-- `.service-item` - nie znaleziono w HTML/JS
+### Zweryfikowane jako NIEUŻYWANE (brak w HTML/JS):
+1. **`.about-preview`** i wszystkie style powiązane (~50 linii)
+   - `.about-preview`, `.about-preview h2`, `.about-preview h2::after`
+   - Używane w selektorach grupowych, ale nie w HTML
 
-**Uwaga:** Te klasy mogą być używane dynamicznie lub w przyszłości. Wymagają dokładnej weryfikacji przed usunięciem.
+2. **`.contact-preview`** i wszystkie style powiązane (~20 linii)
+   - `.contact-preview`, `.contact-preview h2`, `.contact-preview p`
+
+3. **`.services-page`** i wszystkie style powiązane (~30 linii)
+   - `.services-page`, `.services-page h1`
+   - `.services-intro` (duplikat - już jest `.section-intro`)
+
+4. **`.admin-panel`** i wszystkie style powiązane (~100 linii)
+   - `.admin-panel`, `.admin-panel h1`
+   - `.admin-intro`
+   - `.admin-wrapper`
+   - `.generator-form`, `.generator-form h2`
+   - `.preview-section` (prawdopodobnie)
+
+5. **`.ai-generate-btn`** (~15 linii)
+   - `.ai-generate-btn`, `.ai-generate-btn:hover`
+
+6. **`.service-item`** i wszystkie style powiązane (~50 linii)
+   - `.service-item`, `.service-item:hover`
+   - `.service-item .service-icon`
+   - `.service-item h3`
+   - `.service-item > p`
+   - `.service-item ul`, `.service-item ul li`, `.service-item ul li:before`
+
+7. **`.loading`** (~20 linii)
+   - Nie znaleziono użycia w HTML/JS
+
+8. **`.services-list`** (~10 linii)
+   - Nie znaleziono użycia (używany jest `.services-grid`)
+
+**Łączna oszczędność:** ~295 linii CSS
 
 ---
 
-## 📝 Następne kroki:
-1. Dokładna weryfikacja nieużywanych selektorów
-2. Sprawdzenie, czy są używane dynamicznie przez JavaScript
-3. Utworzenie listy do usunięcia
+## ✅ Potwierdzenie
+
+### Sprawdzone przez:
+- ✅ Grep w całym `frontend/src` - brak użycia
+- ✅ Analiza `home.js` - brak użycia
+- ✅ Analiza `layout.js` - brak użycia
+- ✅ Analiza wszystkich plików JS - brak użycia
+
+### Bezpieczeństwo:
+- ✅ Te selektory nie są używane w kodzie
+- ✅ Usunięcie nie wpłynie na funkcjonalność
+- ✅ Można bezpiecznie usunąć w ETAPIE 4
+
+---
+
+## 📝 Następne kroki (ETAP 2):
+1. ✅ Utworzenie systemu CSS Variables
+2. ✅ Zastąpienie powtarzających się wartości
+3. ✅ Testy wizualne
+4. ✅ Commit do Git
