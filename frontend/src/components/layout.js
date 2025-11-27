@@ -1,3 +1,4 @@
+const CURRENT_YEAR = 2025
 const navItems = [
     { scroll: 'home', text: 'Strona Główna' },
     { scroll: 'ai-stats', text: 'AI w Liczbach' },
@@ -13,7 +14,7 @@ const renderHeader = () => {
 }
 const renderFooter = () => {
     const footer = document.getElementById('footer')
-    if (footer) footer.innerHTML = `<div class="footer-content"><p>&copy; 2025 ST KRAKOS. Wszystkie prawa zastrzeżone.</p></div>`
+    if (footer) footer.innerHTML = `<div class="footer-content"><p>&copy; ${CURRENT_YEAR} ST KRAKOS. Wszystkie prawa zastrzeżone.</p></div>`
 }
 export function renderLayout(container) {
     container.innerHTML = `<header id="header"></header><main id="content"><div style="padding: 2rem; text-align: center;"><p>Ładowanie...</p></div></main><footer id="footer"></footer>`

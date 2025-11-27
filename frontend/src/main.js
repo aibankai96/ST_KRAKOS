@@ -4,5 +4,5 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = document.getElementById('app')
     if (!app) return console.error('App container not found')
     renderLayout(app)
-    document.getElementById('content') && initRouter()
+    initRouter()
 })

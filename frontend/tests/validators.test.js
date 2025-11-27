@@ -1,4 +1,3 @@
-// Testy jednostkowe dla validators
 import { validators, validateField, showError, clearError, clearValidationErrors } from '../src/utils/validators.js'
 
 describe('Validators', () => {
@@ -47,4 +46,3 @@ describe('Validators', () => {
         expect(input.parentNode.querySelector('.field-error')).toBeFalsy()
     })
 })
-

@@ -4,8 +4,12 @@ const DEFAULTS = {
     ogTitle: 'ST KRAKOS',
     ogDescription: 'Innowacyjne rozwiązania z wykorzystaniem AI'
 }
+const SELECTORS = {
+    meta: (attr, value) => `meta[${attr}="${value}"]`,
+    structuredData: 'script[type="application/ld+json"]'
+}
 const getOrCreateMeta = (attr, value) => {
-    let meta = document.querySelector(`meta[${attr}="${value}"]`)
+    let meta = document.querySelector(SELECTORS.meta(attr, value))
     if (!meta) {
         meta = document.createElement('meta')
         meta.setAttribute(attr, value)
@@ -25,7 +29,7 @@ export function updateSEO(title, description, keywords = '') {
     updateOGTags(title, description)
 }
 export function addStructuredData(data) {
-    const script = document.querySelector('script[type="application/ld+json"]') || (() => {
+    const script = document.querySelector(SELECTORS.structuredData) || (() => {
         const s = Object.assign(document.createElement('script'), { type: 'application/ld+json' })
         document.head.appendChild(s)
         return s

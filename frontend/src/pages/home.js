@@ -1,6 +1,8 @@
 import { updateSEO, addStructuredData } from '../utils/seo.js'
 import { scrollToSection } from '../router.js'
-
+const ANIMATION_STEPS = 60
+const ANIMATION_DURATION = 2000
+const INTERSECTION_THRESHOLD = 0.3
 export function renderHome(container) {
     updateSEO(
         'ST KRAKOS - Innowacyjne rozwiązania AI',
@@ -282,14 +284,14 @@ function setupStatsAnimation() {
                 const target = parseFloat(stat.getAttribute('data-target'))
                 const prefix = stat.getAttribute('data-prefix') || ''
                 const suffix = stat.getAttribute('data-suffix') || ''
-                const step = target / 60
+                const step = target / ANIMATION_STEPS
                 let current = 0
                 const timer = setInterval(() => {
                     current = Math.min(current + step, target)
                     stat.textContent = `${prefix}${suffix === 'T' ? current.toFixed(1) : Math.floor(current)}${suffix}`
                     if (current >= target) clearInterval(timer)
-                }, 2000 / 60)
+                }, ANIMATION_DURATION / ANIMATION_STEPS)
             })
         }
-    }, { threshold: 0.3 }).observe(statsSection)
+    }, { threshold: INTERSECTION_THRESHOLD }).observe(statsSection)
 }
