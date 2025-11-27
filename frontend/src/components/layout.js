@@ -20,6 +20,7 @@ function renderHeader() {
                 <div class="logo">ST KRAKOS</div>
                     <ul>
                         <li><a href="#home" data-scroll="home">Strona Główna</a></li>
+                        <li><a href="#ai-stats" data-scroll="ai-stats">AI w Liczbach</a></li>
                         <li><a href="#about" data-scroll="about">O nas</a></li>
                         <li><a href="#services" data-scroll="services">Usługi</a></li>
                         <li><a href="#portfolio" data-scroll="portfolio">Portfolio</a></li>

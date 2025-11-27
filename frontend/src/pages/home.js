@@ -31,6 +31,35 @@ export async function renderHome(container) {
             </div>
         </section>
         
+        <section id="ai-stats" class="ai-stats-section">
+            <div class="container">
+                <h2>AI w Liczbach</h2>
+                <p class="section-intro">Sprawdzone statystyki pokazują, dlaczego sztuczna inteligencja to przyszłość biznesu</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="73" data-suffix="%">0%</div>
+                        <div class="stat-label">firm planuje zwiększyć inwestycje w AI do 2025 roku</div>
+                        <div class="stat-source">(McKinsey, 2023)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="40" data-suffix="%">0%</div>
+                        <div class="stat-label">wzrost produktywności dzięki wykorzystaniu AI</div>
+                        <div class="stat-source">(Accenture, 2023)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="15.7" data-prefix="$" data-suffix="T">$0T</div>
+                        <div class="stat-label">wartość AI dla globalnej gospodarki do 2030</div>
+                        <div class="stat-source">(PwC, 2023)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="85" data-suffix="%">0%</div>
+                        <div class="stat-label">firm zauważa poprawę jakości decyzji dzięki AI</div>
+                        <div class="stat-source">(Deloitte, 2023)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section id="about" class="about-page">
             <div class="container">
                 <h1>O ST KRAKOS</h1>
@@ -252,6 +281,49 @@ export async function renderHome(container) {
     `
     
     setupNavigation()
+    setupStatsAnimation()
+}
+
+function setupStatsAnimation() {
+    const statsSection = document.getElementById('ai-stats')
+    if (!statsSection) return
+    
+    const statNumbers = statsSection.querySelectorAll('.stat-number')
+    let hasAnimated = false
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                hasAnimated = true
+                statNumbers.forEach(stat => {
+                    const target = parseFloat(stat.getAttribute('data-target'))
+                    const prefix = stat.getAttribute('data-prefix') || ''
+                    const suffix = stat.getAttribute('data-suffix') || ''
+                    const duration = 2000
+                    const steps = 60
+                    const increment = target / steps
+                    let current = 0
+                    const stepTime = duration / steps
+                    
+                    const timer = setInterval(() => {
+                        current += increment
+                        if (current >= target) {
+                            current = target
+                            clearInterval(timer)
+                        }
+                        
+                        if (suffix === 'T') {
+                            stat.textContent = `${prefix}${current.toFixed(1)}${suffix}`
+            } else {
+                            stat.textContent = `${prefix}${Math.floor(current)}${suffix}`
+                        }
+                    }, stepTime)
+                })
+            }
+        })
+    }, { threshold: 0.3 })
+    
+    observer.observe(statsSection)
 }
 
 function setupNavigation() {
