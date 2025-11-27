@@ -154,30 +154,29 @@ export async function renderHome(container) {
             <div class="container">
                 <h2>Nasze Narzędzia i Technologie</h2>
                 <p class="section-intro">
-                    Wykorzystujemy najnowocześniejsze narzędzia AI i zaawansowane technologie programistyczne, aby tworzyć rozwiązania, które naprawdę działają. Nasz zespół pracuje z najlepszymi narzędziami dostępnymi na rynku, gwarantując najwyższą jakość i efektywność każdego projektu.
+                    Wykorzystujemy najnowsze narzędzia AI i technologie, aby tworzyć rozwiązania, które działają. Każdy projekt realizujemy z najwyższą jakością.
                 </p>
                 <div class="portfolio-grid">
                     <div class="portfolio-item">
                         <div class="portfolio-image">🤖</div>
-                        <h3>Zaawansowane Narzędzia AI</h3>
-                        <p>Wykorzystujemy najnowsze narzędzia wspomagane sztuczną inteligencją, które przyspieszają proces tworzenia i optymalizacji rozwiązań. Dzięki temu możemy dostarczyć Ci gotowe rozwiązania szybciej, zachowując najwyższą jakość.</p>
+                        <h3>Narzędzia AI</h3>
+                        <p>Najnowsze narzędzia wspomagane sztuczną inteligencją. Szybsza realizacja projektów przy zachowaniu najwyższej jakości.</p>
                     </div>
                     <div class="portfolio-item">
                         <div class="portfolio-image">⚙️</div>
-                        <h3>Profesjonalne Środowisko Programistyczne</h3>
-                        <p>Pracujemy w zaawansowanych środowiskach deweloperskich, które pozwalają nam tworzyć stabilne, bezpieczne i wydajne aplikacje. Każdy projekt jest budowany z wykorzystaniem sprawdzonych narzędzi i najlepszych praktyk branżowych.</p>
+                        <h3>Środowisko Programistyczne</h3>
+                        <p>Zaawansowane narzędzia deweloperskie. Stabilne, bezpieczne i wydajne aplikacje z wykorzystaniem sprawdzonych rozwiązań.</p>
                     </div>
                     <div class="portfolio-item">
                         <div class="portfolio-image">🚀</div>
-                        <h3>Nowoczesne Frameworki i Biblioteki</h3>
-                        <p>Wykorzystujemy najnowsze technologie webowe i frameworki, które zapewniają szybkie działanie, bezpieczeństwo i łatwość utrzymania. Twoja aplikacja będzie działać płynnie na wszystkich urządzeniach i przeglądarkach.</p>
+                        <h3>Frameworki i Biblioteki</h3>
+                        <p>Nowoczesne technologie webowe. Szybkie działanie, bezpieczeństwo i kompatybilność na wszystkich urządzeniach.</p>
                     </div>
                 </div>
                 <div class="technologies-cta">
                     <p class="technologies-cta-text">
-                        Nie musisz znać się na technologiach - my się znamy! Skup się na swoim biznesie, a my zajmiemy się resztą.
+                        Technologie to nasza specjalność - skup się na biznesie, resztą zajmiemy się my.
                     </p>
-                    <button class="cta-button primary" data-scroll="contact">Rozpocznij Współpracę</button>
                 </div>
             </div>
         </section>
