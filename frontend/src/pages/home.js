@@ -17,11 +17,11 @@ export async function renderHome(container) {
     container.innerHTML = `
         <section id="home" class="hero">
             <div class="lion-pattern"></div>
+            <div class="ai-badge-circle">
+                <span class="badge-icon">⚡</span>
+                <span class="badge-text">Wśród nielicznych w Polsce wykorzystujących AI</span>
+            </div>
             <div class="hero-content">
-                <div class="ai-badge-hero">
-                    <span class="badge-icon">⚡</span>
-                    <span class="badge-text">Nieliczni w Polsce - w pełni AI</span>
-                </div>
                 <h1>Twój Biznes Napędzany Sztuczną Inteligencją</h1>
                 <p class="hero-subtitle">ST KRAKOS - Wykorzystujemy najnowsze technologie AI, aby stworzyć dla Ciebie stronę lub aplikację, która przyciąga klientów i zwiększa sprzedaż. Profesjonalne rozwiązania, które działają.</p>
                 <div class="hero-buttons">
