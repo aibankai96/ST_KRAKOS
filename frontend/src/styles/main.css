@@ -99,22 +99,107 @@ main {
 .hero {
     text-align: center;
     padding: 8rem 2rem;
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+    background: linear-gradient(135deg, #151a2e 0%, #182030 25%, #1a1f3a 50%, #182030 75%, #151a2e 100%);
     color: white;
     position: relative;
     overflow: hidden;
 }
 
 .hero::before {
-    content: '';
+    display: none;
+}
+
+.lion-pattern {
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
-    animation: pulse-glow 8s ease-in-out infinite;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
+    opacity: 0.4;
+    font-size: 300px;
+    line-height: 1;
+    z-index: 0;
+}
+
+.lion-pattern::before {
+    content: '🦁';
+    position: absolute;
+    color: rgba(255, 215, 0, 0.3);
+    text-shadow: 
+        5px 5px 10px rgba(255, 215, 0, 0.4),
+        10px 10px 20px rgba(255, 165, 0, 0.3),
+        0 0 40px rgba(255, 215, 0, 0.25),
+        0 0 80px rgba(91, 141, 239, 0.2),
+        0 0 120px rgba(91, 141, 239, 0.15);
+    animation: lion-move-around 20s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.3)) drop-shadow(0 0 20px rgba(91, 141, 239, 0.2));
+}
+
+@keyframes lion-move-around {
+    0% { 
+        top: 10%;
+        left: 10%;
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    25% {
+        top: 20%;
+        left: 70%;
+        transform: scale(1.05);
+        opacity: 0.4;
+    }
+    50% {
+        top: 60%;
+        left: 80%;
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    75% {
+        top: 70%;
+        left: 20%;
+        transform: scale(1.05);
+        opacity: 0.4;
+    }
+    100% { 
+        top: 10%;
+        left: 10%;
+        transform: scale(1);
+        opacity: 0.3;
+    }
+}
+
+@keyframes lion-move-around-reverse {
+    0% { 
+        top: 80%;
+        left: 80%;
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    25% {
+        top: 70%;
+        left: 20%;
+        transform: scale(1.05);
+        opacity: 0.4;
+    }
+    50% {
+        top: 30%;
+        left: 10%;
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    75% {
+        top: 20%;
+        left: 60%;
+        transform: scale(1.05);
+        opacity: 0.4;
+    }
+    100% { 
+        top: 80%;
+        left: 80%;
+        transform: scale(1);
+        opacity: 0.3;
+    }
 }
 
 .hero::after {
@@ -125,40 +210,55 @@ main {
     right: 0;
     bottom: 0;
     background: 
-        radial-gradient(circle at 20% 50%, rgba(91, 141, 239, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.15) 0%, transparent 50%);
+        radial-gradient(circle at 20% 30%, rgba(91, 141, 239, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(26, 31, 58, 0.08) 0%, transparent 70%);
+    animation: ai-pulse 8s ease-in-out infinite;
     pointer-events: none;
+}
+
+.ai-network-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='30,0 60,60 0,60' fill='%23FFD700' opacity='0.12'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,0 60,0 30,60' fill='%235B8FEF' opacity='0.15'/%3E%3C/svg%3E");
+    background-size: 60px 60px, 60px 60px;
+    background-position: 0 0, 30px 30px;
+    animation: triangle-move 20s linear infinite;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+@keyframes triangle-move {
+    0% { background-position: 0 0, 30px 30px; }
+    100% { background-position: 60px 60px, 90px 90px; }
 }
 
 @keyframes pulse-glow {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
-    50% { transform: scale(1.1) rotate(180deg); opacity: 0.8; }
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
+    50% { transform: scale(1.1) rotate(180deg); opacity: 0.6; }
 }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    animation: pulse-glow 8s ease-in-out infinite;
-    pointer-events: none;
+@keyframes grid-move {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
 }
 
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-    pointer-events: none;
+@keyframes ai-pulse {
+    0%, 100% { 
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
 }
+
 
 @keyframes pulse-glow {
     0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }

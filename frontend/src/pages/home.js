@@ -16,6 +16,7 @@ export async function renderHome(container) {
     })
     container.innerHTML = `
         <section id="home" class="hero">
+            <div class="lion-pattern"></div>
             <div class="hero-content">
                 <div class="ai-badge-hero">
                     <span class="badge-icon">⚡</span>
@@ -93,8 +94,8 @@ export async function renderHome(container) {
                         <p class="category-description">Kompleksowe strony internetowe i proste systemy zarządzania treścią.</p>
                     </div>
                     <div class="services-grid">
-                        <div class="service-card">
-                            <div class="service-icon">🌐</div>
+                    <div class="service-card">
+                        <div class="service-icon">🌐</div>
                             <h3>Strona Firmowa</h3>
                             <p>Wielostronicowa strona (5-15 podstron), projekt graficzny, blog, CMS, formularze, SEO.</p>
                             <p class="service-for"><strong>Dla:</strong> Firmy usługowe, agencje, biznesy</p>
@@ -125,21 +126,21 @@ export async function renderHome(container) {
                             <h3>Aplikacja Webowa (MVP)</h3>
                             <p>Baza danych, logowanie, panel użytkownika, dashboard. Gotowe rozwiązanie dla Twojego biznesu.</p>
                             <p class="service-for"><strong>Dla:</strong> Startupy, firmy usługowe</p>
-                        </div>
-                        <div class="service-card">
+                    </div>
+                    <div class="service-card">
                             <div class="service-icon">📅</div>
                             <h3>System Rezerwacji</h3>
                             <p>Kalendarz z zapisami, formularz rezerwacji, potwierdzenia e-mail. Proste i skuteczne.</p>
                             <p class="service-for"><strong>Dla:</strong> Fryzjerzy, trenerzy, gabinety</p>
-                        </div>
-                        <div class="service-card">
+                    </div>
+                    <div class="service-card">
                             <div class="service-icon">⚡</div>
                             <h3>Moduł Real-Time</h3>
                             <p>Czat, statusy online, powiadomienia. Komunikacja w czasie rzeczywistym.</p>
                             <p class="service-for"><strong>Dla:</strong> Aplikacje komunikacyjne, narzędzia zespołowe</p>
-                        </div>
-                        <div class="service-card">
-                            <div class="service-icon">📊</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📊</div>
                             <h3>Dashboard Analityczny</h3>
                             <p>Wykresy, statystyki, eksport danych. Wgląd w kluczowe metryki biznesowe.</p>
                             <p class="service-for"><strong>Dla:</strong> Firmy potrzebujące analizy danych</p>
