@@ -7,7 +7,6 @@ export function renderHome(container) {
         'ST KRAKOS oferuje zaawansowane rozwiązania z wykorzystaniem sztucznej inteligencji. Generowanie stron, automatyzacja procesów i analiza danych.',
         'AI, sztuczna inteligencja, automatyzacja, generowanie stron, ST KRAKOS'
     )
-    
     addStructuredData({
         '@context': 'https://schema.org',
         '@type': 'Organization',
@@ -31,7 +30,6 @@ export function renderHome(container) {
                 </div>
             </div>
         </section>
-        
         <section id="ai-stats" class="ai-stats-section">
             <div class="container">
                 <h2>AI w Liczbach</h2>
@@ -60,7 +58,6 @@ export function renderHome(container) {
                 </div>
             </div>
         </section>
-        
         <section id="about" class="about-page">
             <div class="container">
                 <h1>O ST KRAKOS</h1>
@@ -70,7 +67,6 @@ export function renderHome(container) {
                         <h2>Tworzymy Przyszłość z AI</h2>
                         <p>ST KRAKOS to eksperci, którzy przekształcają nowoczesne technologie sztucznej inteligencji w realne korzyści dla Twojego biznesu. Projektujemy i budujemy strony internetowe oraz aplikacje, które łączą elegancki design z inteligentnymi funkcjami, zapewniając Twojej firmie przewagę konkurencyjną.</p>
                     </div>
-                    
                     <div class="about-section">
                         <h2>Dlaczego My?</h2>
                         <ul class="features-list">
@@ -83,19 +79,16 @@ export function renderHome(container) {
                 </div>
             </div>
         </section>
-        
         <section id="services" class="services">
             <div class="container">
                 <h2>Nasze Usługi</h2>
                 <p class="section-intro">
                     Oferujemy kompleksowe rozwiązania webowe dostosowane do Twoich potrzeb. Od szybkich landing page'ów po zaawansowane aplikacje - każdy projekt realizujemy z dbałością o szczegóły i najwyższą jakość.
                 </p>
-                
                 <div class="certificate-info">
                     <div class="certificate-icon">🏆</div>
                     <p class="certificate-text">Po zrealizowaniu projektu otrzymujesz certyfikat potwierdzający, że Twoja firma wykorzystuje sztuczną inteligencję w swojej działalności.</p>
                 </div>
-                
                 <div class="services-category">
                     <div class="category-header">
                         <span class="category-badge fast">⚡ Szybkie Projekty</span>
@@ -184,7 +177,6 @@ export function renderHome(container) {
                 </div>
             </div>
         </section>
-        
         <section id="technologies" class="portfolio">
             <div class="container">
                 <h2>Nasze Narzędzia i Technologie</h2>
@@ -215,7 +207,6 @@ export function renderHome(container) {
                 </div>
             </div>
         </section>
-        
         <section id="portfolio" class="portfolio-section">
             <div class="container">
                 <h2>Nasze Realizacje</h2>
@@ -238,7 +229,6 @@ export function renderHome(container) {
                             </a>
                         </div>
                     </div>
-                    
                     <div class="project-card">
                         <div class="project-header">
                             <h3>Misja Czysta Woda</h3>
@@ -258,12 +248,10 @@ export function renderHome(container) {
                 </div>
             </div>
         </section>
-        
         <section id="contact" class="contact-page">
             <div class="container">
                 <h1>Skontaktuj się z nami</h1>
                 <p class="contact-intro">Masz pytania? Chcesz dowiedzieć się więcej o naszych usługach? Skontaktuj się z nami bezpośrednio!</p>
-                
                 <div class="contact-info-wrapper">
                     <div class="contact-info">
                         <h2>Informacje kontaktowe</h2>
@@ -280,17 +268,13 @@ export function renderHome(container) {
             </div>
         </section>
     `
-    
     setupStatsAnimation()
 }
-
 function setupStatsAnimation() {
     const statsSection = document.getElementById('ai-stats')
     if (!statsSection) return
-    
     const statNumbers = statsSection.querySelectorAll('.stat-number')
     let hasAnimated = false
-    
     new IntersectionObserver((entries) => {
         if (entries[0]?.isIntersecting && !hasAnimated) {
             hasAnimated = true
@@ -300,7 +284,6 @@ function setupStatsAnimation() {
                 const suffix = stat.getAttribute('data-suffix') || ''
                 const step = target / 60
                 let current = 0
-                
                 const timer = setInterval(() => {
                     current = Math.min(current + step, target)
                     stat.textContent = `${prefix}${suffix === 'T' ? current.toFixed(1) : Math.floor(current)}${suffix}`

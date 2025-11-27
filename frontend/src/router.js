@@ -1,11 +1,9 @@
 import { renderHome } from './pages/home.js'
-
 export const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId)
     if (!section) return
     window.scrollTo({ top: section.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' })
 }
-
 export function initRouter() {
     const content = document.getElementById('content')
     if (!content) return console.error('Content container not found')
@@ -19,4 +17,3 @@ export function initRouter() {
     })
     if (window.location.hash) setTimeout(() => scrollToSection(window.location.hash.slice(1)), 100)
 }
-

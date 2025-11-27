@@ -4,7 +4,6 @@ const DEFAULTS = {
     ogTitle: 'ST KRAKOS',
     ogDescription: 'Innowacyjne rozwiązania z wykorzystaniem AI'
 }
-
 const getOrCreateMeta = (attr, value) => {
     let meta = document.querySelector(`meta[${attr}="${value}"]`)
     if (!meta) {
@@ -14,20 +13,17 @@ const getOrCreateMeta = (attr, value) => {
     }
     return meta
 }
-
 const updateOGTags = (title, description) => {
     getOrCreateMeta('property', 'og:title').content = title || DEFAULTS.ogTitle
     getOrCreateMeta('property', 'og:description').content = description || DEFAULTS.ogDescription
     getOrCreateMeta('property', 'og:url').content = window.location.href
 }
-
 export function updateSEO(title, description, keywords = '') {
     document.title = title || DEFAULTS.title
     getOrCreateMeta('name', 'description').content = description || DEFAULTS.description
     if (keywords) getOrCreateMeta('name', 'keywords').content = keywords
     updateOGTags(title, description)
 }
-
 export function addStructuredData(data) {
     const script = document.querySelector('script[type="application/ld+json"]') || (() => {
         const s = Object.assign(document.createElement('script'), { type: 'application/ld+json' })
@@ -36,4 +32,3 @@ export function addStructuredData(data) {
     })()
     script.textContent = JSON.stringify(data)
 }
-
