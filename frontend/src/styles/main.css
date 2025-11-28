@@ -92,15 +92,10 @@ nav {
     padding: 0 var(--spacing-md);
 }
 .logo { font-size: var(--font-xxxl); font-weight: 700; color: var(--color-primary); letter-spacing: -0.5px; position: relative; padding-bottom: 0.3rem; }
-
 .logo::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--color-primary), var(--color-primary-alt), var(--color-primary)); background-size: 200% 100%; animation: underline-move 3s linear infinite; border-radius: var(--radius-sm); }
-
 nav ul { display: flex; list-style: none; gap: var(--spacing-md); }
-
 nav a { color: var(--color-text-muted); text-decoration: none; transition: var(--transition); font-weight: 500; font-size: var(--font-lg); padding: var(--spacing-xs) 0; position: relative; letter-spacing: 0.2px; }
-
 nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gradient-primary); transition: width 0.3s ease; box-shadow: 0 0 10px var(--color-gold-rgba-6); }
-
 nav a:hover { color: var(--color-primary); text-shadow: 0 1px 6px var(--color-gold-rgba-5); transform: translateY(-2px); }
 
 nav a:hover::after { width: 100%; box-shadow: 0 0 8px var(--color-gold-rgba-5); }
@@ -119,8 +114,6 @@ main { min-height: calc(100vh - 200px); }
     position: relative;
     overflow: hidden;
 }
-
-
 .lion-pattern {
     position: absolute;
     top: 0;
@@ -180,8 +173,6 @@ main { min-height: calc(100vh - 200px); }
         opacity: 0.3;
     }
 }
-
-
 .hero::after {
     content: '';
     position: absolute;
@@ -242,8 +233,6 @@ main { min-height: calc(100vh - 200px); }
     0%, 100% { opacity: 1; }
     50% { opacity: 0.9; }
 }
-
-
 @keyframes icon-rotate {
     0%, 100% { transform: rotate(0deg); }
     50% { transform: rotate(10deg); }
@@ -255,18 +244,11 @@ main { min-height: calc(100vh - 200px); }
 .hero-subtitle { font-size: var(--font-xxl); margin-bottom: 2.5rem; line-height: 1.9; max-width: 800px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; color: var(--color-text-muted); font-weight: 500; text-shadow: 0 2px 10px var(--color-shadow-lg), 0 0 20px var(--color-gold-rgba-1); letter-spacing: 0.3px; }
 
 .hero-buttons { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
-
 .cta-button { padding: var(--spacing-sm) var(--spacing-md); font-size: var(--font-lg); border: none; border-radius: var(--radius-md); cursor: pointer; transition: var(--transition); font-weight: 600; }
-
 .cta-button.primary { background: var(--gradient-primary); color: var(--color-bg-dark); border: none; box-shadow: 0 4px 20px var(--color-gold-rgba-5), 0 0 30px var(--color-gold-rgba-3); position: relative; z-index: 1; font-weight: 700; transition: var(--transition); }
-
 .cta-button.primary:hover { transform: translateY(-3px); box-shadow: 0 6px 30px var(--color-gold-rgba-6), 0 0 40px var(--color-gold-rgba-4); background: var(--gradient-primary-reverse); }
-
 .cta-button.secondary { background: transparent; color: var(--color-primary); border: 2px solid var(--color-primary); backdrop-filter: blur(10px); position: relative; z-index: 1; font-weight: 600; box-shadow: 0 0 20px var(--color-gold-rgba-4); transition: var(--transition); }
-
 .cta-button.secondary:hover { background: var(--color-gold-rgba-1); border-color: var(--color-primary-alt); color: var(--color-primary-alt); transform: translateY(-3px); box-shadow: 0 0 30px var(--color-gold-rgba-6); }
-
-
 :is(.services, .portfolio, .contact-page, .about-page, .ai-stats-section, .portfolio-section) {
     padding: var(--spacing-lg) 0;
     background: var(--gradient-bg);
@@ -308,8 +290,6 @@ main { min-height: calc(100vh - 200px); }
 .category-header { text-align: center; margin-bottom: 2.5rem; position: relative; }
 
 .category-badge { display: inline-block; padding: 0.7rem 2rem; border-radius: var(--radius-round); font-weight: 700; font-size: 1rem; margin-bottom: 1.2rem; letter-spacing: 0.5px; text-transform: uppercase; position: relative; transition: all 0.3s; }
-
-
 .category-badge.fast,
 .category-badge.medium,
 .category-badge.complex {
@@ -374,9 +354,7 @@ main { min-height: calc(100vh - 200px); }
 @keyframes gold-line-move {
     0%, 100% { background-position: -200% 0; }
 }
-
 .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-
 .services-category:last-child .services-grid {
     grid-template-columns: repeat(4, 1fr);
 }
@@ -410,8 +388,6 @@ main { min-height: calc(100vh - 200px); }
 .stat-card { text-align: center; border: 2px solid var(--color-gold-rgba-3); }
 .project-card { border-radius: var(--radius-xl); padding: 2.5rem; }
 .service-icon { font-size: 2.5rem; margin-bottom: 1rem; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3)); transition: transform 0.3s; }
-
-
 .service-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; color: #FFD700; font-weight: 600; text-shadow: 0 0 10px rgba(255, 215, 0, 0.4); letter-spacing: -0.3px; }
 
 .service-card p { color: rgba(255, 255, 255, 0.9); line-height: 1.7; font-size: 1rem; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5); font-weight: 400; letter-spacing: 0.1px; margin-bottom: 0.5rem; }
@@ -513,7 +489,6 @@ footer {
 .project-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid rgba(0, 212, 255, 0.1); }
 .project-header h3 { font-size: var(--font-xxxl); color: var(--color-primary); margin: 0; font-weight: 700; text-shadow: 0 0 15px var(--color-gold-rgba-6); }
 .project-badge { display: inline-block; padding: 0.4rem 1rem; border-radius: var(--radius-round); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
-
 .project-badge.beta { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: var(--color-text); }
 .project-badge.client { background: linear-gradient(135deg, #00d4ff 0%, #5b8def 100%); color: var(--color-text); }
 .project-description { font-size: 1rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); margin-bottom: 1.5rem; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5); font-weight: 400; letter-spacing: 0.2px; }
@@ -521,8 +496,6 @@ footer {
 .project-link { margin-top: 1.5rem; }
 .project-btn { display: inline-block; padding: 0.8rem var(--spacing-md); background: var(--gradient-primary); color: var(--color-bg-dark); text-decoration: none; border-radius: var(--radius-md); font-weight: 600; transition: var(--transition); box-shadow: 0 4px 20px var(--color-gold-rgba-5), 0 0 30px var(--color-gold-rgba-3); }
 .project-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 30px var(--color-gold-rgba-6), 0 0 40px var(--color-gold-rgba-4); background: var(--gradient-primary-reverse); color: var(--color-bg-dark); }
-
-
 :is(.section-intro, .services-intro, .contact-intro) { text-align: center; font-size: 1.4rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 3rem; max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.9; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.1); font-weight: 500; letter-spacing: 0.3px; padding: 0 1rem; }
 .certificate-info { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 1.5rem 2rem; margin: 2rem auto 3rem; max-width: 800px; background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 165, 0, 0.1) 100%); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: var(--radius-lg); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(255, 215, 0, 0.15); }
 .certificate-icon { font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4)); }
