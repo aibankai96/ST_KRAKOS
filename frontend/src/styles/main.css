@@ -71,7 +71,6 @@ body {
     background: var(--gradient-bg);
     min-height: 100vh;
 }
-
 header {
     background: var(--gradient-header);
     color: var(--color-text);
@@ -92,7 +91,6 @@ nav {
     align-items: center;
     padding: 0 var(--spacing-md);
 }
-
 .logo {
     font-size: var(--font-xxxl);
     font-weight: 700;
@@ -164,7 +162,6 @@ main {
     margin: 0 auto;
     padding: 0 var(--spacing-md);
 }
-
 .hero {
     text-align: center;
     padding: var(--spacing-xxl) var(--spacing-md);
@@ -789,14 +786,8 @@ main {
     display: flex;
     flex-direction: column;
 }
-.stat-card {
-    text-align: center;
-    border: 2px solid var(--color-gold-rgba-3);
-}
-.project-card {
-    border-radius: var(--radius-xl);
-    padding: 2.5rem;
-}
+.stat-card { text-align: center; border: 2px solid var(--color-gold-rgba-3); }
+.project-card { border-radius: var(--radius-xl); padding: 2.5rem; }
 
 .service-card::before {
     content: '';
@@ -1197,12 +1188,8 @@ footer {
     box-shadow: var(--shadow-lg), var(--shadow-gold-lg);
     border-color: var(--color-primary);
 }
-.service-card:hover {
-    border-color: var(--color-gold-rgba-5);
-}
-.stat-card:hover {
-    border-color: var(--color-gold-rgba-6);
-}
+.service-card:hover { border-color: var(--color-gold-rgba-5); }
+.stat-card:hover { border-color: var(--color-gold-rgba-6); }
 .stat-number {
     font-size: 3.5rem;
     font-weight: 800;
@@ -1297,15 +1284,8 @@ footer {
     text-transform: uppercase;
 }
 
-.project-badge.beta {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: var(--color-text);
-}
-.project-badge.client {
-    background: linear-gradient(135deg, #00d4ff 0%, #5b8def 100%);
-    color: var(--color-text);
-}
-
+.project-badge.beta { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: var(--color-text); }
+.project-badge.client { background: linear-gradient(135deg, #00d4ff 0%, #5b8def 100%); color: var(--color-text); }
 .project-description {
     font-size: 1rem;
     line-height: 1.7;
@@ -1534,13 +1514,11 @@ footer {
     border-radius: var(--radius-lg);
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-
 .editor-section h2 {
     font-size: 1.8rem;
     margin-bottom: 2rem;
     color: #2c3e50;
 }
-
 .editor-wrapper {
     display: flex;
     flex-direction: column;
@@ -1557,12 +1535,10 @@ footer {
     line-height: 1.6;
     resize: vertical;
 }
-
 .content-editor:focus {
     outline: none;
     border-color: #667eea;
 }
-
 .editor-actions {
     display: flex;
     gap: 1rem;
