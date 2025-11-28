@@ -12,8 +12,27 @@ export const renderHeader = () => {
         { scroll: 'portfolio', key: 'nav.portfolio' },
         { scroll: 'contact', key: 'nav.contact' }
     ]
-    header.innerHTML = `<nav><div class="logo">ST KRAKOS</div><ul>${navItems.map(({scroll, key}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${t(key)}</a></li>`).join('')}</ul><div class="lang-switcher"><button class="lang-btn ${lang === 'pl' ? 'active' : ''}" data-lang="pl" title="Polski">🇵🇱</button><button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en" title="English">🇺🇸</button></div></nav>`
+    header.innerHTML = `<nav><div class="logo">ST KRAKOS</div><button class="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button><ul class="nav-menu">${navItems.map(({scroll, key}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${t(key)}</a></li>`).join('')}</ul><div class="lang-switcher"><button class="lang-btn ${lang === 'pl' ? 'active' : ''}" data-lang="pl" title="Polski">🇵🇱</button><button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en" title="English">🇺🇸</button></div></nav>`
+    document.body.insertAdjacentHTML('beforeend', '<div class="mobile-menu-overlay"></div>')
     header.querySelectorAll('.lang-btn').forEach(btn => { const newBtn = btn.cloneNode(true); btn.replaceWith(newBtn); newBtn.addEventListener('click', () => setLang(newBtn.dataset.lang)) })
+    initMobileMenu()
+}
+const initMobileMenu = () => {
+    const hamburger = document.querySelector('.hamburger')
+    const menu = document.querySelector('.nav-menu')
+    const overlay = document.querySelector('.mobile-menu-overlay')
+    const menuLinks = document.querySelectorAll('.nav-menu a')
+    const toggleMenu = () => {
+        const isOpen = hamburger.getAttribute('aria-expanded') === 'true'
+        hamburger.setAttribute('aria-expanded', !isOpen)
+        hamburger.classList.toggle('active')
+        menu.classList.toggle('active')
+        overlay.classList.toggle('active')
+        document.body.style.overflow = !isOpen ? 'hidden' : ''
+    }
+    if (hamburger) hamburger.addEventListener('click', toggleMenu)
+    if (overlay) overlay.addEventListener('click', toggleMenu)
+    menuLinks.forEach(link => link.addEventListener('click', () => { if (window.innerWidth <= 768) toggleMenu() }))
 }
 export const renderFooter = () => {
     const footer = document.getElementById('footer')

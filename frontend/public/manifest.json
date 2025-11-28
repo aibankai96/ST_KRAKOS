@@ -1,0 +1,33 @@
+{
+  "name": "ST KRAKOS - Innowacyjne rozwiązania AI",
+  "short_name": "ST KRAKOS",
+  "description": "ST KRAKOS - Wykorzystujemy najnowsze technologie AI, aby stworzyć dla Ciebie stronę lub aplikację, która przyciąga klientów i zwiększa sprzedaż.",
+  "start_url": "/ST_KRAKOS/",
+  "display": "standalone",
+  "background_color": "#0a0e27",
+  "theme_color": "#0a0e27",
+  "orientation": "portrait-primary",
+  "scope": "/ST_KRAKOS/",
+  "lang": "pl",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/ST_KRAKOS/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/ST_KRAKOS/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "screenshots": [],
+  "shortcuts": [],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
+
