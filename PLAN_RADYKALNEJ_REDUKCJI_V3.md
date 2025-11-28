@@ -189,9 +189,9 @@
 ## ⚠️ Zasady Bezpieczeństwa
 
 1. **Testowanie po każdym etapie** - Weryfikacja wizualna i funkcjonalna aplikacji
-2. **Backup przed każdym etapem** - Snapshot przed każdą zmianą
-3. **Commit po każdym etapie** - Możliwość rollback
-4. **Zachowanie funkcjonalności** - Zero regresji
+2. **ZERO BACKUPÓW LOKALNYCH** - Wszystko tylko w Git (commit przed każdą zmianą)
+3. **Commit po każdym etapie** - Możliwość rollback przez Git
+4. **Zachowanie funkcjonalności** - Zero regresji - aplikacja NIE MOŻE zostać naruszona
 5. **Zachowanie zmiennych CSS** - Nie usuwać, tylko optymalizować
 6. **Testy automatyczne** - Uruchomić testy po każdym etapie
 7. **Analiza użycia** - Sprawdzić każdy selektor przed usunięciem
@@ -210,11 +210,13 @@
 
 ## 📝 Notatki
 
+- **ZERO BACKUPÓW LOKALNYCH** - Wszystko tylko w Git
 - Wszystkie zmiany w Git, zero plików lokalnych
 - Każdy etap = osobny commit
 - Testy wizualne i funkcjonalne po każdym etapie
-- Możliwość rollback w każdej chwili
+- Możliwość rollback przez Git w każdej chwili
 - Dokumentacja zmian w każdym commicie
+- **Aplikacja NIE MOŻE zostać naruszona** - priorytet #1
 
 ---
 
