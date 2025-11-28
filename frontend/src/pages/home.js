@@ -74,18 +74,34 @@ export function renderHome(container) {
                 <h1>${t('about.title')}</h1>
                 <p class="section-intro">${t('about.intro')}</p>
                 <div class="about-content">
-                    <div class="about-section">
+                    <div class="about-intro-card">
                         <h2>${t('about.h2_1')}</h2>
                         <p>${t('about.p1')}</p>
                     </div>
-                    <div class="about-section">
-                        <h2>${t('about.h2_2')}</h2>
-                        <ul class="features-list">
-                            <li>🤖 <strong>${t('about.feat1')}</strong> - ${t('about.feat1d')}</li>
-                            <li>🎯 <strong>${t('about.feat2')}</strong> - ${t('about.feat2d')}</li>
-                            <li>⚡ <strong>${t('about.feat3')}</strong> - ${t('about.feat3d')}</li>
-                            <li>💎 <strong>${t('about.feat4')}</strong> - ${t('about.feat4d')}</li>
-                        </ul>
+                    <div class="about-features">
+                        <h2 class="features-title">${t('about.h2_2')}</h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">🤖</div>
+                                <h3>${t('about.feat1')}</h3>
+                                <p>${t('about.feat1d')}</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🎯</div>
+                                <h3>${t('about.feat2')}</h3>
+                                <p>${t('about.feat2d')}</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">⚡</div>
+                                <h3>${t('about.feat3')}</h3>
+                                <p>${t('about.feat3d')}</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">💎</div>
+                                <h3>${t('about.feat4')}</h3>
+                                <p>${t('about.feat4d')}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
