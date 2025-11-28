@@ -99,6 +99,10 @@ nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; he
 nav a:hover { color: var(--color-primary); text-shadow: 0 1px 6px var(--color-gold-rgba-5); transform: translateY(-2px); }
 
 nav a:hover::after { width: 100%; box-shadow: 0 0 8px var(--color-gold-rgba-5); }
+.lang-switcher { display: flex; gap: 0.5rem; align-items: center; }
+.lang-btn { background: rgba(26, 31, 58, 0.8); border: 2px solid var(--color-primary); border-radius: var(--radius-sm); padding: 0.5rem 0.8rem; font-size: 1.5rem; cursor: pointer; transition: var(--transition); backdrop-filter: blur(8px); }
+.lang-btn:hover { border-color: var(--color-primary-alt); background: rgba(26, 31, 58, 0.95); transform: scale(1.1); }
+.lang-btn.active { border-color: var(--color-primary); background: rgba(255, 215, 0, 0.2); border-width: 3px; }
 
 main { min-height: calc(100vh - 200px); }
 .container {

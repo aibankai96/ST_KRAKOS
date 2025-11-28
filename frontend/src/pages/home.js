@@ -1,19 +1,28 @@
 import { updateSEO, addStructuredData } from '../utils/seo.js'
 import { scrollToSection } from '../router.js'
+import { t, getLang } from '../utils/i18n.js'
 const ANIMATION_STEPS = 60
 const ANIMATION_DURATION = 2000
 const INTERSECTION_THRESHOLD = 0.3
 export function renderHome(container) {
-    updateSEO(
-        'ST KRAKOS - Innowacyjne rozwiązania AI',
-        'ST KRAKOS oferuje zaawansowane rozwiązania z wykorzystaniem sztucznej inteligencji. Generowanie stron, automatyzacja procesów i analiza danych.',
-        'AI, sztuczna inteligencja, automatyzacja, generowanie stron, ST KRAKOS'
-    )
+    const lang = getLang()
+    const seoTexts = lang === 'pl' ? {
+        title: 'ST KRAKOS - Innowacyjne rozwiązania AI',
+        desc: 'ST KRAKOS oferuje zaawansowane rozwiązania z wykorzystaniem sztucznej inteligencji. Generowanie stron, automatyzacja procesów i analiza danych.',
+        keywords: 'AI, sztuczna inteligencja, automatyzacja, generowanie stron, ST KRAKOS',
+        orgDesc: 'Innowacyjne rozwiązania z wykorzystaniem sztucznej inteligencji'
+    } : {
+        title: 'ST KRAKOS - Innovative AI Solutions',
+        desc: 'ST KRAKOS offers advanced solutions using artificial intelligence. Website generation, process automation and data analysis.',
+        keywords: 'AI, artificial intelligence, automation, website generation, ST KRAKOS',
+        orgDesc: 'Innovative solutions using artificial intelligence'
+    }
+    updateSEO(seoTexts.title, seoTexts.desc, seoTexts.keywords)
     addStructuredData({
         '@context': 'https://schema.org',
         '@type': 'Organization',
         name: 'ST KRAKOS',
-        description: 'Innowacyjne rozwiązania z wykorzystaniem sztucznej inteligencji',
+        description: seoTexts.orgDesc,
         url: window.location.origin
     })
     container.innerHTML = `
@@ -21,40 +30,40 @@ export function renderHome(container) {
             <div class="lion-pattern"></div>
             <div class="ai-badge-circle">
                 <span class="badge-icon">⚡</span>
-                <span class="badge-text">Wśród nielicznych w Polsce wykorzystujących AI</span>
+                <span class="badge-text">${t('hero.badge')}</span>
             </div>
             <div class="hero-content">
-                <h1>Twój Biznes Napędzany Sztuczną Inteligencją</h1>
-                <p class="hero-subtitle">ST KRAKOS - Wykorzystujemy najnowsze technologie AI, aby stworzyć dla Ciebie stronę lub aplikację, która przyciąga klientów i zwiększa sprzedaż. Profesjonalne rozwiązania, które działają.</p>
+                <h1>${t('hero.title')}</h1>
+                <p class="hero-subtitle">${t('hero.subtitle')}</p>
                 <div class="hero-buttons">
-                    <button class="cta-button primary" data-scroll="services">Poznaj nasze rozwiązania</button>
-                    <button class="cta-button secondary" data-scroll="contact">Bezpłatna konsultacja</button>
+                    <button class="cta-button primary" data-scroll="services">${t('hero.btn1')}</button>
+                    <button class="cta-button secondary" data-scroll="contact">${t('hero.btn2')}</button>
                 </div>
             </div>
         </section>
         <section id="ai-stats" class="ai-stats-section">
             <div class="container">
-                <h2>AI w Liczbach</h2>
-                <p class="section-intro">Sprawdzone statystyki pokazują, dlaczego sztuczna inteligencja to przyszłość biznesu</p>
+                <h2>${t('aiStats.title')}</h2>
+                <p class="section-intro">${t('aiStats.intro')}</p>
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-number" data-target="73" data-suffix="%">0%</div>
-                        <div class="stat-label">firm planuje zwiększyć inwestycje w AI do 2025 roku</div>
+                        <div class="stat-label">${t('aiStats.stat1')}</div>
                         <div class="stat-source">(McKinsey, 2023)</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number" data-target="40" data-suffix="%">0%</div>
-                        <div class="stat-label">wzrost produktywności dzięki wykorzystaniu AI</div>
+                        <div class="stat-label">${t('aiStats.stat2')}</div>
                         <div class="stat-source">(Accenture, 2023)</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number" data-target="15.7" data-prefix="$" data-suffix="T">$0T</div>
-                        <div class="stat-label">wartość AI dla globalnej gospodarki do 2030</div>
+                        <div class="stat-label">${t('aiStats.stat3')}</div>
                         <div class="stat-source">(PwC, 2023)</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number" data-target="85" data-suffix="%">0%</div>
-                        <div class="stat-label">firm zauważa poprawę jakości decyzji dzięki AI</div>
+                        <div class="stat-label">${t('aiStats.stat4')}</div>
                         <div class="stat-source">(Deloitte, 2023)</div>
                     </div>
                 </div>
@@ -62,20 +71,20 @@ export function renderHome(container) {
         </section>
         <section id="about" class="about-page">
             <div class="container">
-                <h1>O ST KRAKOS</h1>
-                <p class="section-intro">Poznaj zespół ekspertów, który przekształca technologie AI w realne korzyści biznesowe</p>
+                <h1>${t('about.title')}</h1>
+                <p class="section-intro">${t('about.intro')}</p>
                 <div class="about-content">
                     <div class="about-section">
-                        <h2>Tworzymy Przyszłość z AI</h2>
-                        <p>ST KRAKOS to eksperci, którzy przekształcają nowoczesne technologie sztucznej inteligencji w realne korzyści dla Twojego biznesu. Projektujemy i budujemy strony internetowe oraz aplikacje, które łączą elegancki design z inteligentnymi funkcjami, zapewniając Twojej firmie przewagę konkurencyjną.</p>
+                        <h2>${t('about.h2_1')}</h2>
+                        <p>${t('about.p1')}</p>
                     </div>
                     <div class="about-section">
-                        <h2>Dlaczego My?</h2>
+                        <h2>${t('about.h2_2')}</h2>
                         <ul class="features-list">
-                            <li>🤖 <strong>Technologie AI</strong> - wykorzystujemy najnowsze narzędzia wspomagane sztuczną inteligencją</li>
-                            <li>🎯 <strong>Indywidualne podejście</strong> - każdy projekt dostosowujemy do Twoich potrzeb</li>
-                            <li>⚡ <strong>Szybka realizacja</strong> - od koncepcji do wdrożenia w rekordowym czasie</li>
-                            <li>💎 <strong>Najwyższa jakość</strong> - profesjonalne rozwiązania, które przyciągają klientów</li>
+                            <li>🤖 <strong>${t('about.feat1')}</strong> - ${t('about.feat1d')}</li>
+                            <li>🎯 <strong>${t('about.feat2')}</strong> - ${t('about.feat2d')}</li>
+                            <li>⚡ <strong>${t('about.feat3')}</strong> - ${t('about.feat3d')}</li>
+                            <li>💎 <strong>${t('about.feat4')}</strong> - ${t('about.feat4d')}</li>
                         </ul>
                     </div>
                 </div>
@@ -83,97 +92,95 @@ export function renderHome(container) {
         </section>
         <section id="services" class="services">
             <div class="container">
-                <h2>Nasze Usługi</h2>
-                <p class="section-intro">
-                    Oferujemy kompleksowe rozwiązania webowe dostosowane do Twoich potrzeb. Od szybkich landing page'ów po zaawansowane aplikacje - każdy projekt realizujemy z dbałością o szczegóły i najwyższą jakość.
-                </p>
+                <h2>${t('services.title')}</h2>
+                <p class="section-intro">${t('services.intro')}</p>
                 <div class="certificate-info">
                     <div class="certificate-icon">🏆</div>
-                    <p class="certificate-text">Po zrealizowaniu projektu otrzymujesz certyfikat potwierdzający, że Twoja firma wykorzystuje sztuczną inteligencję w swojej działalności.</p>
+                    <p class="certificate-text">${t('services.cert')}</p>
                 </div>
                 <div class="services-category">
                     <div class="category-header">
-                        <span class="category-badge fast">⚡ Szybkie Projekty</span>
-                        <p class="category-description">Lekkie i estetyczne realizacje, które pozwalają szybko zaistnieć w sieci.</p>
+                        <span class="category-badge fast">${t('services.cat1')}</span>
+                        <p class="category-description">${t('services.cat1d')}</p>
                     </div>
                     <div class="services-grid">
                         <div class="service-card">
                             <div class="service-icon">📄</div>
-                            <h3>Landing Page</h3>
-                            <p>Jednostronicowa strona z sekcjami: hero, o nas, oferta, kontakt. Nowoczesny design, responsywność, animacje.</p>
-                            <p class="service-for"><strong>Dla:</strong> Start-upy, jednoosobowe działalności, eventy</p>
+                            <h3>${t('services.lp')}</h3>
+                            <p>${t('services.lpd')}</p>
+                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.lpf')}</p>
                         </div>
                         <div class="service-card">
                             <div class="service-icon">🔧</div>
-                            <h3>Modyfikacje Stron</h3>
-                            <p>Ulepszenie istniejącej strony. Poprawa błędów, optymalizacja, nowe sekcje, przyspieszenie działania.</p>
-                            <p class="service-for"><strong>Dla:</strong> Firmy z istniejącą stroną</p>
+                            <h3>${t('services.mod')}</h3>
+                            <p>${t('services.modd')}</p>
+                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.modf')}</p>
                         </div>
                         <div class="service-card">
                             <div class="service-icon">✨</div>
-                            <h3>Elementy Interaktywne</h3>
-                            <p>Animacje, galerie, FAQ. Nowoczesne efekty zwiększające zaangażowanie użytkowników.</p>
-                            <p class="service-for"><strong>Dla:</strong> Wszystkie firmy</p>
+                            <h3>${t('services.elem')}</h3>
+                            <p>${t('services.elemd')}</p>
+                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.elemf')}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="services-category">
                     <div class="category-header">
-                        <span class="category-badge medium">🎯 Projekty Średnie</span>
-                        <p class="category-description">Kompleksowe strony internetowe i proste systemy zarządzania treścią.</p>
+                        <span class="category-badge medium">${t('services.cat2')}</span>
+                        <p class="category-description">${t('services.cat2d')}</p>
                     </div>
                     <div class="services-grid">
                     <div class="service-card">
                         <div class="service-icon">🌐</div>
-                            <h3>Strona Firmowa</h3>
-                            <p>Wielostronicowa strona (5-15 podstron), projekt graficzny, blog, CMS, formularze, SEO.</p>
-                            <p class="service-for"><strong>Dla:</strong> Firmy usługowe, agencje, biznesy</p>
+                            <h3>${t('services.web')}</h3>
+                            <p>${t('services.webd')}</p>
+                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.webf')}</p>
                         </div>
                         <div class="service-card">
                             <div class="service-icon">🔐</div>
-                            <h3>Panele i Backend</h3>
-                            <p>System do zarządzania danymi. Logowanie, panel admin, CRUD, baza danych, API.</p>
-                            <p class="service-for"><strong>Dla:</strong> Firmy potrzebujące narzędzi wewnętrznych</p>
+                            <h3>${t('services.panel')}</h3>
+                            <p>${t('services.paneld')}</p>
+                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.panelf')}</p>
                         </div>
                         <div class="service-card">
                             <div class="service-icon">🔗</div>
-                            <h3>Integracje</h3>
-                            <p>Połączenie z CRM, automatyzacje, generowanie PDF, wysyłka maili, webhooki.</p>
-                            <p class="service-for"><strong>Dla:</strong> Firmy automatyzujące pracę</p>
+                            <h3>${t('services.int')}</h3>
+                            <p>${t('services.intd')}</p>
+                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.intf')}</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="services-category">
                     <div class="category-header">
-                        <span class="category-badge complex">🚀 Projekty Złożone</span>
-                        <p class="category-description">Aplikacje webowe z zaawansowanymi funkcjami, idealne jako MVP dla biznesu.</p>
+                        <span class="category-badge complex">${t('services.cat3')}</span>
+                        <p class="category-description">${t('services.cat3d')}</p>
                     </div>
                     <div class="services-grid">
                         <div class="service-card">
                             <div class="service-icon">💻</div>
-                            <h3>Aplikacja Webowa (MVP)</h3>
-                            <p>Baza danych, logowanie, panel użytkownika, dashboard. Gotowe rozwiązanie dla Twojego biznesu.</p>
-                            <p class="service-for"><strong>Dla:</strong> Startupy, firmy usługowe</p>
+                            <h3>${t('services.app')}</h3>
+                            <p>${t('services.appd')}</p>
+                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.appf')}</p>
                     </div>
                     <div class="service-card">
                             <div class="service-icon">📅</div>
-                            <h3>System Rezerwacji</h3>
-                            <p>Kalendarz z zapisami, formularz rezerwacji, potwierdzenia e-mail. Proste i skuteczne.</p>
-                            <p class="service-for"><strong>Dla:</strong> Fryzjerzy, trenerzy, gabinety</p>
+                            <h3>${t('services.res')}</h3>
+                            <p>${t('services.resd')}</p>
+                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.resf')}</p>
                     </div>
                     <div class="service-card">
                             <div class="service-icon">⚡</div>
-                            <h3>Moduł Real-Time</h3>
-                            <p>Czat, statusy online, powiadomienia. Komunikacja w czasie rzeczywistym.</p>
-                            <p class="service-for"><strong>Dla:</strong> Aplikacje komunikacyjne, narzędzia zespołowe</p>
+                            <h3>${t('services.rt')}</h3>
+                            <p>${t('services.rtd')}</p>
+                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.rtf')}</p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon">📊</div>
-                            <h3>Dashboard Analityczny</h3>
-                            <p>Wykresy, statystyki, eksport danych. Wgląd w kluczowe metryki biznesowe.</p>
-                            <p class="service-for"><strong>Dla:</strong> Firmy potrzebujące analizy danych</p>
+                            <h3>${t('services.dash')}</h3>
+                            <p>${t('services.dashd')}</p>
+                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.dashf')}</p>
                         </div>
                     </div>
                 </div>
@@ -181,70 +188,53 @@ export function renderHome(container) {
         </section>
         <section id="technologies" class="portfolio">
             <div class="container">
-                <h2>Nasze Narzędzia i Technologie</h2>
-                <p class="section-intro">
-                    Wykorzystujemy najnowsze narzędzia AI i technologie, aby tworzyć rozwiązania, które działają. Każdy projekt realizujemy z najwyższą jakością.
-                </p>
+                <h2>${t('tech.title')}</h2>
+                <p class="section-intro">${t('tech.intro')}</p>
                 <div class="portfolio-grid">
                     <div class="portfolio-item">
                         <div class="portfolio-image">🤖</div>
-                        <h3>Narzędzia AI</h3>
-                        <p>Najnowsze narzędzia wspomagane sztuczną inteligencją. Szybsza realizacja projektów przy zachowaniu najwyższej jakości.</p>
+                        <h3>${t('tech.t1')}</h3>
+                        <p>${t('tech.t1d')}</p>
                     </div>
                     <div class="portfolio-item">
                         <div class="portfolio-image">⚙️</div>
-                        <h3>Środowisko Programistyczne</h3>
-                        <p>Zaawansowane narzędzia deweloperskie. Stabilne, bezpieczne i wydajne aplikacje z wykorzystaniem sprawdzonych rozwiązań.</p>
+                        <h3>${t('tech.t2')}</h3>
+                        <p>${t('tech.t2d')}</p>
                     </div>
                     <div class="portfolio-item">
                         <div class="portfolio-image">🚀</div>
-                        <h3>Frameworki i Biblioteki</h3>
-                        <p>Nowoczesne technologie webowe. Szybkie działanie, bezpieczeństwo i kompatybilność na wszystkich urządzeniach.</p>
+                        <h3>${t('tech.t3')}</h3>
+                        <p>${t('tech.t3d')}</p>
                     </div>
                 </div>
                 <div class="technologies-cta">
-                    <p class="technologies-cta-text">
-                        Technologie to nasza specjalność - skup się na biznesie, resztą zajmiemy się my.
-                    </p>
+                    <p class="technologies-cta-text">${t('tech.cta')}</p>
                 </div>
             </div>
         </section>
         <section id="portfolio" class="portfolio-section">
             <div class="container">
-                <h2>Nasze Realizacje</h2>
-                <p class="section-intro">
-                    Oto przykłady naszych projektów realizowanych dla klientów. Każdy projekt to unikalne rozwiązanie dostosowane do potrzeb biznesowych.
-                </p>
+                <h2>${t('portfolio.title')}</h2>
+                <p class="section-intro">${t('portfolio.intro')}</p>
                 <div class="portfolio-projects">
                     <div class="project-card">
                         <div class="project-header">
-                            <h3>Nesyra.com</h3>
+                            <h3>${t('portfolio.p1')}</h3>
                             <span class="project-badge beta">BETA</span>
                         </div>
-                        <p class="project-description">
-                            Projekt realizowany dla naszego klienta. Wersja beta strony internetowej, która prezentuje nowoczesne podejście do biznesu. 
-                            <strong>Jesteśmy otwarci na współpracę z wszystkimi, którzy są otwarci na nowe propozycje biznesowe.</strong>
-                        </p>
+                        <p class="project-description">${t('portfolio.p1d')}</p>
                         <div class="project-link">
-                            <a href="https://nesyra.com" target="_blank" rel="noopener noreferrer" class="project-btn">
-                                Zobacz projekt →
-                            </a>
+                            <a href="https://nesyra.com" target="_blank" rel="noopener noreferrer" class="project-btn">${t('portfolio.view')}</a>
                         </div>
                     </div>
                     <div class="project-card">
                         <div class="project-header">
-                            <h3>Misja Czysta Woda</h3>
-                            <span class="project-badge client">PROJEKT KLIENTA</span>
+                            <h3>${t('portfolio.p2')}</h3>
+                            <span class="project-badge client">${lang === 'pl' ? 'PROJEKT KLIENTA' : 'CLIENT PROJECT'}</span>
                         </div>
-                        <p class="project-description">
-                            Kolejny projekt realizowany dla naszego klienta - <strong>Misja Czysta Woda</strong>. Strona internetowa dedykowana promocji 
-                            inicjatyw związanych z ochroną środowiska i czystością wód. Projekt łączy nowoczesny design z przekazem ekologicznym, 
-                            tworząc platformę informacyjną dla osób zaangażowanych w ochronę przyrody.
-                        </p>
+                        <p class="project-description">${t('portfolio.p2d')}</p>
                         <div class="project-link">
-                            <a href="https://misjaczystawoda.com" target="_blank" rel="noopener noreferrer" class="project-btn">
-                                Zobacz projekt →
-                            </a>
+                            <a href="https://misjaczystawoda.com" target="_blank" rel="noopener noreferrer" class="project-btn">${t('portfolio.view')}</a>
                         </div>
                     </div>
                 </div>
@@ -252,17 +242,17 @@ export function renderHome(container) {
         </section>
         <section id="contact" class="contact-page">
             <div class="container">
-                <h1>Skontaktuj się z nami</h1>
-                <p class="contact-intro">Masz pytania? Chcesz dowiedzieć się więcej o naszych usługach? Skontaktuj się z nami bezpośrednio!</p>
+                <h1>${t('contact.title')}</h1>
+                <p class="contact-intro">${t('contact.intro')}</p>
                 <div class="contact-info-wrapper">
                     <div class="contact-info">
-                        <h2>Informacje kontaktowe</h2>
+                        <h2>${t('contact.info')}</h2>
                         <div class="info-item">
-                            <strong>Email:</strong>
+                            <strong>${t('contact.email')}</strong>
                             <p><a href="mailto:kontakt@stkrakos.pl">kontakt@stkrakos.pl</a></p>
                         </div>
                         <div class="info-item">
-                            <strong>Telefon:</strong>
+                            <strong>${t('contact.phone')}</strong>
                             <p><a href="tel:+48123456789">+48 123 456 789</a></p>
                         </div>
                     </div>
