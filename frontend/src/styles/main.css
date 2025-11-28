@@ -460,12 +460,7 @@ main {
 }
 
 
-.services,
-.portfolio,
-.contact-page,
-.about-page,
-.ai-stats-section,
-.portfolio-section {
+:is(.services, .portfolio, .contact-page, .about-page, .ai-stats-section, .portfolio-section) {
     padding: var(--spacing-lg) 0;
     background: var(--gradient-bg);
     color: var(--color-text);
@@ -476,11 +471,7 @@ main {
     background: linear-gradient(180deg, #1a1f3a 0%, #0f1419 50%, #0a0e27 100%);
 }
 
-.services::before,
-.portfolio::before,
-.contact-page::before,
-.about-page::before,
-.portfolio-section::before {
+:is(.services, .portfolio, .contact-page, .about-page, .portfolio-section)::before {
     content: '';
     position: absolute;
     top: 0;
@@ -599,11 +590,8 @@ main {
     font-style: normal;
 }
 
-.services h2,
-.portfolio h2,
-.portfolio-section h2,
-.about-page h1,
-.contact-page h1,
+:is(.services, .portfolio, .portfolio-section) h2,
+:is(.about-page, .contact-page) h1,
 .ai-stats-section h2 {
     text-align: center;
     font-size: 2.8rem;
@@ -620,16 +608,12 @@ main {
     width: 100%;
     padding-bottom: var(--spacing-xs);
 }
-.services h2,
-.portfolio h2 {
+:is(.services, .portfolio) h2 {
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
 }
-.services h2::after,
-.portfolio h2::after,
-.portfolio-section h2::after,
-.about-page h1::after,
-.contact-page h1::after {
+:is(.services, .portfolio, .portfolio-section) h2::after,
+:is(.about-page, .contact-page) h1::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -656,18 +640,6 @@ main {
     100% { background-position: 200% 0; }
 }
 
-.services-intro {
-    text-align: center;
-    font-size: 1.4rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0 auto 3rem;
-    max-width: 900px;
-    line-height: 1.9;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.1);
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    padding: 0 1rem;
-}
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -685,10 +657,7 @@ main {
     }
 }
 
-.service-card,
-.stat-card,
-.portfolio-item,
-.project-card {
+:is(.service-card, .stat-card, .portfolio-item, .project-card) {
     background: linear-gradient(135deg, rgba(26, 31, 58, 0.9) 0%, rgba(15, 20, 25, 0.95) 100%);
     padding: var(--spacing-md);
     border-radius: var(--radius-lg);
@@ -701,7 +670,6 @@ main {
 .service-card {
     padding: 2rem;
     background: linear-gradient(135deg, rgba(26, 31, 58, 0.95) 0%, rgba(15, 20, 25, 0.98) 100%);
-    border-radius: var(--radius-lg);
     text-align: center;
     border: 1px solid var(--color-gold-rgba-3);
     overflow: hidden;
@@ -804,8 +772,7 @@ main {
     }
 }
 
-.service-card,
-.portfolio-item {
+:is(.service-card, .portfolio-item) {
     animation: fadeInUp 0.6s ease-out;
 }
 
@@ -890,16 +857,6 @@ footer {
     font-style: italic;
 }
 
-.contact-intro {
-    text-align: center;
-    font-size: 1.4rem;
-    color: #ffffff;
-    margin: 0 auto 3rem;
-    max-width: 800px;
-    line-height: 1.9;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-}
 
 .contact-wrapper {
     display: grid;
@@ -1007,10 +964,7 @@ footer {
     margin: 3rem auto 0;
     max-width: 1200px;
 }
-.service-card:hover,
-.stat-card:hover,
-.portfolio-item:hover,
-.project-card:hover {
+:is(.service-card, .stat-card, .portfolio-item, .project-card):hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg), var(--shadow-gold-lg);
     border-color: var(--color-primary);
@@ -1049,24 +1003,6 @@ footer {
     100% { background-position: 200% 0; }
 }
 
-.portfolio-section {
-    padding: var(--spacing-lg) 0;
-    background: var(--gradient-bg);
-    color: var(--color-text);
-    position: relative;
-}
-
-.portfolio-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--gradient-gold-line);
-    background-size: 200% 100%;
-    animation: gold-line-move 4s linear infinite;
-}
 
 
 .portfolio-projects {
@@ -1078,11 +1014,6 @@ footer {
 }
 
 
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg), var(--shadow-gold-lg);
-    border-color: var(--color-primary);
-}
 
 .project-header {
     display: flex;
@@ -1153,7 +1084,7 @@ footer {
 }
 
 
-.section-intro {
+:is(.section-intro, .services-intro, .contact-intro) {
     text-align: center;
     font-size: 1.4rem;
     color: rgba(255, 255, 255, 0.9);
@@ -1292,12 +1223,6 @@ footer {
 }
 
 
-.services-intro {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 3rem;
-}
 
 
 
