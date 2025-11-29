@@ -17,13 +17,19 @@ const sanitizeInput = (v) => v.replace(/<[^>]*>/g, '').trim()
 export const validators = {
   name: (v) => {
     const sanitized = sanitizeInput(v)
-    if (sanitized.length < LIMITS.name.min || sanitized.length > LIMITS.name.max) return ERR_MSG.name
-    if (sanitized !== v.trim()) return ERR_MSG.name
+    if (sanitized.length < LIMITS.name.min || sanitized.length > LIMITS.name.max) {
+      return ERR_MSG.name
+    }
+    if (sanitized !== v.trim()) {
+      return ERR_MSG.name
+    }
     return true
   },
   email: (v) => {
     const sanitized = sanitizeInput(v)
-    if (sanitized !== v.trim()) return ERR_MSG.email
+    if (sanitized !== v.trim()) {
+      return ERR_MSG.email
+    }
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitized) ? true : ERR_MSG.email
   },
   subject: (v) => lengthCheck(v, LIMITS.subject.min, LIMITS.subject.max, ERR_MSG.subject),

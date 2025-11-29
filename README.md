@@ -4,12 +4,18 @@ Strona firmowa ST KRAKOS wykorzystująca sztuczną inteligencję do generowania 
 
 ## 🚀 Funkcjonalności
 
-- **Generowanie Stron przez AI** - Panel administracyjny do tworzenia stron przez AI
-- **Blog z AI** - Automatyczne generowanie artykułów blogowych
-- **CMS** - System zarządzania treścią
-- **SEO Optimization** - Meta tagi, structured data, Open Graph
-- **Social Media Integration** - Udostępnianie na Facebook, Twitter, LinkedIn
+- **Strona Firmowa** - Kompleksowa strona firmowa z sekcjami:
+  - Hero section z animacjami
+  - Sekcja "O nas" z opisem firmy
+  - Sekcja usług z kategoriami (szybkie, średnie, złożone projekty)
+  - Sekcja portfolio z przykładami realizacji
+  - Sekcja kontaktowa z danymi kontaktowymi
+  - Statystyki AI z animacjami liczb
+- **Wielojęzyczność** - Obsługa języków polskiego (PL) i angielskiego (EN) z przełącznikiem
+- **SEO Optimization** - Meta tagi, structured data (JSON-LD), Open Graph
 - **Responsive Design** - Mobile-first, działa na wszystkich urządzeniach
+- **Service Worker (PWA)** - Progressive Web App z cache'owaniem
+- **API do Generowania Stron przez AI** - Backend API do generowania treści i stron przez OpenAI
 
 ## 🛠️ Technologie
 
@@ -23,8 +29,8 @@ Strona firmowa ST KRAKOS wykorzystująca sztuczną inteligencję do generowania 
 ### Frontend
 - JavaScript (ES6+)
 - Vite (build tool)
-- Axios (HTTP client)
 - Vanilla JS (bez frameworków)
+- Service Worker (PWA)
 
 ## 📦 Instalacja
 
@@ -96,10 +102,10 @@ pytest --cov=backend --cov-report=html
 │   └── tests/       # Testy
 ├── frontend/        # Frontend
 │   ├── src/
-│   │   ├── pages/   # Strony
-│   │   ├── components/ # Komponenty
-│   │   ├── api/     # API client
-│   │   └── utils/   # Narzędzia (SEO, social)
+│   │   ├── pages/   # Strony (home.js)
+│   │   ├── components/ # Komponenty (layout.js)
+│   │   ├── router.js # Routing
+│   │   └── utils/   # Narzędzia (i18n, SEO, validators)
 │   └── tests/       # Testy
 └── docs/            # Dokumentacja
 ```

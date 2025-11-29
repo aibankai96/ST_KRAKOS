@@ -44,10 +44,14 @@
                 const basePath = window.location.pathname.includes('/ST_KRAKOS/') ? '/ST_KRAKOS/' : '/'
                 navigator.serviceWorker.register(`${basePath}sw.js`)
                     .then((registration) => {
-                        console.log('Service Worker registered:', registration.scope)
+                        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                            console.log('Service Worker registered:', registration.scope)
+                        }
                     })
                     .catch((error) => {
-                        console.log('Service Worker registration failed:', error)
+                        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                            console.log('Service Worker registration failed:', error)
+                        }
                     })
             })
         } else if ('serviceWorker' in navigator) {
@@ -55,7 +59,9 @@
             navigator.serviceWorker.getRegistrations().then((registrations) => {
                 registrations.forEach((registration) => {
                     registration.unregister()
-                    console.log('Service Worker unregistered for development')
+                    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        console.log('Service Worker unregistered for development')
+                    }
                 })
             })
         }
