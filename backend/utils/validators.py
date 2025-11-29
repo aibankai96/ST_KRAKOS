@@ -50,4 +50,31 @@ class Validator:
         text = re.sub(r'<script[^>]*>.*?</script>', '', text, flags=re.IGNORECASE | re.DOTALL)
         text = re.sub(r'javascript:', '', text, flags=re.IGNORECASE)
         return text
+    
+    @staticmethod
+    def sanitize_html(html_content: str, max_length: int = 100000) -> str:
+        """Sanityzuje HTML z odpowiedzi AI - usuwa niebezpieczne tagi i atrybuty"""
+        if not html_content:
+            return ""
+        
+        # Usuń script, iframe, object, embed
+        html_content = re.sub(r'<script[^>]*>.*?</script>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
+        html_content = re.sub(r'<iframe[^>]*>.*?</iframe>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
+        html_content = re.sub(r'<object[^>]*>.*?</object>', '', html_content, flags=re.IGNORECASE | re.DOTALL)
+        html_content = re.sub(r'<embed[^>]*>', '', html_content, flags=re.IGNORECASE)
+        
+        # Usuń event handlers (onclick, onerror, etc.)
+        html_content = re.sub(r'\s+on\w+\s*=\s*["\'][^"\']*["\']', '', html_content, flags=re.IGNORECASE)
+        
+        # Usuń javascript: w atrybutach
+        html_content = re.sub(r'javascript:', '', html_content, flags=re.IGNORECASE)
+        
+        # Usuń data: URLs (może zawierać kod)
+        html_content = re.sub(r'data:\s*[^;]*;base64[^"\'>\s]*', '', html_content, flags=re.IGNORECASE)
+        
+        # Ograniczenie długości
+        if len(html_content) > max_length:
+            html_content = html_content[:max_length] + "... [truncated]"
+        
+        return html_content.strip()
 
