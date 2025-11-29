@@ -1,5 +1,6 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
+import uuid
 from backend.config import Config
 from backend.api.routes import api_bp
 from backend.middleware.rate_limit import init_rate_limiter
@@ -15,6 +16,10 @@ limiter = init_rate_limiter(app)
 register_error_handlers(app)
 
 app.register_blueprint(api_bp, url_prefix='/api')
+
+@app.before_request
+def set_request_id():
+    request.request_id = str(uuid.uuid4())[:8]
 
 from functools import wraps
 from flask_limiter.util import get_remote_address

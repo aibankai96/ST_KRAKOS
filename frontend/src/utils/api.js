@@ -10,45 +10,37 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
  * @param {object} options - Opcje fetch (method, body, headers)
  * @returns {Promise} Promise z odpowiedzią JSON
  */
-async function request(endpoint, options = {}) {
+async function request(endpoint, options = {}, retries = 3) {
   const url = `${API_BASE_URL}${endpoint}`
-  
   const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
+    headers: {'Content-Type': 'application/json', ...options.headers},
     ...options,
   }
-  
-  // Konwersja body do JSON jeśli to obiekt
   if (config.body && typeof config.body === 'object') {
     config.body = JSON.stringify(config.body)
   }
   
-  try {
-    // Timeout 30 sekund
-    const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 30000)
-    
-    const response = await fetch(url, {
-      ...config,
-      signal: controller.signal,
-    })
-    
-    clearTimeout(timeoutId)
-    
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({error: 'Unknown error'}))
-      throw new Error(error.error || `HTTP ${response.status}`)
+  for (let i = 0; i < retries; i++) {
+    try {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 30000)
+      const response = await fetch(url, {...config, signal: controller.signal})
+      clearTimeout(timeoutId)
+      
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({error: 'Unknown error'}))
+        throw new Error(error.error || `HTTP ${response.status}`)
+      }
+      return await response.json()
+    } catch (error) {
+      const isLastRetry = i === retries - 1
+      const isNetworkError = error.name === 'TypeError' || error.name === 'AbortError' || error.message?.includes('timeout') || error.message?.includes('network')
+      if (!isNetworkError || isLastRetry) {
+        if (error.name === 'AbortError') throw new Error('Request timeout - server did not respond in time (30s limit)')
+        throw error
+      }
+      await new Promise(r => setTimeout(r, 1000 * Math.pow(2, i)))
     }
-    
-    return await response.json()
-  } catch (error) {
-    if (error.name === 'AbortError') {
-      throw new Error('Request timeout - server did not respond in time (30s limit)')
-    }
-    throw error
   }
 }
 

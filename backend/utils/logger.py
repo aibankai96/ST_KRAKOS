@@ -2,6 +2,7 @@ import logging
 import os
 import json
 from datetime import datetime
+from flask import has_request_context, request
 from backend.config import Config
 
 class JSONFormatter(logging.Formatter):
@@ -14,6 +15,8 @@ class JSONFormatter(logging.Formatter):
             'module': record.module,
             'function': record.funcName
         }
+        if has_request_context() and hasattr(request, 'request_id'):
+            log_entry['request_id'] = request.request_id
         if record.exc_info:
             log_entry['exception'] = self.formatException(record.exc_info)
         return json.dumps(log_entry)
@@ -24,10 +27,19 @@ def setup_logger(name: str = "ST_KRAKOS") -> logging.Logger:
     
     if not logger.handlers:
         use_json = os.getenv('LOG_JSON', 'False').lower() == 'true'
-        formatter = JSONFormatter() if use_json else logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-            datefmt='%Y-%m-%d %H:%M:%S'
-        )
+        if use_json:
+            formatter = JSONFormatter()
+        else:
+            class RequestFormatter(logging.Formatter):
+                def format(self, record):
+                    msg = super().format(record)
+                    if has_request_context() and hasattr(request, 'request_id'):
+                        return f"[{request.request_id}] {msg}"
+                    return msg
+            formatter = RequestFormatter(
+                '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                datefmt='%Y-%m-%d %H:%M:%S'
+            )
         
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)

@@ -9,6 +9,13 @@ ai_service = AIService()
 validator = Validator()
 logger = setup_logger()
 
+ERROR_CODES = {
+    'VALIDATION': 'ERR_VALIDATION',
+    'AI_TIMEOUT': 'ERR_AI_TIMEOUT',
+    'AI_ERROR': 'ERR_AI_ERROR',
+    'INTERNAL': 'ERR_INTERNAL'
+}
+
 @api_bp.route('/health', methods=['GET'])
 def health():
     return jsonify({
@@ -31,7 +38,7 @@ def generate_page():
     try:
         data = request.get_json()
         if not data:
-            return jsonify({"error": "Brak danych w żądaniu"}), 400
+            return jsonify({"error": "Brak danych w żądaniu", "error_code": ERROR_CODES['VALIDATION']}), 400
         
         prompt = data.get('prompt', '')
         page_type = data.get('page_type', 'landing')
@@ -40,17 +47,17 @@ def generate_page():
         prompt_validation = validator.validate_prompt(prompt)
         if not prompt_validation['valid']:
             logger.warning(f"Invalid prompt: {prompt_validation['error']}")
-            return jsonify({"error": prompt_validation['error']}), 400
+            return jsonify({"error": prompt_validation['error'], "error_code": ERROR_CODES['VALIDATION']}), 400
         
         page_type_validation = validator.validate_page_type(page_type)
         if not page_type_validation['valid']:
             logger.warning(f"Invalid page type: {page_type_validation['error']}")
-            return jsonify({"error": page_type_validation['error']}), 400
+            return jsonify({"error": page_type_validation['error'], "error_code": ERROR_CODES['VALIDATION']}), 400
         
         title_validation = validator.validate_title(title)
         if not title_validation['valid']:
             logger.warning(f"Invalid title: {title_validation['error']}")
-            return jsonify({"error": title_validation['error']}), 400
+            return jsonify({"error": title_validation['error'], "error_code": ERROR_CODES['VALIDATION']}), 400
         
         sanitized_prompt = validator.sanitize_input(prompt)
         sanitized_title = validator.sanitize_input(title)
@@ -67,11 +74,13 @@ def generate_page():
             return jsonify({"html": html, "content": result['content']})
         
         logger.error(f"Page generation failed: {result.get('error')}")
-        return jsonify({"error": result.get('error', 'Błąd generowania')}), 500
+        error_msg = result.get('error', 'Błąd generowania')
+        error_code = ERROR_CODES['AI_TIMEOUT'] if 'timeout' in error_msg.lower() else ERROR_CODES['AI_ERROR']
+        return jsonify({"error": error_msg, "error_code": error_code}), 500
         
     except Exception as e:
         logger.error(f"Exception in generate_page: {str(e)}", exc_info=True)
-        return jsonify({"error": "Wystąpił błąd podczas generowania strony"}), 500
+        return jsonify({"error": "Wystąpił błąd podczas generowania strony", "error_code": ERROR_CODES['INTERNAL']}), 500
 
 @api_bp.route('/generate-content', methods=['POST'])
 @monitor_performance
@@ -79,14 +88,14 @@ def generate_content():
     try:
         data = request.get_json()
         if not data:
-            return jsonify({"error": "Brak danych w żądaniu"}), 400
+            return jsonify({"error": "Brak danych w żądaniu", "error_code": ERROR_CODES['VALIDATION']}), 400
         
         prompt = data.get('prompt', '')
         
         prompt_validation = validator.validate_prompt(prompt)
         if not prompt_validation['valid']:
             logger.warning(f"Invalid prompt: {prompt_validation['error']}")
-            return jsonify({"error": prompt_validation['error']}), 400
+            return jsonify({"error": prompt_validation['error'], "error_code": ERROR_CODES['VALIDATION']}), 400
         
         sanitized_prompt = validator.sanitize_input(prompt)
         
@@ -97,10 +106,13 @@ def generate_content():
             logger.info("Content generated successfully")
         else:
             logger.error(f"Content generation failed: {result.get('error')}")
+            error_msg = result.get('error', 'Błąd generowania')
+            error_code = ERROR_CODES['AI_TIMEOUT'] if 'timeout' in error_msg.lower() else ERROR_CODES['AI_ERROR']
+            result['error_code'] = error_code
         
         return jsonify(result)
         
     except Exception as e:
         logger.error(f"Exception in generate_content: {str(e)}", exc_info=True)
-        return jsonify({"error": "Wystąpił błąd podczas generowania treści"}), 500
+        return jsonify({"error": "Wystąpił błąd podczas generowania treści", "error_code": ERROR_CODES['INTERNAL']}), 500
 

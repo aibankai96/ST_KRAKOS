@@ -25,7 +25,7 @@ export function renderHome(container) {
     url: window.location.origin
   })
   container.innerHTML = `
-        <section id="home" class="hero">
+        <section id="home" class="hero" role="banner" aria-label="Hero section">
             <div class="lion-pattern"></div>
             <div class="ai-badge-circle">
                 <span class="badge-icon">⚡</span>
@@ -35,12 +35,12 @@ export function renderHome(container) {
                 <h1>${t('hero.title')}</h1>
                 <p class="hero-subtitle">${t('hero.subtitle')}</p>
                 <div class="hero-buttons">
-                    <button class="cta-button primary" data-scroll="services">${t('hero.btn1')}</button>
-                    <button class="cta-button secondary" data-scroll="contact">${t('hero.btn2')}</button>
+                    <button class="cta-button primary" data-scroll="services" aria-label="${t('hero.btn1')}" type="button">${t('hero.btn1')}</button>
+                    <button class="cta-button secondary" data-scroll="contact" aria-label="${t('hero.btn2')}" type="button">${t('hero.btn2')}</button>
                 </div>
             </div>
         </section>
-        <section id="ai-stats" class="ai-stats-section">
+        <section id="ai-stats" class="ai-stats-section" role="region" aria-label="AI Statistics">
             <div class="container">
                 <h2>${t('aiStats.title')}</h2>
                 <p class="section-intro">${t('aiStats.intro')}</p>
@@ -68,7 +68,7 @@ export function renderHome(container) {
                 </div>
             </div>
         </section>
-        <section id="about" class="about-page">
+        <section id="about" class="about-page" role="region" aria-label="About us">
             <div class="container">
                 <h1>${t('about.title')}</h1>
                 <p class="section-intro">${t('about.intro')}</p>
@@ -105,7 +105,7 @@ export function renderHome(container) {
                 </div>
             </div>
         </section>
-        <section id="services" class="services">
+        <section id="services" class="services" role="region" aria-label="Services">
             <div class="container">
                 <h2>${t('services.title')}</h2>
                 <p class="section-intro">${t('services.intro')}</p>
@@ -201,7 +201,7 @@ export function renderHome(container) {
                 </div>
             </div>
         </section>
-        <section id="technologies" class="portfolio">
+        <section id="technologies" class="portfolio" role="region" aria-label="Technologies">
             <div class="container">
                 <h2>${t('tech.title')}</h2>
                 <p class="section-intro">${t('tech.intro')}</p>
@@ -227,7 +227,7 @@ export function renderHome(container) {
                 </div>
             </div>
         </section>
-        <section id="portfolio" class="portfolio-section">
+        <section id="portfolio" class="portfolio-section" role="region" aria-label="Portfolio">
             <div class="container">
                 <h2>${t('portfolio.title')}</h2>
                 <p class="section-intro">${t('portfolio.intro')}</p>
@@ -239,7 +239,7 @@ export function renderHome(container) {
                         </div>
                         <p class="project-description">${t('portfolio.p1d')}</p>
                         <div class="project-link">
-                            <a href="https://nesyra.com" target="_blank" rel="noopener noreferrer" class="project-btn">${t('portfolio.view')}</a>
+                            <a href="https://nesyra.com" target="_blank" rel="noopener noreferrer" class="project-btn" aria-label="${t('portfolio.view')} - ${t('portfolio.p1')}">${t('portfolio.view')}</a>
                         </div>
                     </div>
                     <div class="project-card">
@@ -249,13 +249,13 @@ export function renderHome(container) {
                         </div>
                         <p class="project-description">${t('portfolio.p2d')}</p>
                         <div class="project-link">
-                            <a href="https://misjaczystawoda.com" target="_blank" rel="noopener noreferrer" class="project-btn">${t('portfolio.view')}</a>
+                            <a href="https://misjaczystawoda.com" target="_blank" rel="noopener noreferrer" class="project-btn" aria-label="${t('portfolio.view')} - ${t('portfolio.p2')}">${t('portfolio.view')}</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section id="contact" class="contact-page">
+        <section id="contact" class="contact-page" role="region" aria-label="Contact">
             <div class="container">
                 <h1>${t('contact.title')}</h1>
                 <p class="contact-intro">${t('contact.intro')}</p>
@@ -264,11 +264,11 @@ export function renderHome(container) {
                         <h2>${t('contact.info')}</h2>
                         <div class="info-item">
                             <strong>${t('contact.email')}</strong>
-                            <p><a href="mailto:kontakt@stkrakos.pl">kontakt@stkrakos.pl</a></p>
+                            <p><a href="mailto:kontakt@stkrakos.pl" aria-label="Email kontakt@stkrakos.pl">kontakt@stkrakos.pl</a></p>
                         </div>
                         <div class="info-item">
                             <strong>${t('contact.phone')}</strong>
-                            <p><a href="tel:+48123456789">+48 123 456 789</a></p>
+                            <p><a href="tel:+48123456789" aria-label="Telefon +48 123 456 789">+48 123 456 789</a></p>
                         </div>
                     </div>
                 </div>
