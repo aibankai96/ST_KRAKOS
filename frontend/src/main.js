@@ -1,5 +1,18 @@
 import {initRouter} from './router.js'
 import {renderLayout} from './components/layout.js'
+import {showError} from './utils/error.js'
+
+// Global error handler
+window.addEventListener('error', (event) => {
+  console.error('Global error:', event.error)
+  showError('Wystąpił nieoczekiwany błąd. Odśwież stronę jeśli problem się powtarza.')
+})
+
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('Unhandled promise rejection:', event.reason)
+  showError('Wystąpił błąd podczas wykonywania operacji.')
+})
+
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.getElementById('app')
   if (!app) {
