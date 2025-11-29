@@ -42,7 +42,7 @@ describe('Service Worker Tests', () => {
         const waitUntilIndex = activateCode.indexOf('event.waitUntil')
         const claimIndex = activateCode.indexOf('clients.claim()')
         const waitUntilEnd = activateCode.lastIndexOf('})', waitUntilIndex)
-        
+
         expect(waitUntilIndex).not.toBe(-1)
         expect(claimIndex).not.toBe(-1)
         expect(claimIndex).toBeGreaterThan(waitUntilIndex)
@@ -56,7 +56,7 @@ describe('Service Worker Tests', () => {
         const activateCode = activateMatch[0]
         const waitUntilEnd = activateCode.lastIndexOf('})')
         const codeAfterWaitUntil = activateCode.substring(waitUntilEnd + 2)
-        
+
         // Sprawdź czy nie ma return poza waitUntil
         const returnMatch = codeAfterWaitUntil.match(/^\s*return\s+/m)
         expect(returnMatch).toBeNull()

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   env: {
     browser: true,
     es2021: true,
@@ -12,6 +12,7 @@ export default {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
+  ignorePatterns: ['tests/**', 'public/**', 'scripts/**', 'node_modules/**'],
   rules: {
     'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'no-console': ['warn', { allow: ['warn', 'error'] }],

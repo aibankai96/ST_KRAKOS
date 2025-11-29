@@ -1,31 +1,30 @@
-import { updateSEO, addStructuredData } from '../utils/seo.js'
-import { scrollToSection } from '../router.js'
-import { t, getLang } from '../utils/i18n.js'
+import {updateSEO, addStructuredData} from '../utils/seo.js'
+import {t, getLang} from '../utils/i18n.js'
 const ANIMATION_STEPS = 60
 const ANIMATION_DURATION = 2000
 const INTERSECTION_THRESHOLD = 0.3
 export function renderHome(container) {
-    const lang = getLang()
-    const seoTexts = lang === 'pl' ? {
-        title: 'ST KRAKOS - Innowacyjne rozwiązania AI',
-        desc: 'ST KRAKOS oferuje zaawansowane rozwiązania z wykorzystaniem sztucznej inteligencji. Generowanie stron, automatyzacja procesów i analiza danych.',
-        keywords: 'AI, sztuczna inteligencja, automatyzacja, generowanie stron, ST KRAKOS',
-        orgDesc: 'Innowacyjne rozwiązania z wykorzystaniem sztucznej inteligencji'
-    } : {
-        title: 'ST KRAKOS - Innovative AI Solutions',
-        desc: 'ST KRAKOS offers advanced solutions using artificial intelligence. Website generation, process automation and data analysis.',
-        keywords: 'AI, artificial intelligence, automation, website generation, ST KRAKOS',
-        orgDesc: 'Innovative solutions using artificial intelligence'
-    }
-    updateSEO(seoTexts.title, seoTexts.desc, seoTexts.keywords)
-    addStructuredData({
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        name: 'ST KRAKOS',
-        description: seoTexts.orgDesc,
-        url: window.location.origin
-    })
-    container.innerHTML = `
+  const lang = getLang()
+  const seoTexts = lang === 'pl' ? {
+    title: 'ST KRAKOS - Innowacyjne rozwiązania AI',
+    desc: 'ST KRAKOS oferuje zaawansowane rozwiązania z wykorzystaniem sztucznej inteligencji. Generowanie stron, automatyzacja procesów i analiza danych.',
+    keywords: 'AI, sztuczna inteligencja, automatyzacja, generowanie stron, ST KRAKOS',
+    orgDesc: 'Innowacyjne rozwiązania z wykorzystaniem sztucznej inteligencji'
+  } : {
+    title: 'ST KRAKOS - Innovative AI Solutions',
+    desc: 'ST KRAKOS offers advanced solutions using artificial intelligence. Website generation, process automation and data analysis.',
+    keywords: 'AI, artificial intelligence, automation, website generation, ST KRAKOS',
+    orgDesc: 'Innovative solutions using artificial intelligence'
+  }
+  updateSEO(seoTexts.title, seoTexts.desc, seoTexts.keywords)
+  addStructuredData({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'ST KRAKOS',
+    description: seoTexts.orgDesc,
+    url: window.location.origin
+  })
+  container.innerHTML = `
         <section id="home" class="hero">
             <div class="lion-pattern"></div>
             <div class="ai-badge-circle">
@@ -276,28 +275,32 @@ export function renderHome(container) {
             </div>
         </section>
     `
-    setupStatsAnimation()
+  setupStatsAnimation()
 }
 function setupStatsAnimation() {
-    const statsSection = document.getElementById('ai-stats')
-    if (!statsSection) return
-    const statNumbers = statsSection.querySelectorAll('.stat-number')
-    let hasAnimated = false
-    new IntersectionObserver((entries) => {
-        if (entries[0]?.isIntersecting && !hasAnimated) {
-            hasAnimated = true
-            statNumbers.forEach(stat => {
-                const target = parseFloat(stat.getAttribute('data-target'))
-                const prefix = stat.getAttribute('data-prefix') || ''
-                const suffix = stat.getAttribute('data-suffix') || ''
-                const step = target / ANIMATION_STEPS
-                let current = 0
-                const timer = setInterval(() => {
-                    current = Math.min(current + step, target)
-                    stat.textContent = `${prefix}${suffix === 'T' ? current.toFixed(1) : Math.floor(current)}${suffix}`
-                    if (current >= target) clearInterval(timer)
-                }, ANIMATION_DURATION / ANIMATION_STEPS)
-            })
-        }
-    }, { threshold: INTERSECTION_THRESHOLD }).observe(statsSection)
+  const statsSection = document.getElementById('ai-stats')
+  if (!statsSection) {
+    return
+  }
+  const statNumbers = statsSection.querySelectorAll('.stat-number')
+  let hasAnimated = false
+  new IntersectionObserver((entries) => {
+    if (entries[0]?.isIntersecting && !hasAnimated) {
+      hasAnimated = true
+      statNumbers.forEach(stat => {
+        const target = parseFloat(stat.getAttribute('data-target'))
+        const prefix = stat.getAttribute('data-prefix') || ''
+        const suffix = stat.getAttribute('data-suffix') || ''
+        const step = target / ANIMATION_STEPS
+        let current = 0
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target)
+          stat.textContent = `${prefix}${suffix === 'T' ? current.toFixed(1) : Math.floor(current)}${suffix}`
+          if (current >= target) {
+            clearInterval(timer)
+          }
+        }, ANIMATION_DURATION / ANIMATION_STEPS)
+      })
+    }
+  }, {threshold: INTERSECTION_THRESHOLD}).observe(statsSection)
 }

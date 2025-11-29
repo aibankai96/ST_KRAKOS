@@ -38,7 +38,8 @@
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
     <script>
-        if ('serviceWorker' in navigator) {
+        // Wyłącz Service Worker w trybie deweloperskim (localhost)
+        if ('serviceWorker' in navigator && !window.location.hostname.includes('localhost')) {
             window.addEventListener('load', () => {
                 const basePath = window.location.pathname.includes('/ST_KRAKOS/') ? '/ST_KRAKOS/' : '/'
                 navigator.serviceWorker.register(`${basePath}sw.js`)
@@ -48,6 +49,14 @@
                     .catch((error) => {
                         console.log('Service Worker registration failed:', error)
                     })
+            })
+        } else if ('serviceWorker' in navigator) {
+            // Wyłącz wszystkie Service Workery w trybie deweloperskim
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                registrations.forEach((registration) => {
+                    registration.unregister()
+                    console.log('Service Worker unregistered for development')
+                })
             })
         }
     </script>

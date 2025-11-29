@@ -58,10 +58,10 @@ export const generatePage = async (prompt, pageType = 'landing', title = 'ST KRA
       page_type: pageType,
       title
     })
-    return { success: true, data: response.data }
+    return {success: true, data: response.data}
   } catch (error) {
-    return { 
-      success: false, 
+    return {
+      success: false,
       error: error?.message || 'Błąd podczas generowania strony',
       status: error?.status || 0
     }
@@ -70,11 +70,11 @@ export const generatePage = async (prompt, pageType = 'landing', title = 'ST KRA
 
 export const generateContent = async (prompt) => {
   try {
-    const response = await apiClient.post('/api/generate-content', { prompt })
-    return { success: true, data: response.data }
+    const response = await apiClient.post('/api/generate-content', {prompt})
+    return {success: true, data: response.data}
   } catch (error) {
-    return { 
-      success: false, 
+    return {
+      success: false,
       error: error?.message || 'Błąd podczas generowania treści',
       status: error?.status || 0
     }
@@ -84,10 +84,10 @@ export const generateContent = async (prompt) => {
 export const checkHealth = async () => {
   try {
     const response = await apiClient.get('/api/health')
-    return { success: true, data: response.data }
+    return {success: true, data: response.data}
   } catch (error) {
-    return { 
-      success: false, 
+    return {
+      success: false,
       error: error?.message || 'Brak połączenia z backendem',
       status: error?.status || 0
     }
@@ -97,10 +97,10 @@ export const checkHealth = async () => {
 export const getMetrics = async () => {
   try {
     const response = await apiClient.get('/api/metrics')
-    return { success: true, data: response.data }
+    return {success: true, data: response.data}
   } catch (error) {
-    return { 
-      success: false, 
+    return {
+      success: false,
       error: error?.message || 'Błąd podczas pobierania metryk',
       status: error?.status || 0
     }

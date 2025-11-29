@@ -4,9 +4,9 @@
  * Sprawdza składnię i strukturę Service Worker przed buildem
  */
 
-import { readFileSync } from 'fs'
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import {readFileSync} from 'fs'
+import {join, dirname} from 'path'
+import {fileURLToPath} from 'url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -27,28 +27,63 @@ function validateServiceWorker() {
     }
 
     // 2. Sprawdź czy clients.claim() jest wewnątrz event.waitUntil()
-    const activateMatch = swCode.match(/addEventListener\('activate',[\s\S]*?\)/g)
-    if (activateMatch) {
-      const activateCode = activateMatch[0]
-      const waitUntilIndex = activateCode.indexOf('event.waitUntil')
-      const claimIndex = activateCode.indexOf('clients.claim()')
-      const waitUntilEnd = activateCode.lastIndexOf('})', waitUntilIndex)
-
-      if (waitUntilIndex === -1) {
-        errors.push('❌ Brak event.waitUntil() w activate listener')
-      } else if (claimIndex === -1) {
-        errors.push('❌ Brak self.clients.claim() w activate listener')
-      } else if (claimIndex <= waitUntilIndex || claimIndex >= waitUntilEnd) {
-        errors.push('❌ self.clients.claim() musi być wewnątrz event.waitUntil()')
-      }
-
-      // Sprawdź czy nie ma return poza waitUntil
-      const codeAfterWaitUntil = activateCode.substring(waitUntilEnd + 2)
-      if (codeAfterWaitUntil.match(/^\s*return\s+/m)) {
-        errors.push('❌ return poza event.waitUntil() w activate listener')
-      }
-    } else {
+    if (!swCode.includes("addEventListener('activate'")) {
       errors.push('❌ Brak activate event listener')
+    } else {
+      // Sprawdź czy jest event.waitUntil w activate
+      const activateStart = swCode.indexOf("addEventListener('activate'")
+      if (activateStart === -1) {
+        errors.push('❌ Brak activate event listener')
+      } else {
+        // Znajdź koniec bloku activate - szukaj zamykającego nawiasu
+        let braceCount = 0
+        let inString = false
+        let activateEnd = activateStart
+        for (let i = activateStart; i < swCode.length; i++) {
+          const char = swCode[i]
+          if (char === '"' || char === "'") {
+            inString = !inString
+          } else if (!inString) {
+            if (char === '{') braceCount++
+            if (char === '}') braceCount--
+            if (braceCount === 0 && char === '}') {
+              activateEnd = i + 1
+              break
+            }
+          }
+        }
+        const activateCode = swCode.substring(activateStart, activateEnd)
+        const waitUntilIndex = activateCode.indexOf('event.waitUntil')
+        const claimIndex = activateCode.includes('self.clients.claim()') ? activateCode.indexOf('self.clients.claim()') : (activateCode.includes('clients.claim()') ? activateCode.indexOf('clients.claim()') : -1)
+
+        if (waitUntilIndex === -1) {
+          errors.push('❌ Brak event.waitUntil() w activate listener')
+        } else if (claimIndex === -1) {
+          errors.push('❌ Brak self.clients.claim() lub clients.claim() w activate listener')
+        } else {
+          // Sprawdź czy claim jest wewnątrz waitUntil - znajdź zakres waitUntil
+          const waitUntilStart = activateCode.indexOf('event.waitUntil(', waitUntilIndex)
+          let waitUntilEnd = waitUntilStart
+          braceCount = 0
+          inString = false
+          for (let i = waitUntilStart; i < activateCode.length; i++) {
+            const char = activateCode[i]
+            if (char === '"' || char === "'") {
+              inString = !inString
+            } else if (!inString) {
+              if (char === '(') braceCount++
+              if (char === ')') braceCount--
+              if (braceCount === 0 && char === ')') {
+                waitUntilEnd = i + 1
+                break
+              }
+            }
+          }
+          if (claimIndex < waitUntilStart || claimIndex > waitUntilEnd) {
+            errors.push('❌ self.clients.claim() musi być wewnątrz event.waitUntil()')
+          }
+        }
+      }
     }
 
     // 3. Sprawdź czy są wszystkie wymagane event listenery

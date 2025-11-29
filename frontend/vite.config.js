@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import { tmpdir } from 'os'
-import { join } from 'path'
+import {defineConfig} from 'vite'
+import {tmpdir} from 'os'
+import {join} from 'path'
 
 export default defineConfig({
   base: '/ST_KRAKOS/',
@@ -18,17 +18,13 @@ export default defineConfig({
     rollupOptions: {
       onwarn(warning, warn) {
         // Ignoruj niektóre ostrzeżenia, ale loguj je
-        if (warning.code === 'UNUSED_EXTERNAL_IMPORT') return
+        if (warning.code === 'UNUSED_EXTERNAL_IMPORT') {
+          return
+        }
         warn(warning)
       }
     },
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
-      }
-    }
+    minify: 'esbuild'
   },
   esbuild: {
     drop: ['console', 'debugger']

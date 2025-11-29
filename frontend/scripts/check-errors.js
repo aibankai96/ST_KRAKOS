@@ -4,9 +4,9 @@
  * Sprawdza wszystkie pliki JavaScript pod kątem potencjalnych błędów
  */
 
-import { readdirSync, readFileSync, statSync } from 'fs'
-import { join, extname } from 'path'
-import { fileURLToPath } from 'url'
+import {readdirSync, readFileSync, statSync} from 'fs'
+import {join, extname} from 'path'
+import {fileURLToPath} from 'url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = new URL('.', import.meta.url).pathname

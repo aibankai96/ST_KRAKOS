@@ -1,4 +1,4 @@
-const CACHE_NAME = 'st-krakos-v1.0.0'
+const CACHE_NAME = 'st-krakos-v1.0.1'
 const BASE_PATH = '/ST_KRAKOS/'
 const urlsToCache = [
   BASE_PATH,
@@ -43,8 +43,10 @@ self.addEventListener('activate', (event) => {
 })
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return
-  
+  if (event.request.method !== 'GET') {
+    return
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
