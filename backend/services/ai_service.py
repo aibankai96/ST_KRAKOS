@@ -9,6 +9,7 @@ class AIService:
         self.client = OpenAI(api_key=Config.AI_API_KEY) if Config.AI_API_KEY else None
         self._cache_enabled = True
     
+    @cache_result(ttl_seconds=3600)
     def generate_page_content(self, prompt: str, page_type: str = 'landing') -> dict:
         """Generuje zawartość strony przez AI"""
         if not self.client:
