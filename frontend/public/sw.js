@@ -36,9 +36,10 @@ self.addEventListener('activate', (event) => {
           }
         })
       )
+    }).then(() => {
+      return self.clients.claim()
     })
   )
-  return self.clients.claim()
 })
 
 self.addEventListener('fetch', (event) => {
