@@ -44,4 +44,10 @@ class TestValidator:
         sanitized = self.validator.sanitize_input(dangerous)
         assert "<script>" not in sanitized
         assert "Test" in sanitized
+    
+    def test_sanitize_html(self):
+        dangerous = "<script>alert('xss')</script><p>Safe</p>"
+        sanitized = Validator.sanitize_html(dangerous)
+        assert "<script>" not in sanitized
+        assert "Safe" in sanitized
 
