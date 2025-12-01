@@ -113,90 +113,24 @@ export function renderHome(container) {
                     <div class="certificate-icon">🏆</div>
                     <p class="certificate-text">${t('services.cert')}</p>
                 </div>
-                <div class="services-category">
-                    <div class="category-header">
-                        <span class="category-badge fast">${t('services.cat1')}</span>
-                        <p class="category-description">${t('services.cat1d')}</p>
-                    </div>
-                    <div class="services-grid">
-                        <div class="service-card">
-                            <div class="service-icon">📄</div>
-                            <h3>${t('services.lp')}</h3>
-                            <p>${t('services.lpd')}</p>
-                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.lpf')}</p>
-                        </div>
-                        <div class="service-card">
-                            <div class="service-icon">🔧</div>
-                            <h3>${t('services.mod')}</h3>
-                            <p>${t('services.modd')}</p>
-                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.modf')}</p>
-                        </div>
-                        <div class="service-card">
-                            <div class="service-icon">✨</div>
-                            <h3>${t('services.elem')}</h3>
-                            <p>${t('services.elemd')}</p>
-                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.elemf')}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="services-category">
-                    <div class="category-header">
-                        <span class="category-badge medium">${t('services.cat2')}</span>
-                        <p class="category-description">${t('services.cat2d')}</p>
-                    </div>
-                    <div class="services-grid">
+                <div class="services-grid">
                     <div class="service-card">
-                        <div class="service-icon">🌐</div>
-                            <h3>${t('services.web')}</h3>
-                            <p>${t('services.webd')}</p>
-                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.webf')}</p>
-                        </div>
-                        <div class="service-card">
-                            <div class="service-icon">🔐</div>
-                            <h3>${t('services.panel')}</h3>
-                            <p>${t('services.paneld')}</p>
-                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.panelf')}</p>
-                        </div>
-                        <div class="service-card">
-                            <div class="service-icon">🔗</div>
-                            <h3>${t('services.int')}</h3>
-                            <p>${t('services.intd')}</p>
-                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.intf')}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="services-category">
-                    <div class="category-header">
-                        <span class="category-badge complex">${t('services.cat3')}</span>
-                        <p class="category-description">${t('services.cat3d')}</p>
-                    </div>
-                    <div class="services-grid">
-                        <div class="service-card">
-                            <div class="service-icon">💻</div>
-                            <h3>${t('services.app')}</h3>
-                            <p>${t('services.appd')}</p>
-                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.appf')}</p>
+                        <div class="service-icon">📄</div>
+                        <h3>${t('services.lp')}</h3>
+                        <p>${t('services.lpd')}</p>
+                        <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.lpf')}</p>
                     </div>
                     <div class="service-card">
-                            <div class="service-icon">📅</div>
-                            <h3>${t('services.res')}</h3>
-                            <p>${t('services.resd')}</p>
-                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.resf')}</p>
+                        <div class="service-icon">🔧</div>
+                        <h3>${t('services.mod')}</h3>
+                        <p>${t('services.modd')}</p>
+                        <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.modf')}</p>
                     </div>
                     <div class="service-card">
-                            <div class="service-icon">⚡</div>
-                            <h3>${t('services.rt')}</h3>
-                            <p>${t('services.rtd')}</p>
-                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.rtf')}</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">📊</div>
-                            <h3>${t('services.dash')}</h3>
-                            <p>${t('services.dashd')}</p>
-                            <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.dashf')}</p>
-                        </div>
+                        <div class="service-icon">✨</div>
+                        <h3>${t('services.elem')}</h3>
+                        <p>${t('services.elemd')}</p>
+                        <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.elemf')}</p>
                     </div>
                 </div>
             </div>

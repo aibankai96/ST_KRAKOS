@@ -345,7 +345,7 @@ main { min-height: calc(100vh - 200px); }
     100% { background-position: 200% 0; }
 }
 @keyframes gold-line-move { 0%, 100% { background-position: -200% 0; } }
-.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 3rem auto 2rem; max-width: 1200px; }
 .services-category:last-child .services-grid {
     grid-template-columns: repeat(4, 1fr);
 }
