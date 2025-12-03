@@ -2,7 +2,9 @@
 import {hideOverlay} from './overlay.js'
 
 let loadingOverlay = null
-const setLoadingOverlay = (val) => { loadingOverlay = val }
+const setLoadingOverlay = (val) => {
+  loadingOverlay = val
+}
 
 /**
  * Pokazuje overlay z wskaźnikiem ładowania

@@ -3,7 +3,7 @@ import {tmpdir} from 'os'
 import {join} from 'path'
 
 export default defineConfig({
-  base: '/ST_KRAKOS/',
+  base: process.env.RENDER ? '/' : '/ST_KRAKOS/',
   cacheDir: join(tmpdir(), 'vite-cache-st-krakos'),
   server: {
     port: 3000,

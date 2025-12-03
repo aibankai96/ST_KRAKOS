@@ -1,5 +1,6 @@
 import {updateSEO, addStructuredData} from '../utils/seo.js'
 import {t, getLang} from '../utils/i18n.js'
+import {initScrollReveal} from '../utils/scrollReveal.js'
 const ANIMATION_STEPS = 60
 const ANIMATION_DURATION = 2000
 const INTERSECTION_THRESHOLD = 0.3
@@ -145,13 +146,26 @@ export function renderHome(container) {
         <section id="contact" class="contact-page" role="region" aria-label="Contact">
             <div class="container">
                 <h1>${t('contact.title')}</h1>
-                <p class="contact-intro">${t('contact.intro')}</p>
-                <div class="contact-info-wrapper">
-                    <div class="contact-info">
-                        <h2>${t('contact.info')}</h2>
-                        <div class="info-item">
-                            <strong>${t('contact.email')}</strong>
-                            <p><a href="mailto:kontakt@stkrakos.pl" aria-label="Email kontakt@stkrakos.pl">kontakt@stkrakos.pl</a></p>
+                <p class="section-intro">${t('contact.intro')}</p>
+                <div class="contact-main-wrapper">
+                    <div class="contact-visual">
+                        <div class="contact-circle">
+                            <div class="contact-circle-inner">
+                                <div class="contact-main-icon">✉️</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-content">
+                        <div class="contact-email-section">
+                            <div class="contact-label">${t('contact.email')}</div>
+                            <a href="mailto:stkrakos@gmail.com" aria-label="Email stkrakos@gmail.com" class="contact-main-email">stkrakos@gmail.com</a>
+                        </div>
+                        <div class="contact-divider"></div>
+                        <div class="contact-response-section">
+                            <div class="contact-response-badge">
+                                <span class="response-badge-icon">⏱️</span>
+                                <span class="response-badge-text">${t('contact.responseDetail')}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,31 +173,69 @@ export function renderHome(container) {
         </section>
     `
   setupStatsAnimation()
+  setTimeout(() => {
+    initScrollReveal()
+  }, 100)
+}
+function resetStat(stat) {
+  const prefix = stat.getAttribute('data-prefix') || ''
+  const suffix = stat.getAttribute('data-suffix') || ''
+  stat.textContent = `${prefix}0${suffix}`
+}
+function animateStat(stat, timersArray) {
+  return new Promise((resolve) => {
+    const target = parseFloat(stat.getAttribute('data-target'))
+    const prefix = stat.getAttribute('data-prefix') || ''
+    const suffix = stat.getAttribute('data-suffix') || ''
+    const step = target / ANIMATION_STEPS
+    let current = 0
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target)
+      stat.textContent = `${prefix}${suffix === 'T' ? current.toFixed(1) : Math.floor(current)}${suffix}`
+      if (current >= target) {
+        clearInterval(timer)
+        const index = timersArray.indexOf(timer)
+        if (index > -1) {
+          timersArray.splice(index, 1)
+        }
+        resolve()
+      }
+    }, ANIMATION_DURATION / ANIMATION_STEPS)
+    timersArray.push(timer)
+  })
 }
 function setupStatsAnimation() {
   const statsSection = document.getElementById('ai-stats')
   if (!statsSection) {
     return
   }
+  if (typeof IntersectionObserver === 'undefined') {
+    return
+  }
   const statNumbers = statsSection.querySelectorAll('.stat-number')
-  let hasAnimated = false
-  new IntersectionObserver((entries) => {
-    if (entries[0]?.isIntersecting && !hasAnimated) {
-      hasAnimated = true
-      statNumbers.forEach(stat => {
-        const target = parseFloat(stat.getAttribute('data-target'))
-        const prefix = stat.getAttribute('data-prefix') || ''
-        const suffix = stat.getAttribute('data-suffix') || ''
-        const step = target / ANIMATION_STEPS
-        let current = 0
-        const timer = setInterval(() => {
-          current = Math.min(current + step, target)
-          stat.textContent = `${prefix}${suffix === 'T' ? current.toFixed(1) : Math.floor(current)}${suffix}`
-          if (current >= target) {
-            clearInterval(timer)
-          }
-        }, ANIMATION_DURATION / ANIMATION_STEPS)
-      })
+  let isAnimating = false
+  let currentTimers = []
+  new IntersectionObserver(async (entries) => {
+    const isIntersecting = entries[0]?.isIntersecting
+    if (isIntersecting && !isAnimating) {
+      isAnimating = true
+      currentTimers.forEach(timer => clearInterval(timer))
+      currentTimers = []
+      for (const stat of statNumbers) {
+        resetStat(stat)
+      }
+      await new Promise(resolve => setTimeout(resolve, 200))
+      for (const stat of statNumbers) {
+        await animateStat(stat, currentTimers)
+      }
+      isAnimating = false
+    } else if (!isIntersecting) {
+      currentTimers.forEach(timer => clearInterval(timer))
+      currentTimers = []
+      isAnimating = false
+      for (const stat of statNumbers) {
+        resetStat(stat)
+      }
     }
   }, {threshold: INTERSECTION_THRESHOLD}).observe(statsSection)
 }

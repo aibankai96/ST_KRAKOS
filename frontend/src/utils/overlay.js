@@ -9,7 +9,9 @@ export function hideOverlay(element, setter) {
   if (element) {
     element.classList.remove('show')
     setTimeout(() => {
-      if (element?.parentNode) element.remove()
+      if (element?.parentNode) {
+        element.remove()
+      }
       setter(null)
     }, 300)
   }

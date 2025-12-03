@@ -3,11 +3,13 @@ services:
   - type: web
     name: st-krakos-frontend
     env: static
-    buildCommand: cd frontend && npm install && npm run build
+    buildCommand: cd frontend && npm install && RENDER=true npm run build
     staticPublishPath: frontend/dist
     envVars:
       - key: NODE_ENV
         value: production
+      - key: RENDER
+        value: true
 
   # Backend - Web Service
   - type: web

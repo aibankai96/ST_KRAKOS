@@ -14,19 +14,19 @@ async function request(endpoint, options = {}, retries = 3) {
   const url = `${API_BASE_URL}${endpoint}`
   const config = {
     headers: {'Content-Type': 'application/json', ...options.headers},
-    ...options,
+    ...options
   }
   if (config.body && typeof config.body === 'object') {
     config.body = JSON.stringify(config.body)
   }
-  
+
   for (let i = 0; i < retries; i++) {
     try {
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 30000)
       const response = await fetch(url, {...config, signal: controller.signal})
       clearTimeout(timeoutId)
-      
+
       if (!response.ok) {
         const error = await response.json().catch(() => ({error: 'Unknown error'}))
         throw new Error(error.error || `HTTP ${response.status}`)
@@ -36,7 +36,9 @@ async function request(endpoint, options = {}, retries = 3) {
       const isLastRetry = i === retries - 1
       const isNetworkError = error.name === 'TypeError' || error.name === 'AbortError' || error.message?.includes('timeout') || error.message?.includes('network')
       if (!isNetworkError || isLastRetry) {
-        if (error.name === 'AbortError') throw new Error('Request timeout - server did not respond in time (30s limit)')
+        if (error.name === 'AbortError') {
+          throw new Error('Request timeout - server did not respond in time (30s limit)')
+        }
         throw error
       }
       await new Promise(r => setTimeout(r, 1000 * Math.pow(2, i)))
@@ -73,7 +75,7 @@ export const api = {
   async generatePage(prompt, pageType = 'landing', title = 'ST KRAKOS') {
     return apiCall('/generate-page', {method: 'POST', body: {prompt, page_type: pageType, title}}, 'Generowanie strony...', 'Błąd podczas generowania strony')
   },
-  
+
   /**
    * Generuje treść przez AI
    * @param {string} prompt - Prompt dla AI
@@ -82,20 +84,15 @@ export const api = {
   async generateContent(prompt) {
     return apiCall('/generate-content', {method: 'POST', body: {prompt}}, 'Generowanie treści...', 'Błąd podczas generowania treści')
   },
-  
+
   /**
    * Sprawdza status API (health check)
    * @returns {Promise} Promise z statusem API
    */
   async health() {
-    try {
-      return await request('/health')
-    } catch (error) {
-      // Health check nie pokazuje error toast (może być wywołany w tle)
-      throw error
-    }
+    return request('/health')
   },
-  
+
   /**
    * Pobiera metryki API
    * @returns {Promise} Promise z metrykami
@@ -107,6 +104,6 @@ export const api = {
       showError(error.message || 'Błąd podczas pobierania metryk')
       throw error
     }
-  },
+  }
 }
 
