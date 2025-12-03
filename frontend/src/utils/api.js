@@ -45,6 +45,21 @@ async function request(endpoint, options = {}, retries = 3) {
 }
 
 /**
+ * Wspólna funkcja pomocnicza dla API calls z loading/error handling
+ */
+async function apiCall(endpoint, options, loadingMsg, errorMsg) {
+  showLoading(loadingMsg)
+  try {
+    return await request(endpoint, options)
+  } catch (error) {
+    showError(error.message || errorMsg)
+    throw error
+  } finally {
+    hideLoading()
+  }
+}
+
+/**
  * API Client - funkcje do komunikacji z backendem
  */
 export const api = {
@@ -56,19 +71,7 @@ export const api = {
    * @returns {Promise} Promise z wygenerowaną stroną
    */
   async generatePage(prompt, pageType = 'landing', title = 'ST KRAKOS') {
-    showLoading('Generowanie strony...')
-    try {
-      const result = await request('/generate-page', {
-        method: 'POST',
-        body: {prompt, page_type: pageType, title},
-      })
-      return result
-    } catch (error) {
-      showError(error.message || 'Błąd podczas generowania strony')
-      throw error
-    } finally {
-      hideLoading()
-    }
+    return apiCall('/generate-page', {method: 'POST', body: {prompt, page_type: pageType, title}}, 'Generowanie strony...', 'Błąd podczas generowania strony')
   },
   
   /**
@@ -77,19 +80,7 @@ export const api = {
    * @returns {Promise} Promise z wygenerowaną treścią
    */
   async generateContent(prompt) {
-    showLoading('Generowanie treści...')
-    try {
-      const result = await request('/generate-content', {
-        method: 'POST',
-        body: {prompt},
-      })
-      return result
-    } catch (error) {
-      showError(error.message || 'Błąd podczas generowania treści')
-      throw error
-    } finally {
-      hideLoading()
-    }
+    return apiCall('/generate-content', {method: 'POST', body: {prompt}}, 'Generowanie treści...', 'Błąd podczas generowania treści')
   },
   
   /**

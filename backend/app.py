@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request
 from flask_cors import CORS
 import uuid
 from backend.config import Config
@@ -21,35 +21,6 @@ app.register_blueprint(api_bp, url_prefix='/api')
 def set_request_id():
     request.request_id = str(uuid.uuid4())[:8]
 
-from functools import wraps
-from flask_limiter.util import get_remote_address
-
-def rate_limit_decorator(limit_str):
-    def decorator(f):
-        @wraps(f)
-        def wrapper(*args, **kwargs):
-            if limiter:
-                limiter.limit(limit_str, key_func=get_remote_address)(f)(*args, **kwargs)
-            return f(*args, **kwargs)
-        return wrapper
-    return decorator
-
-@app.route('/')
-def index():
-    return jsonify({
-        "message": "ST KRAKOS Backend API",
-        "version": "1.0.0",
-        "status": "operational"
-    })
-
-@app.route('/api/status')
-def status():
-    return jsonify({
-        "status": "ok",
-        "service": "ST KRAKOS Backend",
-        "version": "1.0.0",
-        "uptime": "operational"
-    })
 
 if __name__ == '__main__':
     logger.info("Starting ST KRAKOS Backend API")

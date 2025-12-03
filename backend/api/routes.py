@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from backend.services.ai_service import AIService
 from backend.utils.validators import Validator
 from backend.utils.logger import setup_logger
-from backend.utils.monitoring import monitor_performance, get_metrics
+from backend.utils.performance import monitor_performance, get_metrics
 
 api_bp = Blueprint('api', __name__)
 ai_service = AIService()
@@ -15,6 +15,24 @@ ERROR_CODES = {
     'AI_ERROR': 'ERR_AI_ERROR',
     'INTERNAL': 'ERR_INTERNAL'
 }
+
+def validate_request_data():
+    data = request.get_json()
+    if not data:
+        return None, jsonify({"error": "Brak danych w żądaniu", "error_code": ERROR_CODES['VALIDATION']}), 400
+    return data, None, None
+
+def validate_and_log(field_name, validation_result, field_value=''):
+    if not validation_result['valid']:
+        logger.warning(f"Invalid {field_name}: {validation_result['error']}")
+        return jsonify({"error": validation_result['error'], "error_code": ERROR_CODES['VALIDATION']}), 400
+    return None
+
+def handle_ai_error(result):
+    error_msg = result.get('error', 'Błąd generowania')
+    error_code = ERROR_CODES['AI_TIMEOUT'] if 'timeout' in error_msg.lower() else ERROR_CODES['AI_ERROR']
+    logger.error(f"AI error: {error_msg}")
+    return error_msg, error_code
 
 @api_bp.route('/health', methods=['GET'])
 def health():
@@ -36,28 +54,25 @@ def metrics():
 @monitor_performance
 def generate_page():
     try:
-        data = request.get_json()
-        if not data:
-            return jsonify({"error": "Brak danych w żądaniu", "error_code": ERROR_CODES['VALIDATION']}), 400
+        data, error_response, status_code = validate_request_data()
+        if error_response:
+            return error_response, status_code
         
         prompt = data.get('prompt', '')
         page_type = data.get('page_type', 'landing')
         title = data.get('title', 'ST KRAKOS')
         
-        prompt_validation = validator.validate_prompt(prompt)
-        if not prompt_validation['valid']:
-            logger.warning(f"Invalid prompt: {prompt_validation['error']}")
-            return jsonify({"error": prompt_validation['error'], "error_code": ERROR_CODES['VALIDATION']}), 400
+        error_response = validate_and_log('prompt', validator.validate_prompt(prompt))
+        if error_response:
+            return error_response
         
-        page_type_validation = validator.validate_page_type(page_type)
-        if not page_type_validation['valid']:
-            logger.warning(f"Invalid page type: {page_type_validation['error']}")
-            return jsonify({"error": page_type_validation['error'], "error_code": ERROR_CODES['VALIDATION']}), 400
+        error_response = validate_and_log('page type', validator.validate_page_type(page_type))
+        if error_response:
+            return error_response
         
-        title_validation = validator.validate_title(title)
-        if not title_validation['valid']:
-            logger.warning(f"Invalid title: {title_validation['error']}")
-            return jsonify({"error": title_validation['error'], "error_code": ERROR_CODES['VALIDATION']}), 400
+        error_response = validate_and_log('title', validator.validate_title(title))
+        if error_response:
+            return error_response
         
         sanitized_prompt = validator.sanitize_input(prompt)
         sanitized_title = validator.sanitize_input(title)
@@ -73,9 +88,7 @@ def generate_page():
             logger.info("Page generated successfully")
             return jsonify({"html": html, "content": result['content']})
         
-        logger.error(f"Page generation failed: {result.get('error')}")
-        error_msg = result.get('error', 'Błąd generowania')
-        error_code = ERROR_CODES['AI_TIMEOUT'] if 'timeout' in error_msg.lower() else ERROR_CODES['AI_ERROR']
+        error_msg, error_code = handle_ai_error(result)
         return jsonify({"error": error_msg, "error_code": error_code}), 500
         
     except Exception as e:
@@ -86,16 +99,15 @@ def generate_page():
 @monitor_performance
 def generate_content():
     try:
-        data = request.get_json()
-        if not data:
-            return jsonify({"error": "Brak danych w żądaniu", "error_code": ERROR_CODES['VALIDATION']}), 400
+        data, error_response, status_code = validate_request_data()
+        if error_response:
+            return error_response, status_code
         
         prompt = data.get('prompt', '')
         
-        prompt_validation = validator.validate_prompt(prompt)
-        if not prompt_validation['valid']:
-            logger.warning(f"Invalid prompt: {prompt_validation['error']}")
-            return jsonify({"error": prompt_validation['error'], "error_code": ERROR_CODES['VALIDATION']}), 400
+        error_response = validate_and_log('prompt', validator.validate_prompt(prompt))
+        if error_response:
+            return error_response
         
         sanitized_prompt = validator.sanitize_input(prompt)
         
@@ -105,9 +117,7 @@ def generate_content():
         if result['success']:
             logger.info("Content generated successfully")
         else:
-            logger.error(f"Content generation failed: {result.get('error')}")
-            error_msg = result.get('error', 'Błąd generowania')
-            error_code = ERROR_CODES['AI_TIMEOUT'] if 'timeout' in error_msg.lower() else ERROR_CODES['AI_ERROR']
+            error_msg, error_code = handle_ai_error(result)
             result['error_code'] = error_code
         
         return jsonify(result)

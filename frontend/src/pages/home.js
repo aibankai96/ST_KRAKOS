@@ -3,30 +3,42 @@ import {t, getLang} from '../utils/i18n.js'
 const ANIMATION_STEPS = 60
 const ANIMATION_DURATION = 2000
 const INTERSECTION_THRESHOLD = 0.3
+const createCard = (type, props) => {
+  if (type === 'stat') {
+    const {target, prefix = '', suffix = '', labelKey, source} = props
+    return `<div class="stat-card"><div class="stat-number" data-target="${target}"${prefix ? ` data-prefix="${prefix}"` : ''}${suffix ? ` data-suffix="${suffix}"` : ''}>${prefix}0${suffix}</div><div class="stat-label">${t(labelKey)}</div><div class="stat-source">${source}</div></div>`
+  }
+  if (type === 'feature') {
+    const {icon, titleKey, descKey} = props
+    return `<div class="feature-card"><div class="feature-icon">${icon}</div><h3>${t(titleKey)}</h3><p>${t(descKey)}</p></div>`
+  }
+  if (type === 'service') {
+    const {icon, titleKey, descKey, forKey, forLabel} = props
+    return `<div class="service-card"><div class="service-icon">${icon}</div><h3>${t(titleKey)}</h3><p>${t(descKey)}</p><p class="service-for"><strong>${forLabel}</strong> ${t(forKey)}</p></div>`
+  }
+  if (type === 'portfolio') {
+    const {icon, titleKey, descKey} = props
+    return `<div class="portfolio-item"><div class="portfolio-image">${icon}</div><h3>${t(titleKey)}</h3><p>${t(descKey)}</p></div>`
+  }
+  return ''
+}
+const createStatCard = (target, prefix, suffix, labelKey, source) => createCard('stat', {target, prefix, suffix, labelKey, source})
+const createFeatureCard = (icon, titleKey, descKey) => createCard('feature', {icon, titleKey, descKey})
+const createServiceCard = (icon, titleKey, descKey, forKey, forLabel) => createCard('service', {icon, titleKey, descKey, forKey, forLabel})
+const createPortfolioItem = (icon, titleKey, descKey) => createCard('portfolio', {icon, titleKey, descKey})
 export function renderHome(container) {
   const lang = getLang()
-  const seoTexts = lang === 'pl' ? {
-    title: 'ST KRAKOS - Innowacyjne rozwiązania AI',
-    desc: 'ST KRAKOS oferuje zaawansowane rozwiązania z wykorzystaniem sztucznej inteligencji. Generowanie stron, automatyzacja procesów i analiza danych.',
-    keywords: 'AI, sztuczna inteligencja, automatyzacja, generowanie stron, ST KRAKOS',
-    orgDesc: 'Innowacyjne rozwiązania z wykorzystaniem sztucznej inteligencji'
-  } : {
-    title: 'ST KRAKOS - Innovative AI Solutions',
-    desc: 'ST KRAKOS offers advanced solutions using artificial intelligence. Website generation, process automation and data analysis.',
-    keywords: 'AI, artificial intelligence, automation, website generation, ST KRAKOS',
-    orgDesc: 'Innovative solutions using artificial intelligence'
-  }
-  updateSEO(seoTexts.title, seoTexts.desc, seoTexts.keywords)
+  const forLabel = lang === 'pl' ? 'Dla:' : 'For:'
+  updateSEO(t('seo.title'), t('seo.desc'), t('seo.keywords'))
   addStructuredData({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'ST KRAKOS',
-    description: seoTexts.orgDesc,
+    description: t('seo.orgDesc'),
     url: window.location.origin
   })
   container.innerHTML = `
         <section id="home" class="hero" role="banner" aria-label="Hero section">
-            <div class="lion-pattern"></div>
             <div class="ai-badge-circle">
                 <span class="badge-icon">⚡</span>
                 <span class="badge-text">${t('hero.badge')}</span>
@@ -45,26 +57,10 @@ export function renderHome(container) {
                 <h2>${t('aiStats.title')}</h2>
                 <p class="section-intro">${t('aiStats.intro')}</p>
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="73" data-suffix="%">0%</div>
-                        <div class="stat-label">${t('aiStats.stat1')}</div>
-                        <div class="stat-source">(McKinsey, 2023)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="40" data-suffix="%">0%</div>
-                        <div class="stat-label">${t('aiStats.stat2')}</div>
-                        <div class="stat-source">(Accenture, 2023)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="15.7" data-prefix="$" data-suffix="T">$0T</div>
-                        <div class="stat-label">${t('aiStats.stat3')}</div>
-                        <div class="stat-source">(PwC, 2023)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" data-target="85" data-suffix="%">0%</div>
-                        <div class="stat-label">${t('aiStats.stat4')}</div>
-                        <div class="stat-source">(Deloitte, 2023)</div>
-                    </div>
+                    ${createStatCard('73', '', '%', 'aiStats.stat1', '(McKinsey, 2023)')}
+                    ${createStatCard('40', '', '%', 'aiStats.stat2', '(Accenture, 2023)')}
+                    ${createStatCard('15.7', '$', 'T', 'aiStats.stat3', '(PwC, 2023)')}
+                    ${createStatCard('85', '', '%', 'aiStats.stat4', '(Deloitte, 2023)')}
                 </div>
             </div>
         </section>
@@ -80,26 +76,10 @@ export function renderHome(container) {
                     <div class="about-features">
                         <h2 class="features-title">${t('about.h2_2')}</h2>
                         <div class="features-grid">
-                            <div class="feature-card">
-                                <div class="feature-icon">🤖</div>
-                                <h3>${t('about.feat1')}</h3>
-                                <p>${t('about.feat1d')}</p>
-                            </div>
-                            <div class="feature-card">
-                                <div class="feature-icon">🎯</div>
-                                <h3>${t('about.feat2')}</h3>
-                                <p>${t('about.feat2d')}</p>
-                            </div>
-                            <div class="feature-card">
-                                <div class="feature-icon">⚡</div>
-                                <h3>${t('about.feat3')}</h3>
-                                <p>${t('about.feat3d')}</p>
-                            </div>
-                            <div class="feature-card">
-                                <div class="feature-icon">💎</div>
-                                <h3>${t('about.feat4')}</h3>
-                                <p>${t('about.feat4d')}</p>
-                            </div>
+                            ${createFeatureCard('🤖', 'about.feat1', 'about.feat1d')}
+                            ${createFeatureCard('🎯', 'about.feat2', 'about.feat2d')}
+                            ${createFeatureCard('⚡', 'about.feat3', 'about.feat3d')}
+                            ${createFeatureCard('💎', 'about.feat4', 'about.feat4d')}
                         </div>
                     </div>
                 </div>
@@ -114,24 +94,9 @@ export function renderHome(container) {
                     <p class="certificate-text">${t('services.cert')}</p>
                 </div>
                 <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">📄</div>
-                        <h3>${t('services.lp')}</h3>
-                        <p>${t('services.lpd')}</p>
-                        <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.lpf')}</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">🔧</div>
-                        <h3>${t('services.mod')}</h3>
-                        <p>${t('services.modd')}</p>
-                        <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.modf')}</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">✨</div>
-                        <h3>${t('services.elem')}</h3>
-                        <p>${t('services.elemd')}</p>
-                        <p class="service-for"><strong>${lang === 'pl' ? 'Dla:' : 'For:'}</strong> ${t('services.elemf')}</p>
-                    </div>
+                    ${createServiceCard('📄', 'services.lp', 'services.lpd', 'services.lpf', forLabel)}
+                    ${createServiceCard('🔧', 'services.mod', 'services.modd', 'services.modf', forLabel)}
+                    ${createServiceCard('✨', 'services.elem', 'services.elemd', 'services.elemf', forLabel)}
                 </div>
             </div>
         </section>
@@ -140,21 +105,9 @@ export function renderHome(container) {
                 <h2>${t('tech.title')}</h2>
                 <p class="section-intro">${t('tech.intro')}</p>
                 <div class="portfolio-grid">
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">🤖</div>
-                        <h3>${t('tech.t1')}</h3>
-                        <p>${t('tech.t1d')}</p>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">⚙️</div>
-                        <h3>${t('tech.t2')}</h3>
-                        <p>${t('tech.t2d')}</p>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">🚀</div>
-                        <h3>${t('tech.t3')}</h3>
-                        <p>${t('tech.t3d')}</p>
-                    </div>
+                    ${createPortfolioItem('🤖', 'tech.t1', 'tech.t1d')}
+                    ${createPortfolioItem('⚙️', 'tech.t2', 'tech.t2d')}
+                    ${createPortfolioItem('🚀', 'tech.t3', 'tech.t3d')}
                 </div>
                 <div class="technologies-cta">
                     <p class="technologies-cta-text">${t('tech.cta')}</p>
@@ -179,7 +132,7 @@ export function renderHome(container) {
                     <div class="project-card">
                         <div class="project-header">
                             <h3>${t('portfolio.p2')}</h3>
-                            <span class="project-badge client">${lang === 'pl' ? 'PROJEKT KLIENTA' : 'CLIENT PROJECT'}</span>
+                            <span class="project-badge client">${t('portfolio.clientBadge')}</span>
                         </div>
                         <p class="project-description">${t('portfolio.p2d')}</p>
                         <div class="project-link">
@@ -199,10 +152,6 @@ export function renderHome(container) {
                         <div class="info-item">
                             <strong>${t('contact.email')}</strong>
                             <p><a href="mailto:kontakt@stkrakos.pl" aria-label="Email kontakt@stkrakos.pl">kontakt@stkrakos.pl</a></p>
-                        </div>
-                        <div class="info-item">
-                            <strong>${t('contact.phone')}</strong>
-                            <p><a href="tel:+48123456789" aria-label="Telefon +48 123 456 789">+48 123 456 789</a></p>
                         </div>
                     </div>
                 </div>

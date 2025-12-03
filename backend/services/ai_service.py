@@ -1,6 +1,6 @@
 from openai import OpenAI
 from backend.config import Config
-from backend.utils.cache import cache_result
+from backend.utils.performance import cache_result
 from backend.utils.validators import Validator
 import socket
 
