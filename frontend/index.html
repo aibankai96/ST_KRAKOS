@@ -24,6 +24,11 @@
             width: 100%;
             min-height: 100vh; 
             background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        #app.loaded {
+            opacity: 1;
         }
     </style>
     <link rel="stylesheet" href="/src/styles/main.css">
@@ -35,6 +40,12 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512x512.png">
 </head>
 <body>
+    <div id="puzzle-loader">
+        <div class="puzzle-title-container">
+            <h1 class="puzzle-title">ST KRAKOS</h1>
+        </div>
+        <div class="puzzle-grid" id="puzzle-grid"></div>
+    </div>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
     <script>

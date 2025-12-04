@@ -1,6 +1,7 @@
 import {initRouter} from './router.js'
 import {renderLayout} from './components/layout.js'
 import {showError} from './utils/error.js'
+import {initPuzzleLoader} from './utils/puzzleLoader.js'
 
 // Global error handler
 window.addEventListener('error', (event) => {
@@ -18,6 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!app) {
     return console.error('App container not found')
   }
-  renderLayout(app)
-  initRouter()
+
+  initPuzzleLoader()
+
+  setTimeout(() => {
+    renderLayout(app)
+    initRouter()
+  }, 2900)
 })

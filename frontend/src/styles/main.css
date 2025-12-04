@@ -91,7 +91,6 @@ header {
     box-shadow: var(--shadow-md), var(--shadow-gold);
     backdrop-filter: blur(15px);
     border-bottom: 2px solid var(--color-gold-rgba-5);
-    will-change: transform;
 }
 
 nav {
@@ -123,7 +122,10 @@ nav a:hover::after { width: 100%; box-shadow: 0 0 8px var(--color-gold-rgba-5); 
 .lang-btn:hover { border-color: var(--color-primary-alt); background: rgba(26, 31, 58, 0.95); transform: scale(1.1); }
 .lang-btn.active { border-color: var(--color-primary); background: rgba(255, 215, 0, 0.2); border-width: 3px; }
 
-main { min-height: calc(100vh - 200px); }
+main { 
+    min-height: calc(100vh - 200px);
+    padding-top: calc(1.2rem + 1.2rem + env(safe-area-inset-top));
+}
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -135,7 +137,7 @@ main { min-height: calc(100vh - 200px); }
 .hero {
     text-align: center;
     padding: var(--spacing-xxl) var(--spacing-md);
-    background: linear-gradient(135deg, #151a2e 0%, #182030 25%, var(--color-bg-mid) 50%, #182030 75%, #151a2e 100%);
+    background: var(--gradient-bg);
     color: var(--color-text);
     position: relative;
     overflow: hidden;
@@ -767,5 +769,221 @@ footer {
 .container.revealed {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ===== PUZZLE LOADER ===== */
+
+#puzzle-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.puzzle-title-container {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 3rem;
+}
+
+.puzzle-title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, 
+        #FFD700 0%, 
+        #FFA500 25%,
+        #FFD700 50%, 
+        #FFA500 75%,
+        #FFD700 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    margin: 0;
+    padding-bottom: 1rem;
+    position: relative;
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+    animation: title-appear 0.5s ease-out forwards;
+    letter-spacing: -1px;
+}
+
+.puzzle-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #FFD700, #FFA500, #FFD700, transparent);
+    border-radius: 2px;
+    animation: underline-appear 0.5s ease-out 0.3s forwards;
+    opacity: 0;
+}
+
+.puzzle-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 3px;
+    padding: 20px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.puzzle-piece {
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(20, 20, 20, 0.95) 25%,
+        rgba(40, 40, 40, 0.9) 50%, 
+        rgba(20, 20, 20, 0.95) 75%,
+        rgba(0, 0, 0, 1) 100%);
+    border: 3px solid rgba(0, 0, 0, 0.9);
+    border-radius: 8px;
+    box-shadow: 
+        inset 0 0 30px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(0, 0, 0, calc(var(--glow-intensity, 0.2) * 0.8));
+    opacity: 0;
+    transform: rotate(0deg) translate(0, 0) scale(0.2);
+    will-change: transform, opacity, filter;
+    position: relative;
+    overflow: hidden;
+}
+
+.puzzle-piece::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 20, 0.4) 50%, transparent 70%);
+    opacity: 0;
+    animation: piece-glow 1.2s ease-out forwards;
+    animation-delay: inherit;
+}
+
+.puzzle-piece::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.15) 50%, transparent 70%);
+    transform: translateX(-100%) translateY(-100%);
+    animation: piece-shine 1.2s ease-out forwards;
+    animation-delay: inherit;
+}
+
+@keyframes title-appear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes underline-appear {
+    0% {
+        opacity: 0;
+        width: 0;
+    }
+    100% {
+        opacity: 1;
+        width: 80%;
+    }
+}
+
+@keyframes puzzle-piece-assemble {
+    0% {
+        opacity: 0;
+        transform: rotate(var(--piece-rotate, 0deg)) translate(var(--piece-x, 0), var(--piece-y, 0)) scale(var(--piece-scale, 0.3));
+        filter: blur(5px) brightness(0.8);
+    }
+    30% {
+        opacity: 0.4;
+        filter: blur(3px) brightness(0.9);
+    }
+    50% {
+        opacity: 0.7;
+        transform: rotate(calc(var(--piece-rotate, 0deg) * 0.6)) translate(calc(var(--piece-x, 0) * 0.7), calc(var(--piece-y, 0) * 0.7)) scale(0.7);
+        filter: blur(1px) brightness(1);
+    }
+    70% {
+        opacity: 0.9;
+        transform: rotate(calc(var(--piece-rotate, 0deg) * 0.3)) translate(calc(var(--piece-x, 0) * 0.4), calc(var(--piece-y, 0) * 0.4)) scale(0.9);
+        filter: blur(0px) brightness(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(0deg) translate(0, 0) scale(1);
+        filter: blur(0px) brightness(1);
+    }
+}
+
+@keyframes piece-glow {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    40% {
+        opacity: calc(var(--glow-intensity, 0.2) * 1.5);
+        transform: scale(1.1);
+    }
+    80% {
+        opacity: calc(var(--glow-intensity, 0.2) * 1);
+        transform: scale(1);
+    }
+    100% {
+        opacity: calc(var(--glow-intensity, 0.2) * 0.4);
+        transform: scale(1);
+    }
+}
+
+@keyframes piece-shine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    50% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateX(200%) translateY(200%) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+@keyframes puzzle-fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+}
+
+#puzzle-loader.hiding {
+    animation: puzzle-fade-out 0.5s ease-out forwards;
 }
 
