@@ -1,96 +1,156 @@
 # Instrukcja Wdrożenia na Render
 
-## CO ROBIĆ KROK PO KROKU:
+## Krok 1: Utwórz Blueprint - SZCZEGÓŁOWA INSTRUKCJA
+
+### Co zobaczysz na ekranie:
+
+1. **Otwórz przeglądarkę i idź na:** 
+   ```
+   https://dashboard.render.com
+   ```
+
+2. **Jeśli nie jesteś zalogowany:**
+   - Kliknij "Log In" lub "Sign Up"
+   - Możesz zalogować się przez GitHub (najłatwiej)
+   - Kliknij "Sign in with GitHub"
+   - Autoryzuj dostęp do Render
+
+3. **Gdy jesteś w Dashboard (głównym panelu):**
+   - Zobaczysz listę swoich serwisów (może być pusta)
+   - W prawym górnym rogu jest przycisk **"New +"** (niebieski/przycisk)
+   - **KLIKNIJ na przycisk "New +"**
+
+4. **Pojawi się menu z opcjami:**
+   - Web Service
+   - Background Worker
+   - Static Site
+   - Private Service
+   - PostgreSQL
+   - Redis
+   - **Blueprint** ← TO WYBIERZ
+   - Kliknij na **"Blueprint"**
+
+5. **Zobaczysz formularz "New Blueprint":**
+   - **Public Git Repository** - to jest pole do wpisania
+   - W to pole wpisz/wklej dokładnie:
+     ```
+     https://github.com/aibankai96/ST_KRAKOS
+     ```
+   - **LUB** kliknij na "Search" i wpisz: `ST_KRAKOS`
+   - Wybierz z listy: `aibankai96 / ST_KRAKOS`
+
+6. **Sprawdź pole "Branch":**
+   - Może być puste lub pokazywać "main"
+   - Wpisz lub zmień na: `cleanup/safe-2025`
+   - To jest ważne!
+
+7. **Na dole formularza:**
+   - Jest przycisk **"Apply"** lub **"Connect"**
+   - **KLIKNIJ "Apply"**
+
+8. **Render zacznie przetwarzać:**
+   - Zobaczysz komunikat "Creating services..."
+   - Render automatycznie wykryje plik `render.yaml`
+   - Utworzy 2 serwisy:
+     - st-krakos-backend (Web Service)
+     - st-krakos-frontend (Static Site)
+
+9. **Gdy zobaczysz 2 nowe serwisy na liście:**
+   - Krok 1 zakończony! ✅
+   - Przejdź do Kroku 2
 
 ---
 
-## 1. Utwórz Blueprint
-
-1. Otwórz: https://dashboard.render.com
-2. Kliknij przycisk **"New +"** (prawy górny róg)
-3. Kliknij **"Blueprint"**
-4. W pole "Public Git Repository" wklej: `https://github.com/aibankai96/ST_KRAKOS`
-5. W pole "Branch" wpisz: `cleanup/safe-2025`
-6. Kliknij **"Apply"**
-7. Poczekaj aż Render utworzy 2 serwisy (backend i frontend)
-
----
-
-## 2. Backend - Dodaj zmienne środowiskowe
+## KROK 2: Backend - Dodaj zmienne środowiskowe
 
 1. W liście serwisów kliknij na: **st-krakos-backend**
-2. Po lewej stronie kliknij: **"Environment"**
-3. Kliknij: **"Add Environment Variable"**
 
-**Dodaj 5 zmiennych (dla każdej kliknij "Add Environment Variable"):**
+2. Po lewej stronie jest menu - kliknij: **"Environment"**
 
-Zmienna 1:
-- Key: `FLASK_ENV`
-- Value: `production`
+3. Zobaczysz listę zmiennych środowiskowych (może być pusta)
 
-Zmienna 2:
-- Key: `PORT`
-- Value: `5000`
+4. Kliknij przycisk: **"Add Environment Variable"**
 
-Zmienna 3:
-- Key: `SECRET_KEY`
-- Value: (otwórz PowerShell, wykonaj: `python -c "import secrets; print(secrets.token_hex(32))"`, skopiuj wynik i wklej tutaj)
+5. **Dodaj pierwszą zmienną:**
+   - W polu "Key" wpisz: `FLASK_ENV`
+   - W polu "Value" wpisz: `production`
+   - Kliknij "Save" lub "Add"
 
-Zmienna 4:
-- Key: `AI_API_KEY`
-- Value: (twój klucz OpenAI - zaczyna się od `sk-`)
+6. **Kliknij "Add Environment Variable" ponownie i dodaj:**
+   - Key: `PORT`
+   - Value: `5000`
 
-Zmienna 5:
-- Key: `CORS_ORIGINS`
-- Value: `https://st-krakos-frontend.onrender.com`
+7. **Dodaj trzecią zmienną:**
+   - Key: `SECRET_KEY`
+   - Value: (wygeneruj w PowerShell - patrz poniżej)
 
----
+8. **Jak wygenerować SECRET_KEY:**
+   - Otwórz PowerShell (Windows)
+   - Wpisz dokładnie:
+     ```
+     python -c "import secrets; print(secrets.token_hex(32))"
+     ```
+   - Naciśnij Enter
+   - Zobaczysz długi ciąg znaków (np. `a1b2c3d4e5f6...`)
+   - Skopiuj cały ten tekst (Ctrl+C)
+   - Wklej w pole "Value" dla SECRET_KEY
 
-## 3. Frontend - Dodaj zmienne środowiskowe
+9. **Dodaj czwartą zmienną:**
+   - Key: `AI_API_KEY`
+   - Value: (twój klucz OpenAI - zaczyna się od `sk-`)
 
-1. W liście serwisów kliknij na: **st-krakos-frontend**
-2. Po lewej stronie kliknij: **"Environment"**
-3. Kliknij: **"Add Environment Variable"**
-
-**Dodaj 3 zmienne:**
-
-Zmienna 1:
-- Key: `NODE_ENV`
-- Value: `production`
-
-Zmienna 2:
-- Key: `RENDER`
-- Value: `true`
-
-Zmienna 3:
-- Key: `VITE_API_URL`
-- Value: `https://st-krakos-backend.onrender.com/api`
+10. **Dodaj piątą zmienną:**
+    - Key: `CORS_ORIGINS`
+    - Value: `https://st-krakos-frontend.onrender.com`
 
 ---
 
-## 4. Sprawdź czy działa
+## KROK 3: Frontend - Dodaj zmienne środowiskowe
 
-1. Backend: otwórz w przeglądarce: `https://st-krakos-backend.onrender.com/api/health`
-   - Jeśli widzisz JSON - działa
+1. Wróć do listy serwisów (kliknij logo Render lub "Dashboard")
 
-2. Frontend: otwórz w przeglądarce: `https://st-krakos-frontend.onrender.com`
-   - Jeśli strona się ładuje - działa
+2. Kliknij na: **st-krakos-frontend**
+
+3. Po lewej stronie kliknij: **"Environment"**
+
+4. Kliknij: **"Add Environment Variable"**
+
+5. **Dodaj pierwszą zmienną:**
+   - Key: `NODE_ENV`
+   - Value: `production`
+
+6. **Dodaj drugą zmienną:**
+   - Key: `RENDER`
+   - Value: `true`
+
+7. **Dodaj trzecią zmienną:**
+   - Key: `VITE_API_URL`
+   - Value: `https://st-krakos-backend.onrender.com/api`
 
 ---
 
-## 5. Jeśli backend nie działa
+## KROK 4: Sprawdź czy działa
 
-**Sprawdź Start Command:**
-1. Backend → Settings → General
-2. Sprawdź pole "Start Command"
-3. Musi być: `python -m backend.app`
-4. Jeśli jest inaczej - zmień i zapisz
+1. **Sprawdź backend:**
+   - Otwórz nową kartę w przeglądarce
+   - Wpisz adres: `https://st-krakos-backend.onrender.com/api/health`
+   - Jeśli widzisz tekst z `"status": "ok"` - działa! ✅
 
-**Sprawdź SECRET_KEY:**
-1. Backend → Environment
-2. Sprawdź czy jest zmienna `SECRET_KEY`
-3. Jeśli nie ma - dodaj (jak w kroku 2)
+2. **Sprawdź frontend:**
+   - Otwórz: `https://st-krakos-frontend.onrender.com`
+   - Jeśli strona się ładuje - działa! ✅
 
 ---
 
-KONIEC - to wszystko co trzeba zrobić.
+## Jeśli backend nie działa:
+
+1. Kliknij na **st-krakos-backend**
+2. Kliknij **"Settings"** (po lewej)
+3. Kliknij **"General"**
+4. Sprawdź pole **"Start Command"**
+5. Musi być: `python -m backend.app`
+6. Jeśli jest inaczej - zmień i zapisz
+
+---
+
+KONIEC - to wszystko!
