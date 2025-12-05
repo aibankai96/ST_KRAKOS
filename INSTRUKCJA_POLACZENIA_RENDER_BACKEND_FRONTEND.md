@@ -1,156 +1,109 @@
 # Instrukcja Wdrożenia na Render
 
-## Krok 1: Utwórz Blueprint - SZCZEGÓŁOWA INSTRUKCJA
+## KROK 1: Utwórz/Edytuj Blueprint - CO WYBRAĆ W FORMUŁARZU
 
-### Co zobaczysz na ekranie:
+**Jeśli widzisz formularz z opcjami do wyboru:**
 
-1. **Otwórz przeglądarkę i idź na:** 
-   ```
-   https://dashboard.render.com
-   ```
+### 1. Branch (Ważne!)
+- **Zmień z "master" na:** `cleanup/safe-2025`
+- Kliknij na pole "Branch" i wpisz: `cleanup/safe-2025`
 
-2. **Jeśli nie jesteś zalogowany:**
-   - Kliknij "Log In" lub "Sign Up"
-   - Możesz zalogować się przez GitHub (najłatwiej)
-   - Kliknij "Sign in with GitHub"
-   - Autoryzuj dostęp do Render
+### 2. Wybór serwisów
+**Jeśli widzisz opcję:**
+- **"Associate existing services"** (Skojarz istniejące serwisy)
+- **"Create all as new services"** (Utwórz wszystkie jako nowe)
 
-3. **Gdy jesteś w Dashboard (głównym panelu):**
-   - Zobaczysz listę swoich serwisów (może być pusta)
-   - W prawym górnym rogu jest przycisk **"New +"** (niebieski/przycisk)
-   - **KLIKNIJ na przycisk "New +"**
+**Wybierz:** **"Associate existing services"** (jeśli serwisy już istnieją)
 
-4. **Pojawi się menu z opcjami:**
-   - Web Service
-   - Background Worker
-   - Static Site
-   - Private Service
-   - PostgreSQL
-   - Redis
-   - **Blueprint** ← TO WYBIERZ
-   - Kliknij na **"Blueprint"**
+**LUB** wybierz: **"Create all as new services"** (jeśli chcesz stworzyć nowe)
 
-5. **Zobaczysz formularz "New Blueprint":**
-   - **Public Git Repository** - to jest pole do wpisania
-   - W to pole wpisz/wklej dokładnie:
-     ```
-     https://github.com/aibankai96/ST_KRAKOS
-     ```
-   - **LUB** kliknij na "Search" i wpisz: `ST_KRAKOS`
-   - Wybierz z listy: `aibankai96 / ST_KRAKOS`
+### 3. Zmienne środowiskowe w formularzu
+**Jeśli widzisz:**
+- Key: `AI_API_KEY`
+- Value: Enter value
 
-6. **Sprawdź pole "Branch":**
-   - Może być puste lub pokazywać "main"
-   - Wpisz lub zmień na: `cleanup/safe-2025`
-   - To jest ważne!
+**Wpisz tutaj:**
+- W pole "Value" wpisz swój klucz OpenAI (zaczyna się od `sk-`)
 
-7. **Na dole formularza:**
-   - Jest przycisk **"Apply"** lub **"Connect"**
-   - **KLIKNIJ "Apply"**
-
-8. **Render zacznie przetwarzać:**
-   - Zobaczysz komunikat "Creating services..."
-   - Render automatycznie wykryje plik `render.yaml`
-   - Utworzy 2 serwisy:
-     - st-krakos-backend (Web Service)
-     - st-krakos-frontend (Static Site)
-
-9. **Gdy zobaczysz 2 nowe serwisy na liście:**
-   - Krok 1 zakończony! ✅
-   - Przejdź do Kroku 2
+### 4. Na końcu
+- Sprawdź czy wszystko jest zaznaczone
+- Kliknij przycisk **"Create"** (na dole formularza)
 
 ---
 
-## KROK 2: Backend - Dodaj zmienne środowiskowe
+## CO DALEJ PO KLIKNIĘCIU "CREATE":
 
-1. W liście serwisów kliknij na: **st-krakos-backend**
+### 1. Backend - Sprawdź i ustaw zmienne środowiskowe
 
-2. Po lewej stronie jest menu - kliknij: **"Environment"**
+1. W Render Dashboard kliknij na: **st-krakos-backend**
 
-3. Zobaczysz listę zmiennych środowiskowych (może być pusta)
+2. Po lewej stronie kliknij: **"Environment"**
 
-4. Kliknij przycisk: **"Add Environment Variable"**
+3. **Sprawdź czy są te zmienne (jeśli nie ma - dodaj):**
 
-5. **Dodaj pierwszą zmienną:**
-   - W polu "Key" wpisz: `FLASK_ENV`
-   - W polu "Value" wpisz: `production`
-   - Kliknij "Save" lub "Add"
+   Kliknij **"Add Environment Variable"** i dodaj:
 
-6. **Kliknij "Add Environment Variable" ponownie i dodaj:**
+   **Zmienna 1:**
+   - Key: `FLASK_ENV`
+   - Value: `production`
+
+   **Zmienna 2:**
    - Key: `PORT`
    - Value: `5000`
 
-7. **Dodaj trzecią zmienną:**
+   **Zmienna 3:**
    - Key: `SECRET_KEY`
    - Value: (wygeneruj w PowerShell - patrz poniżej)
 
-8. **Jak wygenerować SECRET_KEY:**
-   - Otwórz PowerShell (Windows)
-   - Wpisz dokładnie:
-     ```
-     python -c "import secrets; print(secrets.token_hex(32))"
-     ```
+   **Zmienna 4:**
+   - Key: `CORS_ORIGINS`
+   - Value: `https://st-krakos-frontend.onrender.com`
+
+   **Jak wygenerować SECRET_KEY:**
+   - Otwórz PowerShell
+   - Wpisz: `python -c "import secrets; print(secrets.token_hex(32))"`
    - Naciśnij Enter
-   - Zobaczysz długi ciąg znaków (np. `a1b2c3d4e5f6...`)
-   - Skopiuj cały ten tekst (Ctrl+C)
-   - Wklej w pole "Value" dla SECRET_KEY
+   - Skopiuj cały wynik i wklej jako wartość SECRET_KEY
 
-9. **Dodaj czwartą zmienną:**
-   - Key: `AI_API_KEY`
-   - Value: (twój klucz OpenAI - zaczyna się od `sk-`)
+### 2. Frontend - Sprawdź i ustaw zmienne środowiskowe
 
-10. **Dodaj piątą zmienną:**
-    - Key: `CORS_ORIGINS`
-    - Value: `https://st-krakos-frontend.onrender.com`
+1. W Render Dashboard kliknij na: **st-krakos-frontend**
 
----
+2. Po lewej stronie kliknij: **"Environment"**
 
-## KROK 3: Frontend - Dodaj zmienne środowiskowe
+3. **Sprawdź czy są te zmienne (jeśli nie ma - dodaj):**
 
-1. Wróć do listy serwisów (kliknij logo Render lub "Dashboard")
-
-2. Kliknij na: **st-krakos-frontend**
-
-3. Po lewej stronie kliknij: **"Environment"**
-
-4. Kliknij: **"Add Environment Variable"**
-
-5. **Dodaj pierwszą zmienną:**
+   **Zmienna 1:**
    - Key: `NODE_ENV`
    - Value: `production`
 
-6. **Dodaj drugą zmienną:**
+   **Zmienna 2:**
    - Key: `RENDER`
    - Value: `true`
 
-7. **Dodaj trzecią zmienną:**
+   **Zmienna 3:**
    - Key: `VITE_API_URL`
    - Value: `https://st-krakos-backend.onrender.com/api`
 
----
-
-## KROK 4: Sprawdź czy działa
-
-1. **Sprawdź backend:**
-   - Otwórz nową kartę w przeglądarce
-   - Wpisz adres: `https://st-krakos-backend.onrender.com/api/health`
-   - Jeśli widzisz tekst z `"status": "ok"` - działa! ✅
-
-2. **Sprawdź frontend:**
-   - Otwórz: `https://st-krakos-frontend.onrender.com`
-   - Jeśli strona się ładuje - działa! ✅
-
----
-
-## Jeśli backend nie działa:
+### 3. Sprawdź Start Command w Backendzie
 
 1. Kliknij na **st-krakos-backend**
 2. Kliknij **"Settings"** (po lewej)
 3. Kliknij **"General"**
 4. Sprawdź pole **"Start Command"**
-5. Musi być: `python -m backend.app`
+5. **Musi być:** `python -m backend.app`
 6. Jeśli jest inaczej - zmień i zapisz
 
 ---
 
-KONIEC - to wszystko!
+## Sprawdź czy działa:
+
+1. **Backend:** otwórz: `https://st-krakos-backend.onrender.com/api/health`
+   - Jeśli widzisz JSON z `"status": "ok"` - działa! ✅
+
+2. **Frontend:** otwórz: `https://st-krakos-frontend.onrender.com`
+   - Jeśli strona się ładuje - działa! ✅
+
+---
+
+**WAŻNE:** Branch musi być `cleanup/safe-2025` (nie `master`)!
