@@ -1,117 +1,96 @@
-# Instrukcja Wdrożenia na Render - ST KRATOS
+# Instrukcja Wdrożenia na Render
 
-## KROK 1: Utwórz Blueprint w Render
+## CO ROBIĆ KROK PO KROKU:
 
-1. Idź na: https://dashboard.render.com
-2. Kliknij **"New +"** (prawy górny róg)
-3. Wybierz **"Blueprint"**
-4. W polu "Public Git Repository" wpisz:
-   ```
-   https://github.com/aibankai96/ST_KRAKOS
-   ```
-5. Branch: `cleanup/safe-2025`
+---
+
+## 1. Utwórz Blueprint
+
+1. Otwórz: https://dashboard.render.com
+2. Kliknij przycisk **"New +"** (prawy górny róg)
+3. Kliknij **"Blueprint"**
+4. W pole "Public Git Repository" wklej: `https://github.com/aibankai96/ST_KRAKOS`
+5. W pole "Branch" wpisz: `cleanup/safe-2025`
 6. Kliknij **"Apply"**
-7. Render automatycznie utworzy backend i frontend
+7. Poczekaj aż Render utworzy 2 serwisy (backend i frontend)
 
 ---
 
-## KROK 2: Ustaw zmienne środowiskowe dla BACKENDU
+## 2. Backend - Dodaj zmienne środowiskowe
 
-1. W Render Dashboard kliknij na serwis: **st-krakos-backend**
-2. Kliknij **"Environment"** (w menu po lewej)
-3. Dodaj te zmienne (kliknij "Add Environment Variable" dla każdej):
+1. W liście serwisów kliknij na: **st-krakos-backend**
+2. Po lewej stronie kliknij: **"Environment"**
+3. Kliknij: **"Add Environment Variable"**
 
-| Key | Value |
-|-----|-------|
-| `FLASK_ENV` | `production` |
-| `PORT` | `5000` |
-| `SECRET_KEY` | Wygeneruj: `python -c "import secrets; print(secrets.token_hex(32))"` |
-| `AI_API_KEY` | Twój klucz OpenAI (zaczyna się od `sk-`) |
-| `CORS_ORIGINS` | `https://st-krakos-frontend.onrender.com` |
+**Dodaj 5 zmiennych (dla każdej kliknij "Add Environment Variable"):**
 
-**Jak wygenerować SECRET_KEY:**
-- Otwórz PowerShell
-- Wykonaj: `python -c "import secrets; print(secrets.token_hex(32))"`
-- Skopiuj cały wynik (64 znaki) i wklej jako wartość SECRET_KEY
+Zmienna 1:
+- Key: `FLASK_ENV`
+- Value: `production`
 
----
+Zmienna 2:
+- Key: `PORT`
+- Value: `5000`
 
-## KROK 3: Ustaw zmienne środowiskowe dla FRONTENDU
+Zmienna 3:
+- Key: `SECRET_KEY`
+- Value: (otwórz PowerShell, wykonaj: `python -c "import secrets; print(secrets.token_hex(32))"`, skopiuj wynik i wklej tutaj)
 
-1. W Render Dashboard kliknij na serwis: **st-krakos-frontend**
-2. Kliknij **"Environment"** (w menu po lewej)
-3. Dodaj te zmienne:
+Zmienna 4:
+- Key: `AI_API_KEY`
+- Value: (twój klucz OpenAI - zaczyna się od `sk-`)
 
-| Key | Value |
-|-----|-------|
-| `NODE_ENV` | `production` |
-| `RENDER` | `true` |
-| `VITE_API_URL` | `https://st-krakos-backend.onrender.com/api` |
+Zmienna 5:
+- Key: `CORS_ORIGINS`
+- Value: `https://st-krakos-frontend.onrender.com`
 
 ---
 
-## KROK 4: Sprawdź czy backend działa
+## 3. Frontend - Dodaj zmienne środowiskowe
 
-1. Po wdrożeniu backendu, wejdź na:
-   ```
-   https://st-krakos-backend.onrender.com/api/health
-   ```
-2. Jeśli widzisz JSON z `"status": "ok"` - działa!
+1. W liście serwisów kliknij na: **st-krakos-frontend**
+2. Po lewej stronie kliknij: **"Environment"**
+3. Kliknij: **"Add Environment Variable"**
 
----
+**Dodaj 3 zmienne:**
 
-## KROK 5: Połącz backend z frontendem
+Zmienna 1:
+- Key: `NODE_ENV`
+- Value: `production`
 
-### 5.1: Zaktualizuj CORS_ORIGINS w backendzie
+Zmienna 2:
+- Key: `RENDER`
+- Value: `true`
 
-1. Backend Service → Environment
-2. Znajdź `CORS_ORIGINS`
-3. Kliknij "Edit"
-4. Wpisz: `https://st-krakos-frontend.onrender.com`
-5. Zapisz
-
-### 5.2: Zaktualizuj VITE_API_URL w frontendzie
-
-1. Frontend Service → Environment
-2. Znajdź `VITE_API_URL`
-3. Kliknij "Edit"
-4. Wpisz: `https://st-krakos-backend.onrender.com/api`
-5. Zapisz
+Zmienna 3:
+- Key: `VITE_API_URL`
+- Value: `https://st-krakos-backend.onrender.com/api`
 
 ---
 
-## KROK 6: Sprawdź czy frontend działa
+## 4. Sprawdź czy działa
 
-1. Wejdź na: `https://st-krakos-frontend.onrender.com`
-2. Strona powinna się załadować
-3. Otwórz konsolę przeglądarki (F12)
-4. Nie powinno być błędów CORS
+1. Backend: otwórz w przeglądarce: `https://st-krakos-backend.onrender.com/api/health`
+   - Jeśli widzisz JSON - działa
+
+2. Frontend: otwórz w przeglądarce: `https://st-krakos-frontend.onrender.com`
+   - Jeśli strona się ładuje - działa
 
 ---
 
-## WAŻNE: Jeśli backend nie działa
+## 5. Jeśli backend nie działa
 
-**Problem:** `ModuleNotFoundError: No module named 'backend'`
-
-**Rozwiązanie:**
-1. Backend Service → Settings → General
-2. Sprawdź **Start Command**
+**Sprawdź Start Command:**
+1. Backend → Settings → General
+2. Sprawdź pole "Start Command"
 3. Musi być: `python -m backend.app`
-4. Jeśli jest inny - zmień i zapisz
+4. Jeśli jest inaczej - zmień i zapisz
+
+**Sprawdź SECRET_KEY:**
+1. Backend → Environment
+2. Sprawdź czy jest zmienna `SECRET_KEY`
+3. Jeśli nie ma - dodaj (jak w kroku 2)
 
 ---
 
-## WAŻNE: Jeśli backend wyświetla błąd SECRET_KEY
-
-**Rozwiązanie:**
-1. Backend Service → Environment
-2. Dodaj `SECRET_KEY` (wygeneruj jak w Kroku 2)
-3. Zapisz
-
----
-
-## Gotowe!
-
-Jeśli wszystko działa:
-- Backend: `https://st-krakos-backend.onrender.com/api/health` - pokazuje JSON
-- Frontend: `https://st-krakos-frontend.onrender.com` - strona się ładuje
+KONIEC - to wszystko co trzeba zrobić.
