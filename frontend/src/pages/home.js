@@ -158,7 +158,7 @@ export function renderHome(container) {
                     <div class="contact-content">
                         <div class="contact-email-section">
                             <div class="contact-label">${t('contact.email')}</div>
-                            <a href="mailto:stkrakos@gmail.com" aria-label="Email stkrakos@gmail.com" class="contact-main-email">stkrakos@gmail.com</a>
+                            <a href="mailto:contact@stkratos.com" aria-label="Email contact@stkratos.com" class="contact-main-email">contact@stkratos.com</a>
                         </div>
                         <div class="contact-divider"></div>
                         <div class="contact-response-section">
