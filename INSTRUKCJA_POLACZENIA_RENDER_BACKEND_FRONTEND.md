@@ -1,97 +1,92 @@
 # Instrukcja Wdrożenia na Render
 
-## ✅ BLUEPRINT DZIAŁA!
+## ❌ JEST BŁĄD - CO SPRAWDZIĆ:
 
-Jeśli widzisz status "running" - to znaczy że Render wdraża aplikację. 
+### 1. GDZIE JEST BŁĄD?
+
+**Sprawdź w Render Dashboard:**
+
+1. **Kliknij na serwis który ma błąd** (st-krakos-backend lub st-krakos-frontend)
+2. **Kliknij zakładkę "Logs"** (po lewej stronie)
+3. **Sprawdź:**
+   - Czy są błędy? (czerwone komunikaty)
+   - Jaki jest dokładny komunikat błędu?
+
+---
+
+### 2. NAJCZĘSTSZE BŁĘDY I ROZWIĄZANIA:
+
+#### BŁĄD 1: "SECRET_KEY must be set"
+
+**Rozwiązanie:**
+1. Backend → Environment
+2. Dodaj zmienną:
+   - Key: `SECRET_KEY`
+   - Value: Otwórz `generate_key.html` w przeglądarce i skopiuj klucz
+3. Zapisz
+
+#### BŁĄD 2: "CORS_ORIGINS must be set"
+
+**Rozwiązanie:**
+1. Backend → Environment
+2. Dodaj zmienną:
+   - Key: `CORS_ORIGINS`
+   - Value: `https://st-krakos-frontend.onrender.com`
+3. Zapisz
+
+#### BŁĄD 3: "ModuleNotFoundError: No module named 'backend'"
+
+**Rozwiązanie:**
+1. Backend → Settings → General
+2. Sprawdź "Start Command"
+3. Musi być: `python -m backend.app`
+4. Jeśli jest inaczej - zmień i zapisz
+
+#### BŁĄD 4: Build failed (Frontend)
+
+**Rozwiązanie:**
+1. Frontend → Settings → Build & Deploy
+2. Sprawdź "Build Command"
+3. Musi być: `cd frontend && npm install && RENDER=true npm run build`
+4. Zapisz
+
+---
+
+### 3. WYŚLIJ MI:
+
+**Potrzebuję:**
+1. Który serwis ma błąd? (backend czy frontend)
+2. Dokładny komunikat błędu z logów
+3. Lub zrób screenshot błędu
+
+**Gdzie znaleźć błąd:**
+- Render Dashboard → Serwis → "Logs" (zakładka po lewej)
 
 ---
 
 ## CO TERAZ ZROBIĆ:
 
-### 1. POCZEKAJ NA ZAKOŃCZENIE WDROŻENIA
-
-- Status "running" oznacza że trwa wdrażanie
-- Poczekaj ~5-10 minut
-- Odśwież stronę Render po kilku minutach
-- Gdy status zmieni się na "Live" - wdrożenie zakończone
+1. **Wejdź w Render Dashboard**
+2. **Kliknij na serwis z błędem**
+3. **Kliknij "Logs"**
+4. **Skopiuj błąd i wyślij mi**
 
 ---
 
-### 2. DODAJ ZMIENNE ŚRODOWISKOWE DO BACKENDU
+## SPRAWDŹ TEŻ:
 
-**Gdy backend będzie wdrożony:**
+**Backend - zmienne środowiskowe:**
+- `FLASK_ENV` = `production`
+- `PORT` = `5000`
+- `SECRET_KEY` = (wygenerowany klucz - 64 znaki)
+- `AI_API_KEY` = (twój klucz OpenAI)
+- `CORS_ORIGINS` = `https://st-krakos-frontend.onrender.com`
 
-1. Kliknij na: **st-krakos-backend**
-2. Kliknij: **"Environment"** (po lewej)
-3. Kliknij: **"Add Environment Variable"**
-
-**Dodaj 4 zmienne:**
-
-**1.**
-- Key: `FLASK_ENV`
-- Value: `production`
-
-**2.**
-- Key: `PORT`
-- Value: `5000`
-
-**3.**
-- Key: `SECRET_KEY`
-- Value: Otwórz plik `generate_key.html` w przeglądarce i skopiuj wygenerowany klucz (64 znaki)
-
-**4.**
-- Key: `CORS_ORIGINS`
-- Value: `https://st-krakos-frontend.onrender.com`
+**Frontend - zmienne środowiskowe:**
+- `NODE_ENV` = `production`
+- `RENDER` = `true`
+- `VITE_API_URL` = `https://st-krakos-backend.onrender.com/api`
 
 ---
 
-### 3. SPRAWDŹ CZY FRONTEND MA ZMIENNE
-
-1. Kliknij na: **st-krakos-frontend**
-2. Kliknij: **"Environment"** (po lewej)
-3. Sprawdź czy są:
-   - `NODE_ENV` = `production`
-   - `RENDER` = `true`
-   - Jeśli brakuje `VITE_API_URL` - dodaj:
-     - Key: `VITE_API_URL`
-     - Value: `https://st-krakos-backend.onrender.com/api`
-
----
-
-### 4. SPRAWDŹ START COMMAND W BACKENDZIE
-
-1. Kliknij na: **st-krakos-backend**
-2. Kliknij: **"Settings"**
-3. Kliknij: **"General"**
-4. Sprawdź pole: **"Start Command"**
-5. Musi być: `python -m backend.app`
-6. Jeśli jest inaczej - zmień na: `python -m backend.app`
-7. Zapisz
-
----
-
-### 5. SPRAWDŹ CZY DZIAŁA
-
-**Backend:**
-```
-https://st-krakos-backend.onrender.com/api/health
-```
-Jeśli widzisz JSON z `"status": "ok"` - działa! ✅
-
-**Frontend:**
-```
-https://st-krakos-frontend.onrender.com
-```
-Jeśli strona się ładuje - działa! ✅
-
----
-
-## WAŻNE:
-
-- Jeśli backend nie działa - sprawdź czy SECRET_KEY jest ustawiony
-- Jeśli frontend nie działa - sprawdź logi (Logs w Render Dashboard)
-- Po dodaniu zmiennych środowiskowych - Render automatycznie zredeployuje
-
----
-
-**Gotowe!**
+**Wyślij mi błąd a pomogę go naprawić!**
