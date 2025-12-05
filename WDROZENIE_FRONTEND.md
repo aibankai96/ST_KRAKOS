@@ -47,7 +47,12 @@ frontend
 
 #### **Build Command:**
 ```
-npm install && RENDER=true npm run build
+npm install && RENDER=true npm run build:prod
+```
+
+**Alternatywa (jeśli build:prod nie działa):**
+```
+npm install && RENDER=true vite build
 ```
 
 #### **Publish Directory:**

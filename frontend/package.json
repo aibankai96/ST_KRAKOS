@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run lint && npm run validate-sw && vite build",
+    "build:prod": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .js --fix",
     "lint:check": "eslint . --ext .js",
