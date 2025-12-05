@@ -1,92 +1,98 @@
 # Instrukcja Wdrożenia na Render
 
-## ❌ JEST BŁĄD - CO SPRAWDZIĆ:
+## ✅ BLUEPRINT DZIAŁA - CO DALEJ:
 
-### 1. GDZIE JEST BŁĄD?
+### KROK 1: Sprawdź czy serwisy są wdrożone
 
-**Sprawdź w Render Dashboard:**
-
-1. **Kliknij na serwis który ma błąd** (st-krakos-backend lub st-krakos-frontend)
-2. **Kliknij zakładkę "Logs"** (po lewej stronie)
-3. **Sprawdź:**
-   - Czy są błędy? (czerwone komunikaty)
-   - Jaki jest dokładny komunikat błędu?
+1. W Render Dashboard zobaczysz listę serwisów
+2. Sprawdź status:
+   - **st-krakos-backend** - jaki status? (Live / Running / Failed)
+   - **st-krakos-frontend** - jaki status? (Live / Running / Failed)
 
 ---
 
-### 2. NAJCZĘSTSZE BŁĘDY I ROZWIĄZANIA:
+### KROK 2: Dodaj zmienne środowiskowe do BACKENDU
 
-#### BŁĄD 1: "SECRET_KEY must be set"
+1. **Kliknij na:** `st-krakos-backend`
+2. **Kliknij:** `Environment` (po lewej stronie)
+3. **Kliknij:** `Add Environment Variable`
 
-**Rozwiązanie:**
-1. Backend → Environment
-2. Dodaj zmienną:
-   - Key: `SECRET_KEY`
-   - Value: Otwórz `generate_key.html` w przeglądarce i skopiuj klucz
-3. Zapisz
+**Dodaj 4 zmienne:**
 
-#### BŁĄD 2: "CORS_ORIGINS must be set"
+**Zmienna 1:**
+- Key: `FLASK_ENV`
+- Value: `production`
 
-**Rozwiązanie:**
-1. Backend → Environment
-2. Dodaj zmienną:
-   - Key: `CORS_ORIGINS`
-   - Value: `https://st-krakos-frontend.onrender.com`
-3. Zapisz
+**Zmienna 2:**
+- Key: `PORT`
+- Value: `5000`
 
-#### BŁĄD 3: "ModuleNotFoundError: No module named 'backend'"
+**Zmienna 3:**
+- Key: `SECRET_KEY`
+- Value: Otwórz plik `generate_key.html` w przeglądarce, skopiuj klucz (64 znaki) i wklej tutaj
 
-**Rozwiązanie:**
-1. Backend → Settings → General
-2. Sprawdź "Start Command"
-3. Musi być: `python -m backend.app`
-4. Jeśli jest inaczej - zmień i zapisz
-
-#### BŁĄD 4: Build failed (Frontend)
-
-**Rozwiązanie:**
-1. Frontend → Settings → Build & Deploy
-2. Sprawdź "Build Command"
-3. Musi być: `cd frontend && npm install && RENDER=true npm run build`
-4. Zapisz
+**Zmienna 4:**
+- Key: `CORS_ORIGINS`
+- Value: `https://st-krakos-frontend.onrender.com`
 
 ---
 
-### 3. WYŚLIJ MI:
+### KROK 3: Sprawdź zmienne środowiskowe w FRONTENDZIE
 
-**Potrzebuję:**
-1. Który serwis ma błąd? (backend czy frontend)
-2. Dokładny komunikat błędu z logów
-3. Lub zrób screenshot błędu
-
-**Gdzie znaleźć błąd:**
-- Render Dashboard → Serwis → "Logs" (zakładka po lewej)
-
----
-
-## CO TERAZ ZROBIĆ:
-
-1. **Wejdź w Render Dashboard**
-2. **Kliknij na serwis z błędem**
-3. **Kliknij "Logs"**
-4. **Skopiuj błąd i wyślij mi**
+1. **Kliknij na:** `st-krakos-frontend`
+2. **Kliknij:** `Environment` (po lewej stronie)
+3. **Sprawdź czy są:**
+   - `NODE_ENV` = `production` (powinno być automatycznie)
+   - `RENDER` = `true` (powinno być automatycznie)
+   - `VITE_API_URL` - jeśli nie ma, dodaj:
+     - Key: `VITE_API_URL`
+     - Value: `https://st-krakos-backend.onrender.com/api`
 
 ---
 
-## SPRAWDŹ TEŻ:
+### KROK 4: Sprawdź Start Command w BACKENDZIE
 
-**Backend - zmienne środowiskowe:**
-- `FLASK_ENV` = `production`
-- `PORT` = `5000`
-- `SECRET_KEY` = (wygenerowany klucz - 64 znaki)
-- `AI_API_KEY` = (twój klucz OpenAI)
-- `CORS_ORIGINS` = `https://st-krakos-frontend.onrender.com`
-
-**Frontend - zmienne środowiskowe:**
-- `NODE_ENV` = `production`
-- `RENDER` = `true`
-- `VITE_API_URL` = `https://st-krakos-backend.onrender.com/api`
+1. **Kliknij na:** `st-krakos-backend`
+2. **Kliknij:** `Settings` (po lewej)
+3. **Kliknij:** `General`
+4. **Sprawdź pole:** `Start Command`
+5. **Musi być:** `python -m backend.app`
+6. **Jeśli jest inaczej** - zmień i zapisz
 
 ---
 
-**Wyślij mi błąd a pomogę go naprawić!**
+### KROK 5: Sprawdź czy działa
+
+**Backend:**
+```
+https://st-krakos-backend.onrender.com/api/health
+```
+- Jeśli widzisz JSON z `"status": "ok"` - działa! ✅
+
+**Frontend:**
+```
+https://st-krakos-frontend.onrender.com
+```
+- Jeśli strona się ładuje - działa! ✅
+
+---
+
+## Jeśli backend nie działa:
+
+1. Sprawdź logi: Backend → `Logs`
+2. Najczęstsze błędy:
+   - Brak SECRET_KEY - dodaj w Environment
+   - Brak CORS_ORIGINS - dodaj w Environment
+   - Zły Start Command - sprawdź Settings → General
+
+---
+
+## Jeśli frontend nie działa:
+
+1. Sprawdź logi: Frontend → `Logs`
+2. Sprawdź czy build się powiódł
+3. Sprawdź zmienne środowiskowe
+
+---
+
+**Gotowe!**
