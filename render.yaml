@@ -16,7 +16,7 @@ services:
     name: st-krakos-backend
     env: python
     buildCommand: pip install -r backend/requirements.txt
-    startCommand: cd backend && python app.py
+    startCommand: python -m backend.app
     envVars:
       - key: FLASK_ENV
         value: production
