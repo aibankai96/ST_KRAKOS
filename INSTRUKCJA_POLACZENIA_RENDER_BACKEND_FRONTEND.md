@@ -99,12 +99,15 @@ Wypełnij formularz:
 | **Branch** | `cleanup/safe-2025` | Branch z kodem |
 | **Root Directory** | *(zostaw puste)* | Render będzie w katalogu głównym |
 | **Build Command** | `pip install -r backend/requirements.txt` | Instalacja zależności |
-| **Start Command** | `python -m backend.app` | ⚠️ WAŻNE: użyj modułu, nie bezpośredniego pliku |
+| **Start Command** | `python -m backend.app` | ⚠️ WAŻNE: użyj modułu Python, NIE `cd backend && python app.py` |
 | **Instance Type** | Wybierz **Free** (dla testów) lub **Starter** ($7/miesiąc) | |
 
 **WAŻNE - Start Command:**
-- ✅ **POPRAWNIE:** `python -m backend.app`
-- ❌ **BŁĘDNIE:** `cd backend && python app.py` (może powodować błędy importów)
+- ✅ **POPRAWNIE:** `python -m backend.app` (uruchamia z katalogu głównego jako moduł)
+- ❌ **BŁĘDNIE:** `cd backend && python app.py` (błąd: ModuleNotFoundError)
+- ❌ **BŁĘDNIE:** `python backend/app.py` (błąd: ścieżki importów)
+
+**Wyjaśnienie:** Aplikacja używa importów typu `from backend.config import Config`, które wymagają uruchomienia z katalogu głównego projektu jako modułu Python.
 
 #### Krok 4: Environment Variables dla Backendu
 
@@ -114,14 +117,28 @@ Kliknij **"Add Environment Variable"** i dodaj:
 |-----|-------|------|
 | `FLASK_ENV` | `production` | Środowisko produkcyjne |
 | `PORT` | `5000` | Port (Render automatycznie ustawia, ale warto mieć) |
-| `SECRET_KEY` | `[WYGENERUJ]` | **WYMAGANY!** Użyj: `python -c "import secrets; print(secrets.token_hex(32))"` |
-| `AI_API_KEY` | `[TWÓJ KLUCZ]` | Klucz OpenAI API |
-| `CORS_ORIGINS` | `https://st-krakos-frontend.onrender.com` | URL frontendu (ustawisz później) |
+| `SECRET_KEY` | `[WYGENERUJ]` | **WYMAGANY!** Zobacz instrukcję generowania poniżej |
+| `AI_API_KEY` | `sk-proj-...` | Klucz OpenAI API (zaczyna się od `sk-`) |
+| `CORS_ORIGINS` | `https://st-krakos-frontend.onrender.com` | URL frontendu (ustawisz później, po wdrożeniu frontendu) |
+
+**UWAGA o SECRET_KEY:**
+- Jest **OBOWIĄZKOWY** w produkcji
+- Render NIE uruchomi backendu bez tego klucza
+- Backend wyświetli błąd: `ValueError: SECRET_KEY must be set in production environment!`
 
 **Generowanie SECRET_KEY:**
+
+Uruchom w terminalu/PowerShell:
 ```bash
 python -c "import secrets; print(secrets.token_hex(32))"
 ```
+
+**Przykładowy wynik:**
+```
+a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456
+```
+
+**Ważne:** Skopiuj cały wygenerowany klucz (bez cudzysłowów) i wklej jako wartość `SECRET_KEY` w Render.
 
 #### Krok 5: Utwórz Web Service
 
@@ -301,9 +318,10 @@ Oczekiwana odpowiedź:
 
 ### Przed Wdrożeniem
 
-- [ ] Repozytorium jest publiczne (lub Render ma dostęp)
-- [ ] Wszystkie zmiany są commitowane i wypushowane
-- [ ] Masz klucz OpenAI API (dla backendu)
+- [ ] Repozytorium jest **publiczne** (lub Render ma dostęp do prywatnego)
+- [ ] Wszystkie zmiany są commitowane i wypushowane do branch `cleanup/safe-2025`
+- [ ] Masz klucz OpenAI API (zaczyna się od `sk-`)
+- [ ] Wygenerowałeś `SECRET_KEY` (komenda: `python -c "import secrets; print(secrets.token_hex(32))"`)
 
 ### Backend
 
