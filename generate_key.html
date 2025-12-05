@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generator SECRET_KEY</title>
+</head>
+<body>
+    <h1>Generator SECRET_KEY</h1>
+    <button onclick="generate()">Wygeneruj SECRET_KEY</button>
+    <br><br>
+    <textarea id="key" rows="3" cols="80" readonly></textarea>
+    <br><br>
+    <button onclick="copy()">Skopiuj</button>
+    
+    <script>
+        function generate() {
+            const array = new Uint8Array(32);
+            crypto.getRandomValues(array);
+            const hex = Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+            document.getElementById('key').value = hex;
+        }
+        
+        function copy() {
+            const text = document.getElementById('key').value;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Skopiowano!');
+            });
+        }
+        
+        // Wygeneruj automatycznie
+        generate();
+    </script>
+</body>
+</html>
+
