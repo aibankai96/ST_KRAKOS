@@ -62,3 +62,10 @@ Projekt jest gotowy do deploymentu!
 
 **Status:** ✅ Aplikacja gotowa, wszystkie naprawy zakończone pomyślnie
 
+### [2025-01-27] - Wdrożenie Backendu na Render
+- ✅ Backend wdrożony na Render
+- ✅ URL: `https://st-krakos.onrender.com`
+- ✅ Wszystkie zmienne środowiskowe skonfigurowane
+- ✅ Aplikacja działa poprawnie
+- ⏭️ **Następny krok:** Wdrożenie frontendu (Static Site)
+
