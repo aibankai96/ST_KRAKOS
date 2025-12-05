@@ -21,7 +21,7 @@ class JSONFormatter(logging.Formatter):
             log_entry['exception'] = self.formatException(record.exc_info)
         return json.dumps(log_entry)
 
-def setup_logger(name: str = "ST_KRAKOS") -> logging.Logger:
+def setup_logger(name: str = "ST_KRATOS") -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(getattr(logging, Config.LOG_LEVEL, logging.INFO))
     

@@ -38,7 +38,7 @@ def handle_ai_error(result):
 def health():
     return jsonify({
         "status": "ok",
-        "service": "ST KRAKOS Backend",
+        "service": "ST KRATOS Backend",
         "version": "1.0.0"
     })
 
@@ -60,7 +60,7 @@ def generate_page():
         
         prompt = data.get('prompt', '')
         page_type = data.get('page_type', 'landing')
-        title = data.get('title', 'ST KRAKOS')
+        title = data.get('title', 'ST KRATOS')
         
         error_response = validate_and_log('prompt', validator.validate_prompt(prompt))
         if error_response:

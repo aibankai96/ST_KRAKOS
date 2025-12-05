@@ -72,7 +72,7 @@ export const api = {
    * @param {string} title - Tytuł strony
    * @returns {Promise} Promise z wygenerowaną stroną
    */
-  async generatePage(prompt, pageType = 'landing', title = 'ST KRAKOS') {
+  async generatePage(prompt, pageType = 'landing', title = 'ST KRATOS') {
     return apiCall('/generate-page', {method: 'POST', body: {prompt, page_type: pageType, title}}, 'Generowanie strony...', 'Błąd podczas generowania strony')
   },
 

@@ -34,7 +34,7 @@ export function renderHome(container) {
   addStructuredData({
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'ST KRAKOS',
+    name: 'ST KRATOS',
     description: t('seo.orgDesc'),
     url: window.location.origin
   })

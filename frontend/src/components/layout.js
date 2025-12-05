@@ -14,7 +14,7 @@ export const renderHeader = () => {
     {scroll: 'portfolio', key: 'nav.portfolio'},
     {scroll: 'contact', key: 'nav.contact'}
   ]
-  header.innerHTML = `<nav><div class="logo">ST KRAKOS</div><button class="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button><ul class="nav-menu">${navItems.map(({scroll, key}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${t(key)}</a></li>`).join('')}</ul><div class="lang-switcher"><button class="lang-btn ${lang === 'pl' ? 'active' : ''}" data-lang="pl" title="Polski">🇵🇱</button><button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en" title="English">🇺🇸</button></div></nav>`
+  header.innerHTML = `<nav><div class="logo">ST KRATOS</div><button class="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button><ul class="nav-menu">${navItems.map(({scroll, key}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${t(key)}</a></li>`).join('')}</ul><div class="lang-switcher"><button class="lang-btn ${lang === 'pl' ? 'active' : ''}" data-lang="pl" title="Polski">🇵🇱</button><button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en" title="English">🇺🇸</button></div></nav>`
   document.body.insertAdjacentHTML('beforeend', '<div class="mobile-menu-overlay"></div>')
   header.querySelectorAll('.lang-btn').forEach(btn => {
     const newBtn = btn.cloneNode(true)
@@ -51,7 +51,7 @@ const initMobileMenu = () => {
 export const renderFooter = () => {
   const footer = document.getElementById('footer')
   if (footer) {
-    footer.innerHTML = `<div class="footer-content"><p>&copy; ${CURRENT_YEAR} ST KRAKOS. ${t('footer')}</p></div>`
+    footer.innerHTML = `<div class="footer-content"><p>&copy; ${CURRENT_YEAR} ST KRATOS. ${t('footer')}</p></div>`
   }
 }
 export function renderLayout(container) {

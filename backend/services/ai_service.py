@@ -14,7 +14,7 @@ class AIService:
         """Generuje zawartość strony przez AI"""
         if not self.client:
             return {"success": False, "error": "AI_API_KEY nie jest skonfigurowany"}
-        system_prompt = f"Jesteś ekspertem od tworzenia stron internetowych. Tworzysz {page_type} dla firmy ST KRAKOS."
+        system_prompt = f"Jesteś ekspertem od tworzenia stron internetowych. Tworzysz {page_type} dla firmy ST KRATOS."
         
         try:
             # OpenAI client w wersji 1.3.0 może mieć timeout w konfiguracji klienta
@@ -55,7 +55,7 @@ class AIService:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{content.get('title', 'ST KRAKOS')}</title>
+    <title>{content.get('title', 'ST KRATOS')}</title>
 </head>
 <body>
     {content.get('content', '')}

@@ -1,7 +1,7 @@
 const DEFAULTS = {
-  title: 'ST KRAKOS - Strona Firmowa',
-  description: 'ST KRAKOS - Innowacyjne rozwiązania z wykorzystaniem sztucznej inteligencji',
-  ogTitle: 'ST KRAKOS',
+  title: 'ST KRATOS - Strona Firmowa',
+  description: 'ST KRATOS - Innowacyjne rozwiązania z wykorzystaniem sztucznej inteligencji',
+  ogTitle: 'ST KRATOS',
   ogDescription: 'Innowacyjne rozwiązania z wykorzystaniem AI'
 }
 const SELECTORS = {

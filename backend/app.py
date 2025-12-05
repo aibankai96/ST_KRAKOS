@@ -23,6 +23,6 @@ def set_request_id():
 
 
 if __name__ == '__main__':
-    logger.info("Starting ST KRAKOS Backend API")
+    logger.info("Starting ST KRATOS Backend API")
     app.run(host='0.0.0.0', port=Config.PORT, debug=Config.DEBUG)
 
