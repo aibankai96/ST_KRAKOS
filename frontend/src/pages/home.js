@@ -99,6 +99,7 @@ export function renderHome(container) {
                     ${createServiceCard('🔧', 'services.mod', 'services.modd', 'services.modf', forLabel)}
                     ${createServiceCard('✨', 'services.elem', 'services.elemd', 'services.elemf', forLabel)}
                 </div>
+                <p class="services-other">${t('services.other')}</p>
             </div>
         </section>
         <section id="technologies" class="portfolio" role="region" aria-label="Technologies">
