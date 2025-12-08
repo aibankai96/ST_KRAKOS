@@ -1,4 +1,4 @@
-const CACHE_NAME = 'st-krakos-v1.0.2'
+const CACHE_NAME = 'st-krakos-v1.0.3'
 const BASE_PATH = '/ST_KRAKOS/'
 const urlsToCache = [
   BASE_PATH,
