@@ -33,6 +33,7 @@ self.addEventListener('activate', (event) => {
             if (cacheName !== CACHE_NAME) {
               return caches.delete(cacheName).catch(() => {})
             }
+            return Promise.resolve()
           })
         )
       }),
@@ -40,7 +41,6 @@ self.addEventListener('activate', (event) => {
       self.clients.claim()
     ]).catch((error) => {
       console.error('Activate failed:', error)
-      // Don't throw - allow activation to succeed
     })
   )
 })

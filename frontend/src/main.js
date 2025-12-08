@@ -2,6 +2,8 @@ import {initRouter} from './router.js'
 import {renderLayout} from './components/layout.js'
 import {showError} from './utils/error.js'
 import {initPuzzleLoader} from './utils/puzzleLoader.js'
+import './utils/analytics.js'
+import {initSecretCode} from './utils/statsModal.js'
 
 // Global error handler
 window.addEventListener('error', (event) => {
@@ -25,5 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     renderLayout(app)
     initRouter()
+    initSecretCode()
   }, 2900)
 })
