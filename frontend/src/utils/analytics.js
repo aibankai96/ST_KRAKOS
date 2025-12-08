@@ -15,12 +15,28 @@ class Analytics {
   trackVisitOnce() {
     // Track visit only once per page load
     // Use performance.timing to ensure page is loaded
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => this.trackVisit(), 1000)
-      })
-    } else {
-      setTimeout(() => this.trackVisit(), 1000)
+    try {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          setTimeout(() => {
+            try {
+              this.trackVisit()
+            } catch (error) {
+              console.error('[Analytics] Error in trackVisit:', error)
+            }
+          }, 1000)
+        })
+      } else {
+        setTimeout(() => {
+          try {
+            this.trackVisit()
+          } catch (error) {
+            console.error('[Analytics] Error in trackVisit:', error)
+          }
+        }, 1000)
+      }
+    } catch (error) {
+      console.error('[Analytics] Error in trackVisitOnce:', error)
     }
   }
 

@@ -105,6 +105,10 @@ nav {
 .logo::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--color-primary), var(--color-primary-alt), var(--color-primary)); background-size: 200% 100%; animation: underline-move 15s linear infinite; border-radius: var(--radius-sm); }
 nav ul { display: flex; list-style: none; gap: var(--spacing-md); }
 nav ul.nav-menu { display: flex; }
+/* Desktop menu - hidden on mobile */
+@media (max-width: 768px) {
+    nav > ul:not(.nav-menu) { display: none !important; }
+}
 nav a { color: var(--color-text-muted); text-decoration: none; transition: var(--transition); font-weight: 500; font-size: var(--font-lg); padding: var(--spacing-xs) 0; position: relative; letter-spacing: 0.2px; }
 nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gradient-primary); transition: width 0.3s ease; box-shadow: 0 0 10px var(--color-gold-rgba-6); }
 nav a:hover { color: var(--color-primary); text-shadow: 0 1px 6px var(--color-gold-rgba-5); transform: translateY(-2px); }
@@ -397,16 +401,19 @@ footer {
 }
 
 @media (max-width: 768px) {
-    /* Hide desktop menu on mobile */
-    nav ul:not(.nav-menu) { display: none !important; }
+    /* Hide ALL desktop menus on mobile - CRITICAL */
+    nav > ul:not(.nav-menu) { display: none !important; visibility: hidden !important; }
+    nav ul:not(.nav-menu) { display: none !important; visibility: hidden !important; }
     
-    /* Show hamburger on mobile */
+    /* Show hamburger on mobile - MUST be visible */
     .hamburger { 
         display: flex !important; 
-        min-width: 44px; 
-        min-height: 44px; 
+        visibility: visible !important;
+        min-width: 44px !important; 
+        min-height: 44px !important; 
         z-index: 102 !important;
-        position: relative;
+        position: relative !important;
+        cursor: pointer !important;
     }
     
     /* Mobile menu - always positioned fixed, hidden by default - MUST be on LEFT side */

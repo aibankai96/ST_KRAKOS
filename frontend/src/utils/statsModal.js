@@ -11,10 +11,9 @@ export function initSecretCode() {
   }
   isInitialized = true
 
-  // Only on desktop
-  if (window.innerWidth <= 768) {
-    console.log('[Stats] Skipped - mobile device')
-    return
+  // Only on desktop - skip on mobile to avoid errors
+  if (window.innerWidth <= 768 || /mobile|iphone|ipad|android/i.test(navigator.userAgent)) {
+    return // Silently skip on mobile
   }
 
   console.log('[Stats] Initializing secret code detection')
