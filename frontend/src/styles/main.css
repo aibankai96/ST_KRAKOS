@@ -397,10 +397,10 @@ footer {
 
 @media (max-width: 768px) {
     .hamburger { display: flex; min-width: 44px; min-height: 44px; }
-    nav ul.nav-menu { position: fixed; top: 0; left: -100%; width: 280px; height: calc(100vh - env(safe-area-inset-bottom)); background: linear-gradient(135deg, rgba(10, 14, 39, 0.98) 0%, rgba(26, 31, 58, 0.98) 100%); flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: calc(5rem + env(safe-area-inset-top)) 2rem calc(2rem + env(safe-area-inset-bottom)); gap: 2rem; z-index: 100; transition: left 0.3s ease; box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5); border-right: 2px solid var(--color-gold-rgba-4); overflow-y: auto; will-change: transform; text-align: left; }
+    nav ul.nav-menu { position: fixed; top: 0; left: -100%; width: 280px; height: calc(100vh - env(safe-area-inset-bottom)); background: linear-gradient(135deg, rgba(10, 14, 39, 0.98) 0%, rgba(26, 31, 58, 0.98) 100%); flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: calc(5rem + env(safe-area-inset-top)) 2rem calc(2rem + env(safe-area-inset-bottom)); gap: 2rem; z-index: 100; transition: left 0.3s ease; box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5); border-right: 2px solid var(--color-gold-rgba-4); overflow-y: auto; will-change: transform; text-align: left !important; }
     nav ul.nav-menu.active { left: 0; }
-    nav ul.nav-menu li { width: 100%; }
-    nav ul.nav-menu a { display: flex; width: 100%; padding: 1rem; font-size: 1.2rem; min-height: 44px; align-items: center; justify-content: flex-start; color: var(--color-text-muted); border-bottom: 1px solid rgba(255, 215, 0, 0.1); text-align: left; }
+    nav ul.nav-menu li { width: 100%; text-align: left !important; }
+    nav ul.nav-menu a { display: flex; width: 100%; padding: 1rem; font-size: 1.2rem; min-height: 44px; align-items: center; justify-content: flex-start !important; color: var(--color-text-muted); border-bottom: 1px solid rgba(255, 215, 0, 0.1); text-align: left !important; }
     nav ul.nav-menu a:hover { color: var(--color-primary); background: rgba(255, 215, 0, 0.05); transform: translateX(-5px); }
     nav ul.nav-menu a::after { display: none; }
     .mobile-menu-overlay { display: block; }
