@@ -53,7 +53,7 @@
         if ('serviceWorker' in navigator && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
             window.addEventListener('load', () => {
                 const basePath = window.location.pathname.includes('/ST_KRAKOS/') ? '/ST_KRAKOS/' : '/'
-                const swUrl = `${basePath}sw.js?v=1.0.7`
+                const swUrl = `${basePath}sw.js?v=1.0.8`
                 
                 // Register service worker with error handling
                 navigator.serviceWorker.register(swUrl, {updateViaCache: 'none'})

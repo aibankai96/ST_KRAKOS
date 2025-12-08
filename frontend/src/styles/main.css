@@ -397,15 +397,61 @@ footer {
 
 @media (max-width: 768px) {
     .hamburger { display: flex; min-width: 44px; min-height: 44px; }
-    nav ul.nav-menu { position: fixed; top: 0; left: -100%; width: 280px; height: calc(100vh - env(safe-area-inset-bottom)); background: linear-gradient(135deg, rgba(10, 14, 39, 0.98) 0%, rgba(26, 31, 58, 0.98) 100%); flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: calc(5rem + env(safe-area-inset-top)) 2rem calc(2rem + env(safe-area-inset-bottom)); gap: 2rem; z-index: 100; transition: left 0.3s ease; box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5); border-right: 2px solid var(--color-gold-rgba-4); overflow-y: auto; will-change: transform; text-align: left !important; }
-    nav ul.nav-menu.active { left: 0; }
-    nav ul.nav-menu li { width: 100%; text-align: left !important; }
-    nav ul.nav-menu a { display: flex; width: 100%; padding: 1rem; font-size: 1.2rem; min-height: 44px; align-items: center; justify-content: flex-start !important; color: var(--color-text-muted); border-bottom: 1px solid rgba(255, 215, 0, 0.1); text-align: left !important; }
-    nav ul.nav-menu a:hover { color: var(--color-primary); background: rgba(255, 215, 0, 0.05); transform: translateX(-5px); }
-    nav ul.nav-menu a::after { display: none; }
+    /* Override desktop nav ul styles for mobile */
+    nav ul.nav-menu { 
+        position: fixed !important; 
+        top: 0 !important; 
+        left: -100% !important; 
+        width: 280px !important; 
+        height: calc(100vh - env(safe-area-inset-bottom)) !important; 
+        background: linear-gradient(135deg, rgba(10, 14, 39, 0.98) 0%, rgba(26, 31, 58, 0.98) 100%) !important; 
+        flex-direction: column !important; 
+        justify-content: flex-start !important; 
+        align-items: flex-start !important; 
+        padding: calc(5rem + env(safe-area-inset-top)) 2rem calc(2rem + env(safe-area-inset-bottom)) !important; 
+        gap: 2rem !important; 
+        z-index: 100 !important; 
+        transition: left 0.3s ease !important; 
+        box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5) !important; 
+        border-right: 2px solid var(--color-gold-rgba-4) !important; 
+        overflow-y: auto !important; 
+        will-change: transform !important; 
+        text-align: left !important; 
+        margin: 0 !important;
+    }
+    nav ul.nav-menu.active { left: 0 !important; }
+    nav ul.nav-menu li { 
+        width: 100% !important; 
+        text-align: left !important; 
+        display: block !important;
+        margin: 0 !important;
+    }
+    nav ul.nav-menu a { 
+        display: flex !important; 
+        width: 100% !important; 
+        padding: 1rem !important; 
+        font-size: 1.2rem !important; 
+        min-height: 44px !important; 
+        align-items: center !important; 
+        justify-content: flex-start !important; 
+        color: var(--color-text-muted) !important; 
+        border-bottom: 1px solid rgba(255, 215, 0, 0.1) !important; 
+        text-align: left !important; 
+        margin: 0 !important;
+    }
+    nav ul.nav-menu a:hover { 
+        color: var(--color-primary) !important; 
+        background: rgba(255, 215, 0, 0.05) !important; 
+        transform: translateX(-5px) !important; 
+    }
+    nav ul.nav-menu a::after { display: none !important; }
     .mobile-menu-overlay { display: block; }
     .lang-switcher { position: fixed; bottom: calc(2rem + env(safe-area-inset-bottom)); right: calc(2rem + env(safe-area-inset-right)); z-index: 101; }
-    nav { flex-direction: column; gap: 1rem; }
+    /* Don't override nav flex-direction - let hamburger menu work */
+    nav { 
+        justify-content: space-between !important; 
+        align-items: center !important; 
+    }
     .hero h1, .contact-page h1, .about-page h1 { font-size: clamp(1.8rem, 7vw, 2rem); }
     .hero-subtitle { font-size: clamp(0.9rem, 3.5vw, 1rem); }
     .hero-buttons { flex-direction: column; align-items: center; }

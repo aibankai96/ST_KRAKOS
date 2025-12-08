@@ -1,4 +1,4 @@
-const CACHE_NAME = 'st-krakos-v1.0.7'
+const CACHE_NAME = 'st-krakos-v1.0.8'
 const BASE_PATH = '/ST_KRAKOS/'
 
 self.addEventListener('install', (event) => {
