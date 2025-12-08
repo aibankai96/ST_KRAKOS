@@ -1,55 +1,46 @@
-const CACHE_NAME = 'st-krakos-v1.0.6'
+const CACHE_NAME = 'st-krakos-v1.0.7'
 const BASE_PATH = '/ST_KRAKOS/'
-const urlsToCache = [
-  BASE_PATH,
-  `${BASE_PATH}index.html`,
-  `${BASE_PATH}src/main.js`,
-  `${BASE_PATH}src/router.js`,
-  `${BASE_PATH}src/pages/home.js`,
-  `${BASE_PATH}src/components/layout.js`,
-  `${BASE_PATH}src/styles/main.css`,
-  `${BASE_PATH}src/utils/i18n.js`,
-  `${BASE_PATH}src/utils/seo.js`,
-  `${BASE_PATH}src/utils/validators.js`
-]
 
 self.addEventListener('install', (event) => {
   // Force skip waiting to activate immediately
   self.skipWaiting()
   
+  // Don't block installation if cache fails
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        return cache.addAll(urlsToCache.map(url => new Request(url, {cache: 'reload'})))
+        // Try to cache files, but don't fail if some don't exist
+        return Promise.allSettled([
+          cache.add(`${BASE_PATH}index.html`).catch(() => {}),
+          cache.add(`${BASE_PATH}src/main.js`).catch(() => {}),
+          cache.add(`${BASE_PATH}src/styles/main.css`).catch(() => {})
+        ])
       })
       .catch((error) => {
         console.error('Cache install failed:', error)
+        // Don't throw - allow installation to succeed
       })
   )
 })
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      // Delete ALL old caches (aggressive cleanup)
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName)
-            return caches.delete(cacheName)
-          }
-        })
-      )
-    }).then(() => {
-      // Force claim all clients immediately
-      return self.clients.claim()
-    }).then(() => {
-      // Notify all clients to reload
-      return self.clients.matchAll().then((clients) => {
-        clients.forEach((client) => {
-          client.postMessage({type: 'SW_UPDATED', cacheVersion: CACHE_NAME})
-        })
-      })
+    Promise.all([
+      // Delete old caches
+      caches.keys().then((cacheNames) => {
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            if (cacheName !== CACHE_NAME) {
+              return caches.delete(cacheName).catch(() => {})
+            }
+          })
+        )
+      }),
+      // Claim clients
+      self.clients.claim()
+    ]).catch((error) => {
+      console.error('Activate failed:', error)
+      // Don't throw - allow activation to succeed
     })
   )
 })
@@ -61,71 +52,47 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(event.request.url)
   
-  // For CSS and JS files, use network-first with aggressive cache busting
-  if (url.pathname.includes('/src/styles/main.css') || 
-      url.pathname.includes('/src/') && (url.pathname.endsWith('.js') || url.pathname.endsWith('.css'))) {
-    event.respondWith(
-      fetch(event.request, {cache: 'no-store'})
-        .then((response) => {
-          if (response && response.status === 200) {
-            const responseToCache = response.clone()
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, responseToCache)
-            })
-          }
-          return response
-        })
-        .catch(() => {
-          return caches.match(event.request)
-        })
-    )
+  // Only handle requests from our domain
+  if (!url.pathname.includes(BASE_PATH) && url.pathname !== '/' && !url.pathname.startsWith(BASE_PATH.slice(0, -1))) {
     return
   }
 
-  // For other files, use cache-first but check for updates
+  // Network-first strategy for all requests
   event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        // Always try to fetch fresh version in background
-        const fetchPromise = fetch(event.request, {cache: 'no-store'})
-          .then((response) => {
-            if (response && response.status === 200) {
-              const responseToCache = response.clone()
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(event.request, responseToCache)
-              })
-            }
-            return response
-          })
-          .catch(() => null)
-
-        // Return cached version immediately if available
-        if (cachedResponse) {
-          // Update cache in background
-          fetchPromise.catch(() => {})
-          return cachedResponse
+    fetch(event.request)
+      .then((response) => {
+        // Only cache successful responses
+        if (response && response.status === 200 && response.type === 'basic') {
+          const responseToCache = response.clone()
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache).catch(() => {})
+          }).catch(() => {})
         }
-
-        // No cache, wait for network
-        return fetchPromise
+        return response
       })
       .catch(() => {
-        if (event.request.destination === 'document') {
-          return caches.match(`${BASE_PATH}index.html`)
-        }
-        return new Response('Offline', {status: 503})
+        // If network fails, try cache
+        return caches.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse
+          }
+          // If no cache, return a basic offline response for HTML
+          if (event.request.destination === 'document') {
+            return new Response('Offline', {
+              status: 503,
+              headers: {'Content-Type': 'text/html'}
+            })
+          }
+          // For other requests, let the browser handle it
+          return new Response('', {status: 503})
+        })
       })
   )
 })
 
-// Listen for messages from clients
+// Listen for messages
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting()
-  }
-  if (event.data && event.data.type === 'CLEAR_CACHE') {
-    caches.delete(CACHE_NAME).then(() => {
-      event.ports[0].postMessage({success: true})
-    })
   }
 })

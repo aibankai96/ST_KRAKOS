@@ -49,72 +49,31 @@
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
     <script>
-        // Service Worker registration with aggressive cache clearing
-        if ('serviceWorker' in navigator) {
+        // Simplified Service Worker registration
+        if ('serviceWorker' in navigator && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
             window.addEventListener('load', () => {
                 const basePath = window.location.pathname.includes('/ST_KRAKOS/') ? '/ST_KRAKOS/' : '/'
-                const swUrl = `${basePath}sw.js?v=1.0.6`
+                const swUrl = `${basePath}sw.js?v=1.0.7`
                 
-                // Unregister all old service workers first
-                navigator.serviceWorker.getRegistrations().then((registrations) => {
-                    registrations.forEach((registration) => {
-                        registration.unregister().then(() => {
-                            // Clear all caches
-                            if ('caches' in window) {
-                                caches.keys().then((cacheNames) => {
-                                    return Promise.all(
-                                        cacheNames.map((cacheName) => caches.delete(cacheName))
-                                    )
-                                })
+                // Register service worker with error handling
+                navigator.serviceWorker.register(swUrl, {updateViaCache: 'none'})
+                    .then((registration) => {
+                        // Check for updates on page visibility
+                        document.addEventListener('visibilitychange', () => {
+                            if (!document.hidden) {
+                                registration.update().catch(() => {})
                             }
                         })
                     })
-                }).then(() => {
-                    // Register new service worker
-                    if (!window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
-                        return navigator.serviceWorker.register(swUrl, {updateViaCache: 'none'})
-                            .then((registration) => {
-                                // Check for updates every time
-                                registration.addEventListener('updatefound', () => {
-                                    const newWorker = registration.installing
-                                    newWorker.addEventListener('statechange', () => {
-                                        if (newWorker.state === 'activated') {
-                                            // Reload page when new worker is activated
-                                            window.location.reload()
-                                        }
-                                    })
-                                })
-                                
-                                // Check for updates immediately and every 60 seconds
-                                setInterval(() => {
-                                    registration.update()
-                                }, 60000)
-                                
-                                // Force update check on page visibility change
-                                document.addEventListener('visibilitychange', () => {
-                                    if (!document.hidden) {
-                                        registration.update()
-                                    }
-                                })
-                            })
-                            .catch((error) => {
-                                console.error('Service Worker registration failed:', error)
-                            })
-                    } else {
-                        // Development mode - unregister service workers
-                        navigator.serviceWorker.getRegistrations().then((registrations) => {
-                            registrations.forEach((registration) => registration.unregister())
-                        })
-                    }
-                })
-                
-                // Listen for service worker messages
-                navigator.serviceWorker.addEventListener('message', (event) => {
-                    if (event.data && event.data.type === 'SW_UPDATED') {
-                        // Reload page when service worker is updated
-                        window.location.reload()
-                    }
-                })
+                    .catch((error) => {
+                        // Don't block page load if SW registration fails
+                        console.error('Service Worker registration failed:', error)
+                    })
+            })
+        } else if ('serviceWorker' in navigator) {
+            // Development mode - unregister service workers
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                registrations.forEach((registration) => registration.unregister())
             })
         }
     </script>
