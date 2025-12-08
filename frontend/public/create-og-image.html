@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>OG Image Generator - ST KRATOS</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            display: block;
+            margin: 20px auto;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: #0a0e27;
+            color: #FFD700;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #1a1f3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OG Image Generator - ST KRATOS</h1>
+        <p>Kliknij przycisk aby wygenerować obrazek Open Graph (1200x630px)</p>
+        <canvas id="ogCanvas" width="1200" height="630"></canvas>
+        <button onclick="generateImage()">Generuj i Pobierz</button>
+        <p style="font-size: 12px; color: #666; text-align: center;">
+            Po pobraniu, zapisz jako: <strong>og-image.png</strong> w folderze <strong>frontend/public/</strong>
+        </p>
+    </div>
+    <script>
+        function generateImage() {
+            const canvas = document.getElementById('ogCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Tło - gradient
+            const gradient = ctx.createLinearGradient(0, 0, 1200, 630);
+            gradient.addColorStop(0, '#0a0e27');
+            gradient.addColorStop(0.5, '#1a1f3a');
+            gradient.addColorStop(1, '#0f1419');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1200, 630);
+            
+            // Główny tekst "ST KRATOS"
+            ctx.fillStyle = '#FFD700';
+            ctx.font = 'bold 120px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.shadowColor = 'rgba(255, 215, 0, 0.5)';
+            ctx.shadowBlur = 20;
+            ctx.fillText('ST KRATOS', 600, 250);
+            
+            // Podtytuł
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.font = '36px Arial';
+            ctx.shadowBlur = 10;
+            ctx.fillText('Innowacyjne rozwiązania AI', 600, 350);
+            
+            // Opis
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.font = '28px Arial';
+            ctx.shadowBlur = 5;
+            ctx.fillText('Strony internetowe • Aplikacje webowe • Rozwiązania IT', 600, 420);
+            
+            // Element dekoracyjny - linia
+            ctx.strokeStyle = '#FFD700';
+            ctx.lineWidth = 4;
+            ctx.shadowBlur = 15;
+            ctx.beginPath();
+            ctx.moveTo(200, 480);
+            ctx.lineTo(1000, 480);
+            ctx.stroke();
+            
+            // Pobieranie obrazka
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'og-image.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        }
+        
+        // Automatyczne generowanie przy załadowaniu
+        window.addEventListener('load', function() {
+            generateImage();
+        });
+    </script>
+</body>
+</html>
+

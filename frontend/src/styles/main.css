@@ -397,36 +397,53 @@ footer {
 }
 
 @media (max-width: 768px) {
-    /* Show hamburger on mobile */
-    .hamburger { display: flex !important; min-width: 44px; min-height: 44px; }
+    /* Hide desktop menu on mobile */
+    nav ul:not(.nav-menu) { display: none !important; }
     
-    /* Mobile menu - always positioned fixed, hidden by default */
+    /* Show hamburger on mobile */
+    .hamburger { 
+        display: flex !important; 
+        min-width: 44px; 
+        min-height: 44px; 
+        z-index: 102 !important;
+        position: relative;
+    }
+    
+    /* Mobile menu - always positioned fixed, hidden by default - MUST be on LEFT side */
     nav ul.nav-menu { 
         display: flex !important;
         position: fixed !important; 
         top: 0 !important; 
         left: -100% !important; 
-        width: 280px !important; 
-        height: calc(100vh - env(safe-area-inset-bottom)) !important; 
+        right: auto !important;
+        width: 240px !important; 
+        max-width: 85vw !important;
+        height: 100vh !important; 
+        max-height: 100vh !important;
         background: linear-gradient(135deg, rgba(10, 14, 39, 0.98) 0%, rgba(26, 31, 58, 0.98) 100%) !important; 
         flex-direction: column !important; 
         justify-content: flex-start !important; 
         align-items: flex-start !important; 
-        padding: calc(5rem + env(safe-area-inset-top)) 2rem calc(2rem + env(safe-area-inset-bottom)) !important; 
-        gap: 2rem !important; 
-        z-index: 100 !important; 
+        padding: calc(5rem + env(safe-area-inset-top)) 1.5rem calc(2rem + env(safe-area-inset-bottom)) !important; 
+        gap: 1.5rem !important; 
+        z-index: 101 !important; 
         transition: left 0.3s ease !important; 
         box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5) !important; 
         border-right: 2px solid var(--color-gold-rgba-4) !important; 
+        border-left: none !important;
         overflow-y: auto !important; 
         will-change: transform !important; 
         text-align: left !important; 
         margin: 0 !important;
+        pointer-events: auto !important;
+        transform: none !important;
     }
     
-    /* Show menu when active - slide from left */
+    /* Show menu when active - slide from LEFT side */
     nav ul.nav-menu.active { 
         left: 0 !important; 
+        right: auto !important;
+        transform: none !important;
     }
     nav ul.nav-menu li { 
         width: 100% !important; 
@@ -437,8 +454,9 @@ footer {
     nav ul.nav-menu a { 
         display: flex !important; 
         width: 100% !important; 
-        padding: 1rem !important; 
-        font-size: 1.2rem !important; 
+        padding: 0.9rem 1rem !important; 
+        font-size: 1rem !important; 
+        line-height: 1.4 !important;
         min-height: 44px !important; 
         align-items: center !important; 
         justify-content: flex-start !important; 
@@ -446,6 +464,9 @@ footer {
         border-bottom: 1px solid rgba(255, 215, 0, 0.1) !important; 
         text-align: left !important; 
         margin: 0 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
     nav ul.nav-menu a:hover { 
         color: var(--color-primary) !important; 
@@ -453,8 +474,23 @@ footer {
         transform: translateX(-5px) !important; 
     }
     nav ul.nav-menu a::after { display: none !important; }
-    .mobile-menu-overlay { display: block; }
-    .lang-switcher { position: fixed; bottom: calc(2rem + env(safe-area-inset-bottom)); right: calc(2rem + env(safe-area-inset-right)); z-index: 101; }
+    .mobile-menu-overlay { 
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 100 !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: opacity 0.3s ease !important;
+    }
+    .mobile-menu-overlay.active {
+        opacity: 1 !important;
+        pointer-events: all !important;
+    }
+    .lang-switcher { position: fixed; bottom: calc(2rem + env(safe-area-inset-bottom)); right: calc(2rem + env(safe-area-inset-right)); z-index: 102 !important; }
     /* Don't override nav flex-direction - let hamburger menu work */
     nav { 
         justify-content: space-between !important; 
