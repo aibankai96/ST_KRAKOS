@@ -81,7 +81,13 @@ function createModal(stats) {
     firstOpen: stats?.firstOpen || null,
     opensByDevice: stats?.opensByDevice || {},
     opensByBrowser: stats?.opensByBrowser || {},
-    opensByDate: stats?.opensByDate || {}
+    opensByDate: stats?.opensByDate || {},
+    opensByDeviceBrowser: stats?.opensByDeviceBrowser || {},
+    opensByOS: stats?.opensByOS || {},
+    deviceBrowserData: stats?.deviceBrowserData || [],
+    osData: stats?.osData || [],
+    deviceData: stats?.deviceData || [],
+    browserData: stats?.browserData || []
   }
 
   modal.innerHTML = `
@@ -111,10 +117,23 @@ function createModal(stats) {
         <div class="stats-section">
           <h3>Otwarcia według Urządzenia</h3>
           <div class="stats-list">
-            ${Object.keys(safeStats.opensByDevice).length > 0 ?
-    Object.entries(safeStats.opensByDevice).map(([device, count]) =>
-      `<div class="stats-item"><span>${device === 'desktop' ? '🖥️ Komputer' : device === 'mobile' ? '📱 Mobilne' : '📱 Tablet'}</span><span>${count}</span></div>`
-    ).join('') :
+            ${safeStats.deviceData && safeStats.deviceData.length > 0 ?
+    safeStats.deviceData.map(({device, count, percentage}) => {
+      const deviceEmojis = {
+        'iPhone': '📱 iPhone',
+        'iPad': '📱 iPad',
+        'Android Phone': '📱 Android',
+        'Android Tablet': '📱 Android Tablet',
+        'Mac': '🖥️ Mac',
+        'Windows PC': '🖥️ Windows',
+        'Linux PC': '🖥️ Linux',
+        'Desktop': '🖥️ Komputer',
+        'Mobile': '📱 Mobilne',
+        'Tablet': '📱 Tablet'
+      }
+      const deviceName = deviceEmojis[device] || device
+      return `<div class="stats-item"><span>${deviceName}</span><span>${count} (${percentage}%)</span></div>`
+    }).join('') :
     '<div class="stats-item"><span>Brak danych</span></div>'
 }
           </div>
@@ -122,9 +141,52 @@ function createModal(stats) {
         <div class="stats-section">
           <h3>Otwarcia według Przeglądarki</h3>
           <div class="stats-list">
-            ${Object.keys(safeStats.opensByBrowser).length > 0 ?
-    Object.entries(safeStats.opensByBrowser).map(([browser, count]) =>
-      `<div class="stats-item"><span>${browser}</span><span>${count}</span></div>`
+            ${safeStats.browserData && safeStats.browserData.length > 0 ?
+    safeStats.browserData.map(({browser, count, percentage}) =>
+      `<div class="stats-item"><span>${browser}</span><span>${count} (${percentage}%)</span></div>`
+    ).join('') :
+    '<div class="stats-item"><span>Brak danych</span></div>'
+}
+          </div>
+        </div>
+        <div class="stats-section">
+          <h3>📱 Urządzenia Mobilne - Przeglądarki</h3>
+          <div class="stats-list">
+            ${safeStats.deviceBrowserData && safeStats.deviceBrowserData.length > 0 ?
+    safeStats.deviceBrowserData
+      .filter(item => {
+        const device = item.key.split('_')[0]
+        return device === 'mobile' || device === 'iPhone' || device === 'iPad' || device === 'Android Phone' || device === 'Android Tablet' || device === 'Tablet'
+      })
+      .map(({label, count, percentage}) =>
+        `<div class="stats-item"><span>${label}</span><span>${count} (${percentage}%)</span></div>`
+      ).join('') :
+    '<div class="stats-item"><span>Brak danych mobilnych</span></div>'
+}
+          </div>
+        </div>
+        <div class="stats-section">
+          <h3>🖥️ Komputery - Przeglądarki</h3>
+          <div class="stats-list">
+            ${safeStats.deviceBrowserData && safeStats.deviceBrowserData.length > 0 ?
+    safeStats.deviceBrowserData
+      .filter(item => {
+        const device = item.key.split('_')[0]
+        return device === 'desktop' || device === 'Mac' || device === 'Windows PC' || device === 'Linux PC' || device === 'Desktop'
+      })
+      .map(({label, count, percentage}) =>
+        `<div class="stats-item"><span>${label}</span><span>${count} (${percentage}%)</span></div>`
+      ).join('') :
+    '<div class="stats-item"><span>Brak danych komputerów</span></div>'
+}
+          </div>
+        </div>
+        <div class="stats-section">
+          <h3>💻 System Operacyjny</h3>
+          <div class="stats-list">
+            ${safeStats.osData && safeStats.osData.length > 0 ?
+    safeStats.osData.map(({os, count, percentage}) =>
+      `<div class="stats-item"><span>${os}</span><span>${count} (${percentage}%)</span></div>`
     ).join('') :
     '<div class="stats-item"><span>Brak danych</span></div>'
 }
