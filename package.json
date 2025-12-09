@@ -1,0 +1,14 @@
+{
+  "name": "st-krakos",
+  "version": "1.0.0",
+  "description": "ST KRATOS - AI-powered web solutions",
+  "scripts": {
+    "test:all": "node tools/run-all-tests.js",
+    "analyze:duplicates": "node tools/analyze-duplicates.js",
+    "analyze:unused": "node tools/analyze-unused-files.js",
+    "optimize:check": "node tools/optimize-code.js",
+    "optimize:apply": "node tools/optimize-code.js --write"
+  },
+  "type": "module"
+}
+

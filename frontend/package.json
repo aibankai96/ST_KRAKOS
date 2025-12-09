@@ -11,6 +11,8 @@
     "lint:check": "eslint . --ext .js",
     "validate-sw": "node scripts/validate-sw.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:all": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/comprehensive-all-types.test.js",
+    "test:compatibility": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/tab-compatibility.test.js",
     "test:sw": "node --experimental-vm-modules node_modules/jest/bin/jest.js tests/service-worker.test.js",
     "precommit": "npm run lint:check && npm run validate-sw && npm run test:sw"
   },
