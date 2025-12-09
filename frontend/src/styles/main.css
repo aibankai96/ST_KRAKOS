@@ -415,7 +415,7 @@ ul.nav-menu.mobile-menu {
     
     /* Mobile nav layout: Logo | Lang Switcher | Hamburger */
     nav { 
-        justify-content: space-between !important; 
+        justify-content: flex-start !important; 
         align-items: center !important;
         gap: 0.5rem;
         position: relative;
@@ -425,7 +425,7 @@ ul.nav-menu.mobile-menu {
     .logo {
         font-size: clamp(1.2rem, 4vw, 1.5rem) !important;
         flex-shrink: 0;
-        order: 1;
+        margin-right: auto;
     }
     
     /* Lang switcher - center/right, visible in header */
@@ -433,9 +433,8 @@ ul.nav-menu.mobile-menu {
         display: flex !important;
         gap: 0.3rem;
         align-items: center;
-        order: 2;
         flex-shrink: 0;
-        margin-left: auto;
+        margin-left: 0;
         margin-right: 0.5rem;
     }
     
@@ -453,10 +452,10 @@ ul.nav-menu.mobile-menu {
     .hamburger {
         display: flex !important;
         z-index: 1001;
-        order: 3;
         flex-shrink: 0;
         width: 40px;
         height: 40px;
+        margin-left: 0;
     }
     
     /* Mobile menu - OUTSIDE nav, always rendered but hidden off-screen */
@@ -468,7 +467,7 @@ ul.nav-menu.mobile-menu {
         width: 280px !important;
         max-width: 85vw !important;
         height: 100vh !important;
-        background: var(--gradient-header) !important;
+        background: linear-gradient(135deg, rgba(26, 31, 58, 0.98) 0%, rgba(15, 20, 25, 0.98) 100%) !important;
         backdrop-filter: blur(15px) !important;
         flex-direction: column !important;
         padding: calc(5rem + env(safe-area-inset-top)) 1.5rem calc(2rem + env(safe-area-inset-bottom)) !important;
