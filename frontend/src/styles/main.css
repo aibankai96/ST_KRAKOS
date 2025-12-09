@@ -452,12 +452,17 @@ footer {
         height: 40px;
     }
     
-    /* Mobile menu - always rendered but hidden off-screen by default */
+    /* Hide nav-menu in header on mobile - it will be shown as overlay */
     nav ul.nav-menu {
-        display: flex !important; /* Zawsze flex, nie display: none */
+        display: none !important; /* Ukryj w headerze */
+    }
+    
+    /* Mobile menu - shown as fixed overlay when active */
+    nav ul.nav-menu.active {
+        display: flex !important;
         position: fixed !important;
         top: 0 !important;
-        left: -100% !important; /* Ukryj poza ekranem domyślnie */
+        left: 0 !important;
         width: 280px !important;
         max-width: 85vw !important;
         height: 100vh !important;
@@ -466,18 +471,10 @@ footer {
         padding: calc(5rem + env(safe-area-inset-top)) 1.5rem calc(2rem + env(safe-area-inset-bottom)) !important;
         gap: 1rem !important;
         z-index: 103 !important; /* Wyższe niż overlay (100) i hamburger (102) */
-        transition: left 0.3s ease !important;
+        transition: opacity 0.3s ease, visibility 0.3s ease !important;
         box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5) !important;
         border-right: 2px solid var(--color-gold-rgba-4) !important;
         overflow-y: auto !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-    }
-    
-    /* Mobile menu - slides from LEFT side - only when active */
-    nav ul.nav-menu.active {
-        left: 0 !important; /* Wysuwa się z lewej */
         visibility: visible !important;
         opacity: 1 !important;
         pointer-events: all !important;
