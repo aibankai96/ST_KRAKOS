@@ -97,12 +97,9 @@ const initMobileMenu = () => {
   })
   menuLinkHandlers = []
 
-  // Ensure menu starts in closed state
+  // Ensure menu starts in closed state - FORCE LEFT SIDE
   menu.classList.remove('active')
-  menu.style.left = '-100%'
-  menu.style.right = 'auto'
-  menu.style.transform = 'none'
-  menu.style.inset = 'auto auto auto -100%'
+  menu.style.cssText = 'left: -100% !important; right: auto !important; transform: none !important; direction: ltr !important;'
   hamburger.setAttribute('aria-expanded', 'false')
   hamburger.classList.remove('active')
   overlay.classList.remove('active')
@@ -117,19 +114,11 @@ const initMobileMenu = () => {
       menu.classList.toggle('active', newState)
       overlay.classList.toggle('active', newState)
 
-      // Force menu position to left side - use CSS classes primarily, inline styles as backup
+      // Force menu position to left side - CRITICAL: use cssText to override everything
       if (newState) {
-        menu.style.left = '0'
-        menu.style.right = 'auto'
-        menu.style.transform = 'none'
-        menu.style.inset = 'auto auto auto 0'
-        menu.style.direction = 'ltr'
+        menu.style.cssText = 'left: 0 !important; right: auto !important; transform: none !important; direction: ltr !important;'
       } else {
-        menu.style.left = '-100%'
-        menu.style.right = 'auto'
-        menu.style.transform = 'none'
-        menu.style.inset = 'auto auto auto -100%'
-        menu.style.direction = 'ltr'
+        menu.style.cssText = 'left: -100% !important; right: auto !important; transform: none !important; direction: ltr !important;'
       }
 
       // Prevent body scroll when menu is open
