@@ -468,7 +468,8 @@ ul.nav-menu.mobile-menu {
         width: 280px !important;
         max-width: 85vw !important;
         height: 100vh !important;
-        background: linear-gradient(135deg, rgba(10, 14, 39, 0.98) 0%, rgba(26, 31, 58, 0.98) 100%) !important;
+        background: var(--gradient-header) !important;
+        backdrop-filter: blur(15px) !important;
         flex-direction: column !important;
         padding: calc(5rem + env(safe-area-inset-top)) 1.5rem calc(2rem + env(safe-area-inset-bottom)) !important;
         gap: 1rem !important;
@@ -525,7 +526,7 @@ ul.nav-menu.mobile-menu {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(10, 14, 39, 0.6);
         backdrop-filter: blur(10px);
         z-index: 999 !important; /* Niższe niż menu (1000) */
         opacity: 0;
