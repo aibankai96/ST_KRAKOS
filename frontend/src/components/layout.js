@@ -15,7 +15,14 @@ export const renderHeader = () => {
     {scroll: 'portfolio', key: 'nav.portfolio'},
     {scroll: 'contact', key: 'nav.contact'}
   ]
-  header.innerHTML = `<nav><div class="logo">ST KRATOS</div><button class="hamburger" aria-label="Menu mobilne" aria-expanded="false"><span></span><span></span><span></span></button><ul class="nav-menu">${navItems.map(({scroll, key}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${t(key)}</a></li>`).join('')}</ul><div class="lang-switcher"><button class="lang-btn ${lang === 'pl' ? 'active' : ''}" data-lang="pl" title="Polski">🇵🇱</button><button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en" title="English">🇺🇸</button></div></nav>`
+  header.innerHTML = `<nav><div class="logo">ST KRATOS</div><button class="hamburger" aria-label="Menu mobilne" aria-expanded="false"><span></span><span></span><span></span></button><ul class="nav-menu desktop-menu">${navItems.map(({scroll, key}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${t(key)}</a></li>`).join('')}</ul><div class="lang-switcher"><button class="lang-btn ${lang === 'pl' ? 'active' : ''}" data-lang="pl" title="Polski">🇵🇱</button><button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en" title="English">🇺🇸</button></div></nav>`
+
+  // Create mobile menu OUTSIDE nav (to avoid flexbox layout issues)
+  const existingMobileMenu = document.querySelector('.mobile-menu')
+  if (existingMobileMenu) {
+    existingMobileMenu.remove()
+  }
+  document.body.insertAdjacentHTML('beforeend', `<ul class="nav-menu mobile-menu">${navItems.map(({scroll, key}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${t(key)}</a></li>`).join('')}</ul>`)
 
   // Create overlay for mobile menu
   const existingOverlay = document.querySelector('.mobile-menu-overlay')
@@ -37,7 +44,7 @@ export const renderHeader = () => {
 
 function initMobileMenu() {
   const hamburger = document.querySelector('.hamburger')
-  const menu = document.querySelector('.nav-menu')
+  const menu = document.querySelector('.mobile-menu') // Mobile menu poza nav
   const overlay = document.querySelector('.mobile-menu-overlay')
 
   if (!hamburger || !menu || !overlay) {
@@ -76,7 +83,7 @@ function initMobileMenu() {
   })
 
   // Close menu when clicking links
-  const menuLinks = document.querySelectorAll('.nav-menu a')
+  const menuLinks = document.querySelectorAll('.mobile-menu a')
   menuLinks.forEach(link => {
     link.addEventListener('click', () => {
       if (window.innerWidth <= 768 && hamburger.getAttribute('aria-expanded') === 'true') {

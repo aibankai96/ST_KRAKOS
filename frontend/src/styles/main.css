@@ -106,11 +106,11 @@ nav {
 .logo::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--color-primary), var(--color-primary-alt), var(--color-primary)); background-size: 200% 100%; animation: underline-move 15s linear infinite; border-radius: var(--radius-sm); }
 nav ul { display: flex; list-style: none; gap: var(--spacing-md); }
 /* Desktop menu - visible on desktop, hidden on mobile */
-nav ul.nav-menu {
+nav ul.nav-menu.desktop-menu {
     display: flex;
     position: relative; /* Default position for desktop */
 }
-/* Note: Mobile menu styles override this in @media (max-width: 768px) below */
+/* Mobile menu is created outside nav - see .mobile-menu below */
 nav a { color: var(--color-text-muted); text-decoration: none; transition: var(--transition); font-weight: 500; font-size: var(--font-lg); padding: var(--spacing-xs) 0; position: relative; letter-spacing: 0.2px; }
 nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gradient-primary); transition: width 0.3s ease; box-shadow: 0 0 10px var(--color-gold-rgba-6); }
 nav a:hover { color: var(--color-primary); text-shadow: 0 1px 6px var(--color-gold-rgba-5); transform: translateY(-2px); }
@@ -402,9 +402,16 @@ footer {
     box-shadow: 0 -4px 30px rgba(255, 215, 0, 0.1);
 }
 
+/* Hide mobile menu on desktop */
+ul.nav-menu.mobile-menu {
+    display: none !important;
+}
+
 @media (max-width: 768px) {
     /* Hide desktop menu on mobile */
-    nav > ul:not(.nav-menu) { display: none !important; }
+    nav ul.nav-menu.desktop-menu { 
+        display: none !important; 
+    }
     
     /* Mobile nav layout: Logo | Lang Switcher | Hamburger */
     nav { 
@@ -445,16 +452,16 @@ footer {
     /* Show hamburger button - right side */
     .hamburger {
         display: flex !important;
-        z-index: 102;
+        z-index: 1001;
         order: 3;
         flex-shrink: 0;
         width: 40px;
         height: 40px;
     }
     
-    /* Mobile menu - always rendered but hidden off-screen */
-    nav ul.nav-menu {
-        display: flex !important; /* Zawsze flex - element zawsze renderowany */
+    /* Mobile menu - OUTSIDE nav, always rendered but hidden off-screen */
+    ul.nav-menu.mobile-menu {
+        display: flex !important;
         position: fixed !important;
         top: 0 !important;
         left: -100% !important; /* Poza ekranem domyślnie */
@@ -465,7 +472,7 @@ footer {
         flex-direction: column !important;
         padding: calc(5rem + env(safe-area-inset-top)) 1.5rem calc(2rem + env(safe-area-inset-bottom)) !important;
         gap: 1rem !important;
-        z-index: 103 !important; /* Wyższe niż overlay (100) i hamburger (102) i header (100) */
+        z-index: 1000 !important; /* Wyższe niż wszystko */
         transition: left 0.3s ease, opacity 0.3s ease, visibility 0.3s ease !important;
         box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5) !important;
         border-right: 2px solid var(--color-gold-rgba-4) !important;
@@ -473,10 +480,12 @@ footer {
         visibility: hidden !important;
         opacity: 0 !important;
         pointer-events: none !important;
+        list-style: none !important;
+        margin: 0 !important;
     }
     
     /* Mobile menu - slides from LEFT side when active */
-    nav ul.nav-menu.active {
+    ul.nav-menu.mobile-menu.active {
         left: 0 !important; /* Wysuwa się z lewej */
         visibility: visible !important;
         opacity: 1 !important;
@@ -484,12 +493,12 @@ footer {
     }
     
     /* Menu items */
-    nav ul.nav-menu.active li {
+    ul.nav-menu.mobile-menu.active li {
         width: 100%;
         display: block;
     }
     
-    nav ul.nav-menu.active a {
+    ul.nav-menu.mobile-menu.active a {
         display: flex;
         width: 100%;
         padding: 1rem;
@@ -499,12 +508,12 @@ footer {
         align-items: center;
     }
     
-    nav ul.nav-menu.active a:hover {
+    ul.nav-menu.mobile-menu.active a:hover {
         color: var(--color-primary);
         background: rgba(255, 215, 0, 0.05);
     }
     
-    nav ul.nav-menu.active a::after {
+    ul.nav-menu.mobile-menu.active a::after {
         display: none;
     }
     
@@ -518,7 +527,7 @@ footer {
         height: 100%;
         background: rgba(0, 0, 0, 0.8);
         backdrop-filter: blur(10px);
-        z-index: 100 !important; /* Niższe niż menu (103) */
+        z-index: 999 !important; /* Niższe niż menu (1000) */
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;
