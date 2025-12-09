@@ -2,6 +2,9 @@ import {t, getLang, setLang} from '../utils/i18n.js'
 const CURRENT_YEAR = 2025
 let mobileMenuInitialized = false
 let toggleMenuHandler = null
+let hamburgerClickHandler = null
+let overlayClickHandler = null
+let menuLinkHandlers = []
 
 export const renderHeader = () => {
   const header = document.getElementById('header')
@@ -34,7 +37,15 @@ export const renderHeader = () => {
 
   // Reset initialization flag and reinitialize
   mobileMenuInitialized = false
-  initMobileMenu()
+  // Clear old handlers
+  hamburgerClickHandler = null
+  overlayClickHandler = null
+  menuLinkHandlers = []
+
+  // Initialize after a short delay to ensure DOM is ready
+  setTimeout(() => {
+    initMobileMenu()
+  }, 100)
 }
 
 const initMobileMenu = () => {
@@ -42,9 +53,17 @@ const initMobileMenu = () => {
     return
   }
 
-  // Only initialize on mobile devices
-  if (window.innerWidth > 768 && !/mobile|iphone|ipad|android/i.test(navigator.userAgent)) {
-    return // Skip on desktop
+  // Check if we're on mobile or should initialize anyway
+  const isMobile = window.innerWidth <= 768 || /mobile|iphone|ipad|android/i.test(navigator.userAgent)
+
+  if (!isMobile && window.innerWidth > 768) {
+    // On desktop, ensure menu is hidden
+    const menu = document.querySelector('.nav-menu')
+    if (menu) {
+      menu.classList.remove('active')
+      menu.style.left = '-100%'
+    }
+    return
   }
 
   const hamburger = document.querySelector('.hamburger')
@@ -67,14 +86,26 @@ const initMobileMenu = () => {
   }
 
   // Remove old event listeners if any
-  const oldHamburgerHandler = hamburger.onclick
-  const oldOverlayHandler = overlay.onclick
-  if (oldHamburgerHandler) {
-    hamburger.removeEventListener('click', oldHamburgerHandler)
+  if (hamburgerClickHandler) {
+    hamburger.removeEventListener('click', hamburgerClickHandler)
   }
-  if (oldOverlayHandler) {
-    overlay.removeEventListener('click', oldOverlayHandler)
+  if (overlayClickHandler) {
+    overlay.removeEventListener('click', overlayClickHandler)
   }
+  menuLinkHandlers.forEach(({link, handler}) => {
+    link.removeEventListener('click', handler)
+  })
+  menuLinkHandlers = []
+
+  // Ensure menu starts in closed state
+  menu.classList.remove('active')
+  menu.style.left = '-100%'
+  menu.style.right = 'auto'
+  menu.style.transform = 'none'
+  menu.style.inset = 'auto auto auto -100%'
+  hamburger.setAttribute('aria-expanded', 'false')
+  hamburger.classList.remove('active')
+  overlay.classList.remove('active')
 
   toggleMenuHandler = () => {
     try {
@@ -86,17 +117,19 @@ const initMobileMenu = () => {
       menu.classList.toggle('active', newState)
       overlay.classList.toggle('active', newState)
 
-      // Force menu position to left side
+      // Force menu position to left side - use CSS classes primarily, inline styles as backup
       if (newState) {
         menu.style.left = '0'
         menu.style.right = 'auto'
         menu.style.transform = 'none'
         menu.style.inset = 'auto auto auto 0'
+        menu.style.direction = 'ltr'
       } else {
         menu.style.left = '-100%'
         menu.style.right = 'auto'
         menu.style.transform = 'none'
         menu.style.inset = 'auto auto auto -100%'
+        menu.style.direction = 'ltr'
       }
 
       // Prevent body scroll when menu is open
@@ -110,13 +143,13 @@ const initMobileMenu = () => {
         document.body.style.width = ''
       }
 
-      console.log('[Mobile Menu] Toggled:', {isOpen, newState, menuLeft: menu.style.left})
+      console.log('[Mobile Menu] Toggled:', {isOpen, newState, menuLeft: menu.style.left, computedLeft: window.getComputedStyle(menu).left})
     } catch (error) {
       console.error('[Mobile Menu] Error in toggleMenuHandler:', error)
     }
   }
 
-  const hamburgerClickHandler = (e) => {
+  hamburgerClickHandler = (e) => {
     e.preventDefault()
     e.stopPropagation()
     try {
@@ -126,7 +159,7 @@ const initMobileMenu = () => {
     }
   }
 
-  const overlayClickHandler = (e) => {
+  overlayClickHandler = (e) => {
     e.preventDefault()
     e.stopPropagation()
     try {
@@ -143,15 +176,17 @@ const initMobileMenu = () => {
 
   const menuLinks = document.querySelectorAll('.nav-menu a')
   menuLinks.forEach(link => {
-    link.addEventListener('click', () => {
+    const handler = () => {
       if (window.innerWidth <= 768 && hamburger.getAttribute('aria-expanded') === 'true') {
         toggleMenuHandler()
       }
-    })
+    }
+    link.addEventListener('click', handler)
+    menuLinkHandlers.push({link, handler})
   })
 
   mobileMenuInitialized = true
-  console.log('[Mobile Menu] Initialized successfully')
+  console.log('[Mobile Menu] Initialized successfully', {isMobile, windowWidth: window.innerWidth})
 }
 export const renderFooter = () => {
   const footer = document.getElementById('footer')

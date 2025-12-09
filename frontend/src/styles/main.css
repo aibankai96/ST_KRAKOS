@@ -104,10 +104,16 @@ nav {
 .logo { font-size: var(--font-xxxl); font-weight: 700; color: var(--color-primary); letter-spacing: -0.5px; position: relative; padding-bottom: 0.3rem; }
 .logo::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--color-primary), var(--color-primary-alt), var(--color-primary)); background-size: 200% 100%; animation: underline-move 15s linear infinite; border-radius: var(--radius-sm); }
 nav ul { display: flex; list-style: none; gap: var(--spacing-md); }
-nav ul.nav-menu { display: flex; }
+nav ul.nav-menu { 
+    display: flex; 
+    position: relative; /* Default position for desktop */
+}
 /* Desktop menu - hidden on mobile */
 @media (max-width: 768px) {
     nav > ul:not(.nav-menu) { display: none !important; }
+    nav ul.nav-menu { 
+        position: fixed !important; /* Override to fixed on mobile */
+    }
 }
 nav a { color: var(--color-text-muted); text-decoration: none; transition: var(--transition); font-weight: 500; font-size: var(--font-lg); padding: var(--spacing-xs) 0; position: relative; letter-spacing: 0.2px; }
 nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gradient-primary); transition: width 0.3s ease; box-shadow: 0 0 10px var(--color-gold-rgba-6); }
@@ -444,6 +450,8 @@ footer {
         margin: 0 !important;
         margin-left: 0 !important;
         margin-right: auto !important;
+        padding-left: 0 !important;
+        padding-right: 1.5rem !important;
         pointer-events: auto !important;
         transform: none !important;
         direction: ltr !important;
@@ -456,6 +464,13 @@ footer {
         right: auto !important;
         transform: none !important;
         inset: auto auto auto 0 !important;
+    }
+    
+    /* Ensure menu never appears on right side - critical fix */
+    nav ul.nav-menu:not(.active) {
+        left: -100% !important;
+        right: auto !important;
+        transform: translateX(0) !important;
     }
     nav ul.nav-menu li { 
         width: 100% !important; 
