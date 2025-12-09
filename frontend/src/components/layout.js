@@ -1,10 +1,5 @@
 import {t, getLang, setLang} from '../utils/i18n.js'
 const CURRENT_YEAR = 2025
-let mobileMenuInitialized = false
-let toggleMenuHandler = null
-let hamburgerClickHandler = null
-let overlayClickHandler = null
-let menuLinkHandlers = []
 
 export const renderHeader = () => {
   const header = document.getElementById('header')
@@ -22,160 +17,73 @@ export const renderHeader = () => {
   ]
   header.innerHTML = `<nav><div class="logo">ST KRATOS</div><button class="hamburger" aria-label="Menu mobilne" aria-expanded="false"><span></span><span></span><span></span></button><ul class="nav-menu">${navItems.map(({scroll, key}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${t(key)}</a></li>`).join('')}</ul><div class="lang-switcher"><button class="lang-btn ${lang === 'pl' ? 'active' : ''}" data-lang="pl" title="Polski">🇵🇱</button><button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en" title="English">🇺🇸</button></div></nav>`
 
-  // Remove existing overlay if present (to avoid duplicates)
+  // Create overlay for mobile menu
   const existingOverlay = document.querySelector('.mobile-menu-overlay')
   if (existingOverlay) {
     existingOverlay.remove()
   }
   document.body.insertAdjacentHTML('beforeend', '<div class="mobile-menu-overlay"></div>')
 
+  // Setup language switcher
   header.querySelectorAll('.lang-btn').forEach(btn => {
     const newBtn = btn.cloneNode(true)
     btn.replaceWith(newBtn)
     newBtn.addEventListener('click', () => setLang(newBtn.dataset.lang))
   })
 
-  // Reset initialization flag and reinitialize
-  mobileMenuInitialized = false
-  // Clear old handlers
-  hamburgerClickHandler = null
-  overlayClickHandler = null
-  menuLinkHandlers = []
-
-  // Initialize after a short delay to ensure DOM is ready
-  setTimeout(() => {
-    initMobileMenu()
-  }, 100)
+  // Initialize mobile menu
+  initMobileMenu()
 }
 
-const initMobileMenu = () => {
-  if (mobileMenuInitialized) {
-    return
-  }
-
-  // Check if we're on mobile or should initialize anyway
-  const isMobile = window.innerWidth <= 768 || /mobile|iphone|ipad|android/i.test(navigator.userAgent)
-
-  if (!isMobile && window.innerWidth > 768) {
-    // On desktop, ensure menu is hidden
-    const menu = document.querySelector('.nav-menu')
-    if (menu) {
-      menu.classList.remove('active')
-      menu.style.left = '-100%'
-    }
-    return
-  }
-
+function initMobileMenu() {
   const hamburger = document.querySelector('.hamburger')
   const menu = document.querySelector('.nav-menu')
   const overlay = document.querySelector('.mobile-menu-overlay')
 
   if (!hamburger || !menu || !overlay) {
-    console.warn('[Mobile Menu] Missing elements:', {hamburger: !!hamburger, menu: !!menu, overlay: !!overlay})
-    // Retry after a short delay if elements not found
-    setTimeout(() => {
-      const retryHamburger = document.querySelector('.hamburger')
-      const retryMenu = document.querySelector('.nav-menu')
-      const retryOverlay = document.querySelector('.mobile-menu-overlay')
-      if (retryHamburger && retryMenu && retryOverlay) {
-        mobileMenuInitialized = false
-        initMobileMenu()
-      }
-    }, 500)
     return
   }
 
-  // Remove old event listeners if any
-  if (hamburgerClickHandler) {
-    hamburger.removeEventListener('click', hamburgerClickHandler)
+  // Toggle menu function
+  function toggleMenu() {
+    const isOpen = hamburger.getAttribute('aria-expanded') === 'true'
+    const newState = !isOpen
+
+    hamburger.setAttribute('aria-expanded', String(newState))
+    hamburger.classList.toggle('active', newState)
+    menu.classList.toggle('active', newState)
+    overlay.classList.toggle('active', newState)
+
+    // Prevent body scroll
+    if (newState) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
   }
-  if (overlayClickHandler) {
-    overlay.removeEventListener('click', overlayClickHandler)
-  }
-  menuLinkHandlers.forEach(({link, handler}) => {
-    link.removeEventListener('click', handler)
+
+  // Event listeners
+  hamburger.addEventListener('click', (e) => {
+    e.preventDefault()
+    toggleMenu()
   })
-  menuLinkHandlers = []
 
-  // Ensure menu starts in closed state - FORCE LEFT SIDE
-  menu.classList.remove('active')
-  menu.style.cssText = 'left: -100% !important; right: auto !important; transform: none !important; direction: ltr !important;'
-  hamburger.setAttribute('aria-expanded', 'false')
-  hamburger.classList.remove('active')
-  overlay.classList.remove('active')
-
-  toggleMenuHandler = () => {
-    try {
-      const isOpen = hamburger.getAttribute('aria-expanded') === 'true'
-      const newState = !isOpen
-
-      hamburger.setAttribute('aria-expanded', String(newState))
-      hamburger.classList.toggle('active', newState)
-      menu.classList.toggle('active', newState)
-      overlay.classList.toggle('active', newState)
-
-      // Force menu position to left side - CRITICAL: use cssText to override everything
-      if (newState) {
-        menu.style.cssText = 'left: 0 !important; right: auto !important; transform: none !important; direction: ltr !important;'
-      } else {
-        menu.style.cssText = 'left: -100% !important; right: auto !important; transform: none !important; direction: ltr !important;'
-      }
-
-      // Prevent body scroll when menu is open
-      if (newState) {
-        document.body.style.overflow = 'hidden'
-        document.body.style.position = 'fixed'
-        document.body.style.width = '100%'
-      } else {
-        document.body.style.overflow = ''
-        document.body.style.position = ''
-        document.body.style.width = ''
-      }
-
-      console.log('[Mobile Menu] Toggled:', {isOpen, newState, menuLeft: menu.style.left, computedLeft: window.getComputedStyle(menu).left})
-    } catch (error) {
-      console.error('[Mobile Menu] Error in toggleMenuHandler:', error)
-    }
-  }
-
-  hamburgerClickHandler = (e) => {
+  overlay.addEventListener('click', (e) => {
     e.preventDefault()
-    e.stopPropagation()
-    try {
-      toggleMenuHandler()
-    } catch (error) {
-      console.error('[Mobile Menu] Error toggling menu:', error)
+    if (overlay.classList.contains('active')) {
+      toggleMenu()
     }
-  }
+  })
 
-  overlayClickHandler = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    try {
-      if (overlay.classList.contains('active')) {
-        toggleMenuHandler()
-      }
-    } catch (error) {
-      console.error('[Mobile Menu] Error closing menu:', error)
-    }
-  }
-
-  hamburger.addEventListener('click', hamburgerClickHandler)
-  overlay.addEventListener('click', overlayClickHandler)
-
+  // Close menu when clicking links
   const menuLinks = document.querySelectorAll('.nav-menu a')
   menuLinks.forEach(link => {
-    const handler = () => {
+    link.addEventListener('click', () => {
       if (window.innerWidth <= 768 && hamburger.getAttribute('aria-expanded') === 'true') {
-        toggleMenuHandler()
+        toggleMenu()
       }
-    }
-    link.addEventListener('click', handler)
-    menuLinkHandlers.push({link, handler})
+    })
   })
-
-  mobileMenuInitialized = true
-  console.log('[Mobile Menu] Initialized successfully', {isMobile, windowWidth: window.innerWidth})
 }
 export const renderFooter = () => {
   const footer = document.getElementById('footer')

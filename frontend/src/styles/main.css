@@ -108,9 +108,13 @@ nav ul.nav-menu {
     display: flex;
     position: relative; /* Default position for desktop */
 }
-/* Desktop menu - hidden on mobile */
+/* Desktop menu - visible on desktop, hidden on mobile */
 @media (max-width: 768px) {
     nav > ul:not(.nav-menu) { display: none !important; }
+    /* Hide nav-menu on mobile by default - show only when .active */
+    nav ul.nav-menu {
+        display: none !important;
+    }
 }
 nav a { color: var(--color-text-muted); text-decoration: none; transition: var(--transition); font-weight: 500; font-size: var(--font-lg); padding: var(--spacing-xs) 0; position: relative; letter-spacing: 0.2px; }
 nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gradient-primary); transition: width 0.3s ease; box-shadow: 0 0 10px var(--color-gold-rgba-6); }
@@ -404,105 +408,92 @@ footer {
 }
 
 @media (max-width: 768px) {
-    /* Hide ALL desktop menus on mobile - CRITICAL */
-    nav > ul:not(.nav-menu) { display: none !important; visibility: hidden !important; }
-    nav ul:not(.nav-menu) { display: none !important; visibility: hidden !important; }
+    /* Hide desktop menu on mobile */
+    nav > ul:not(.nav-menu) { display: none !important; }
     
-    /* Show hamburger on mobile - MUST be visible */
-    .hamburger { 
-        display: flex !important; 
-        visibility: visible !important;
-        min-width: 44px !important; 
-        min-height: 44px !important; 
-        z-index: 102 !important;
-        position: relative !important;
-        cursor: pointer !important;
-    }
-    
-    /* Mobile menu - always positioned fixed, hidden by default - MUST be on LEFT side */
-    nav ul.nav-menu {
+    /* Show hamburger button */
+    .hamburger {
         display: flex !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: -100% !important;
-        right: auto !important;
-        width: 240px !important;
-        max-width: 85vw !important;
-        height: 100vh !important;
-        max-height: 100vh !important;
-        background: linear-gradient(135deg, rgba(10, 14, 39, 0.98) 0%, rgba(26, 31, 58, 0.98) 100%) !important;
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        align-items: flex-start !important;
-        padding: calc(5rem + env(safe-area-inset-top)) 1.5rem calc(2rem + env(safe-area-inset-bottom)) !important;
-        gap: 1.5rem !important;
-        z-index: 101 !important;
-        transition: left 0.3s ease !important;
-        box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5) !important;
-        border-right: 2px solid var(--color-gold-rgba-4) !important;
-        border-left: none !important;
-        overflow-y: auto !important;
-        text-align: left !important;
-        margin: 0 !important;
-        padding-left: 0 !important;
-        padding-right: 1.5rem !important;
-        pointer-events: auto !important;
-        transform: none !important;
-        direction: ltr !important;
+        z-index: 102;
     }
-
-    /* Show menu when active - slide from LEFT side */
+    
+    /* Hide nav-menu on mobile by default - show only when active */
+    nav ul.nav-menu {
+        display: none !important;
+    }
+    
+    /* Mobile menu - slides from LEFT side - only when active */
     nav ul.nav-menu.active {
-        left: 0 !important;
-        right: auto !important;
-        transform: none !important;
+        display: flex !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px;
+        max-width: 85vw;
+        height: 100vh;
+        background: linear-gradient(135deg, rgba(10, 14, 39, 0.98) 0%, rgba(26, 31, 58, 0.98) 100%);
+        flex-direction: column;
+        padding: calc(5rem + env(safe-area-inset-top)) 1.5rem calc(2rem + env(safe-area-inset-bottom));
+        gap: 1rem;
+        z-index: 101;
+        transition: left 0.3s ease;
+        box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5);
+        border-right: 2px solid var(--color-gold-rgba-4);
+        overflow-y: auto;
     }
-    nav ul.nav-menu li { 
-        width: 100% !important; 
-        text-align: left !important; 
-        display: block !important;
-        margin: 0 !important;
+    
+    /* Menu items */
+    nav ul.nav-menu.active li {
+        width: 100%;
+        display: block;
     }
-    nav ul.nav-menu a { 
-        display: flex !important; 
-        width: 100% !important; 
-        padding: 0.9rem 1rem !important; 
-        font-size: 1rem !important; 
-        line-height: 1.4 !important;
-        min-height: 44px !important; 
-        align-items: center !important; 
-        justify-content: flex-start !important; 
-        color: var(--color-text-muted) !important; 
-        border-bottom: 1px solid rgba(255, 215, 0, 0.1) !important; 
-        text-align: left !important; 
-        margin: 0 !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
+    
+    nav ul.nav-menu.active a {
+        display: flex;
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+        color: var(--color-text-muted);
+        border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        align-items: center;
     }
-    nav ul.nav-menu a:hover { 
-        color: var(--color-primary) !important; 
-        background: rgba(255, 215, 0, 0.05) !important; 
-        transform: translateX(-5px) !important; 
+    
+    nav ul.nav-menu.active a:hover {
+        color: var(--color-primary);
+        background: rgba(255, 215, 0, 0.05);
     }
-    nav ul.nav-menu a::after { display: none !important; }
-    .mobile-menu-overlay { 
-        display: block !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        z-index: 100 !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-        transition: opacity 0.3s ease !important;
+    
+    nav ul.nav-menu.active a::after {
+        display: none;
     }
+    
+    /* Overlay */
+    .mobile-menu-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    
     .mobile-menu-overlay.active {
-        opacity: 1 !important;
-        pointer-events: all !important;
+        opacity: 1;
+        pointer-events: all;
     }
-    .lang-switcher { position: fixed; bottom: calc(2rem + env(safe-area-inset-bottom)); right: calc(2rem + env(safe-area-inset-right)); z-index: 102 !important; }
+    
+    .lang-switcher {
+        position: fixed;
+        bottom: calc(2rem + env(safe-area-inset-bottom));
+        right: calc(2rem + env(safe-area-inset-right));
+        z-index: 102;
+    }
     /* Don't override nav flex-direction - let hamburger menu work */
     nav { 
         justify-content: space-between !important; 
