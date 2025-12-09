@@ -15,14 +15,19 @@ export const renderHeader = () => {
     {scroll: 'portfolio', key: 'nav.portfolio'},
     {scroll: 'contact', key: 'nav.contact'}
   ]
-  header.innerHTML = `<nav><div class="logo">ST KRATOS</div><div class="lang-switcher"><button class="lang-btn ${lang === 'pl' ? 'active' : ''}" data-lang="pl" title="Polski">🇵🇱</button><button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en" title="English">🇺🇸</button></div><button class="hamburger" aria-label="Menu mobilne" aria-expanded="false"><span></span><span></span><span></span></button></nav>`
-  
-  // Create desktop menu OUTSIDE nav (to avoid flexbox layout issues on mobile)
-  const existingDesktopMenu = header.querySelector('.desktop-menu')
-  if (existingDesktopMenu) {
-    existingDesktopMenu.remove()
-  }
-  header.insertAdjacentHTML('beforeend', `<ul class="nav-menu desktop-menu">${navItems.map(({scroll, key}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${t(key)}</a></li>`).join('')}</ul>`)
+  header.innerHTML = `<nav>
+    <div class="logo">ST KRATOS</div>
+    <ul class="nav-menu desktop-menu">${navItems.map(({scroll, key}) => `<li><a href="#${scroll}" data-scroll="${scroll}">${t(key)}</a></li>`).join('')}</ul>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn ${lang === 'pl' ? 'active' : ''}" data-lang="pl" title="Polski">🇵🇱</button>
+        <button class="lang-btn ${lang === 'en' ? 'active' : ''}" data-lang="en" title="English">🇺🇸</button>
+      </div>
+      <button class="hamburger" aria-label="Menu mobilne" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>`
 
   // Create mobile menu OUTSIDE nav (to avoid flexbox layout issues)
   const existingMobileMenu = document.querySelector('.mobile-menu')
