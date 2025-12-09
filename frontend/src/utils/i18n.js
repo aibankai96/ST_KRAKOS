@@ -159,6 +159,17 @@ const translations = {
       elemf: 'All companies',
       other: 'We are also open to other projects - of course after analysis. If you have an idea for a project that does not fit into the above categories, contact us, and we will find a solution together.'
     },
+    tech: {
+      title: 'Our Tools and Technologies',
+      intro: 'We use the latest AI tools and technologies to create solutions that work. Every project is delivered with the highest quality.',
+      t1: 'AI Tools',
+      t1d: 'Latest tools powered by artificial intelligence. Faster project delivery while maintaining the highest quality.',
+      t2: 'Development Environment',
+      t2d: 'Advanced development tools. Stable, secure and efficient applications using proven solutions.',
+      t3: 'Frameworks and Libraries',
+      t3d: 'Modern web technologies. Fast performance, security and compatibility across all devices.',
+      cta: 'Technology is our specialty - focus on business, we\'ll take care of the rest.'
+    },
     portfolio: {
       title: 'Our Projects',
       intro: 'Here are examples of projects completed for our clients.',
