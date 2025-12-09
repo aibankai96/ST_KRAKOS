@@ -439,11 +439,15 @@ footer {
         border-right: 2px solid var(--color-gold-rgba-4) !important; 
         border-left: none !important;
         overflow-y: auto !important; 
-        will-change: transform !important; 
+        will-change: left !important; 
         text-align: left !important; 
         margin: 0 !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
         pointer-events: auto !important;
         transform: none !important;
+        direction: ltr !important;
+        inset: auto auto auto -100% !important;
     }
     
     /* Show menu when active - slide from LEFT side */
@@ -451,6 +455,7 @@ footer {
         left: 0 !important; 
         right: auto !important;
         transform: none !important;
+        inset: auto auto auto 0 !important;
     }
     nav ul.nav-menu li { 
         width: 100% !important; 

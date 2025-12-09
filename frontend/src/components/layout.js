@@ -67,9 +67,13 @@ const initMobileMenu = () => {
   }
 
   // Remove old event listeners if any
-  if (toggleMenuHandler) {
-    hamburger.removeEventListener('click', toggleMenuHandler)
-    overlay.removeEventListener('click', toggleMenuHandler)
+  const oldHamburgerHandler = hamburger.onclick
+  const oldOverlayHandler = overlay.onclick
+  if (oldHamburgerHandler) {
+    hamburger.removeEventListener('click', oldHamburgerHandler)
+  }
+  if (oldOverlayHandler) {
+    overlay.removeEventListener('click', oldOverlayHandler)
   }
 
   toggleMenuHandler = () => {
@@ -82,6 +86,19 @@ const initMobileMenu = () => {
       menu.classList.toggle('active', newState)
       overlay.classList.toggle('active', newState)
 
+      // Force menu position to left side
+      if (newState) {
+        menu.style.left = '0'
+        menu.style.right = 'auto'
+        menu.style.transform = 'none'
+        menu.style.inset = 'auto auto auto 0'
+      } else {
+        menu.style.left = '-100%'
+        menu.style.right = 'auto'
+        menu.style.transform = 'none'
+        menu.style.inset = 'auto auto auto -100%'
+      }
+
       // Prevent body scroll when menu is open
       if (newState) {
         document.body.style.overflow = 'hidden'
@@ -93,13 +110,13 @@ const initMobileMenu = () => {
         document.body.style.width = ''
       }
 
-      console.log('[Mobile Menu] Toggled:', {isOpen, newState})
+      console.log('[Mobile Menu] Toggled:', {isOpen, newState, menuLeft: menu.style.left})
     } catch (error) {
       console.error('[Mobile Menu] Error in toggleMenuHandler:', error)
     }
   }
 
-  hamburger.addEventListener('click', (e) => {
+  const hamburgerClickHandler = (e) => {
     e.preventDefault()
     e.stopPropagation()
     try {
@@ -107,9 +124,9 @@ const initMobileMenu = () => {
     } catch (error) {
       console.error('[Mobile Menu] Error toggling menu:', error)
     }
-  })
+  }
 
-  overlay.addEventListener('click', (e) => {
+  const overlayClickHandler = (e) => {
     e.preventDefault()
     e.stopPropagation()
     try {
@@ -119,7 +136,10 @@ const initMobileMenu = () => {
     } catch (error) {
       console.error('[Mobile Menu] Error closing menu:', error)
     }
-  })
+  }
+
+  hamburger.addEventListener('click', hamburgerClickHandler)
+  overlay.addEventListener('click', overlayClickHandler)
 
   const menuLinks = document.querySelectorAll('.nav-menu a')
   menuLinks.forEach(link => {
