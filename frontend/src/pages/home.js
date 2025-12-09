@@ -173,10 +173,14 @@ export function renderHome(container) {
             </div>
         </section>
     `
-  setupStatsAnimation()
+  // Setup stats animation after DOM is ready
+  setTimeout(() => {
+    setupStatsAnimation()
+  }, 100)
+
   setTimeout(() => {
     initScrollReveal()
-  }, 100)
+  }, 150)
 }
 function resetStat(stat) {
   const prefix = stat.getAttribute('data-prefix') || ''
@@ -185,58 +189,91 @@ function resetStat(stat) {
 }
 function animateStat(stat, timersArray) {
   return new Promise((resolve) => {
-    const target = parseFloat(stat.getAttribute('data-target'))
-    const prefix = stat.getAttribute('data-prefix') || ''
-    const suffix = stat.getAttribute('data-suffix') || ''
-    const step = target / ANIMATION_STEPS
-    let current = 0
-    const timer = setInterval(() => {
-      current = Math.min(current + step, target)
-      stat.textContent = `${prefix}${suffix === 'T' ? current.toFixed(1) : Math.floor(current)}${suffix}`
-      if (current >= target) {
-        clearInterval(timer)
-        const index = timersArray.indexOf(timer)
-        if (index > -1) {
-          timersArray.splice(index, 1)
-        }
+    try {
+      const target = parseFloat(stat.getAttribute('data-target'))
+      if (isNaN(target)) {
+        console.error('[Stats Animation] Invalid target value:', stat.getAttribute('data-target'))
         resolve()
+        return
       }
-    }, ANIMATION_DURATION / ANIMATION_STEPS)
-    timersArray.push(timer)
+      const prefix = stat.getAttribute('data-prefix') || ''
+      const suffix = stat.getAttribute('data-suffix') || ''
+      const step = target / ANIMATION_STEPS
+      let current = 0
+      const timer = setInterval(() => {
+        try {
+          current = Math.min(current + step, target)
+          stat.textContent = `${prefix}${suffix === 'T' ? current.toFixed(1) : Math.floor(current)}${suffix}`
+          if (current >= target) {
+            clearInterval(timer)
+            const index = timersArray.indexOf(timer)
+            if (index > -1) {
+              timersArray.splice(index, 1)
+            }
+            resolve()
+          }
+        } catch (error) {
+          console.error('[Stats Animation] Error in animation loop:', error)
+          clearInterval(timer)
+          resolve()
+        }
+      }, ANIMATION_DURATION / ANIMATION_STEPS)
+      timersArray.push(timer)
+    } catch (error) {
+      console.error('[Stats Animation] Error setting up animation:', error)
+      resolve()
+    }
   })
 }
 function setupStatsAnimation() {
-  const statsSection = document.getElementById('ai-stats')
-  if (!statsSection) {
-    return
-  }
-  if (typeof IntersectionObserver === 'undefined') {
-    return
-  }
-  const statNumbers = statsSection.querySelectorAll('.stat-number')
-  let isAnimating = false
-  let currentTimers = []
-  new IntersectionObserver(async (entries) => {
-    const isIntersecting = entries[0]?.isIntersecting
-    if (isIntersecting && !isAnimating) {
-      isAnimating = true
-      currentTimers.forEach(timer => clearInterval(timer))
-      currentTimers = []
-      for (const stat of statNumbers) {
-        resetStat(stat)
-      }
-      await new Promise(resolve => setTimeout(resolve, 200))
-      for (const stat of statNumbers) {
-        await animateStat(stat, currentTimers)
-      }
-      isAnimating = false
-    } else if (!isIntersecting) {
-      currentTimers.forEach(timer => clearInterval(timer))
-      currentTimers = []
-      isAnimating = false
-      for (const stat of statNumbers) {
-        resetStat(stat)
-      }
+  try {
+    const statsSection = document.getElementById('ai-stats')
+    if (!statsSection) {
+      console.warn('[Stats Animation] ai-stats section not found')
+      return
     }
-  }, {threshold: INTERSECTION_THRESHOLD}).observe(statsSection)
+    if (typeof IntersectionObserver === 'undefined') {
+      console.warn('[Stats Animation] IntersectionObserver not supported')
+      return
+    }
+    const statNumbers = statsSection.querySelectorAll('.stat-number')
+    if (!statNumbers || statNumbers.length === 0) {
+      console.warn('[Stats Animation] No stat numbers found')
+      return
+    }
+    let isAnimating = false
+    let currentTimers = []
+    new IntersectionObserver(async (entries) => {
+      try {
+        const isIntersecting = entries[0]?.isIntersecting
+        if (isIntersecting && !isAnimating) {
+          isAnimating = true
+          currentTimers.forEach(timer => clearInterval(timer))
+          currentTimers = []
+          for (const stat of statNumbers) {
+            resetStat(stat)
+          }
+          await new Promise(resolve => setTimeout(resolve, 200))
+          for (const stat of statNumbers) {
+            await animateStat(stat, currentTimers)
+          }
+          isAnimating = false
+        } else if (!isIntersecting) {
+          currentTimers.forEach(timer => clearInterval(timer))
+          currentTimers = []
+          isAnimating = false
+          for (const stat of statNumbers) {
+            resetStat(stat)
+          }
+        }
+      } catch (error) {
+        console.error('[Stats Animation] Error in observer callback:', error)
+        isAnimating = false
+        currentTimers.forEach(timer => clearInterval(timer))
+        currentTimers = []
+      }
+    }, {threshold: INTERSECTION_THRESHOLD}).observe(statsSection)
+  } catch (error) {
+    console.error('[Stats Animation] Setup error:', error)
+  }
 }

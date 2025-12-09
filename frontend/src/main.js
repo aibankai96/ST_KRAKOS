@@ -2,6 +2,7 @@ import {initRouter} from './router.js'
 import {renderLayout} from './components/layout.js'
 import {showError} from './utils/error.js'
 import {initPuzzleLoader} from './utils/puzzleLoader.js'
+import {initCookieConsent} from './components/CookieConsent.js'
 import './utils/analytics.js'
 import {initSecretCode} from './utils/statsModal.js'
 
@@ -28,5 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLayout(app)
     initRouter()
     initSecretCode()
+    // Inicjalizuj cookie consent po załadowaniu strony
+    setTimeout(() => {
+      initCookieConsent()
+    }, 3000)
   }, 2900)
 })

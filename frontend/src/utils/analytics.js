@@ -1,10 +1,13 @@
 const STORAGE_KEY = 'st_kratos_analytics'
 
+// Consent check - bezpośrednie sprawdzenie localStorage (bez circular dependency)
+
 class Analytics {
   constructor() {
     try {
       this.stats = this.loadStats()
       // Track visit only once per session (page load)
+      // Sprawdź zgodę przed trackingiem
       this.trackVisitOnce()
     } catch (error) {
       console.error('[Analytics] Error initializing:', error)
@@ -174,6 +177,27 @@ class Analytics {
 
   trackVisit() {
     try {
+      // Sprawdź zgodę przed trackingiem - RODO wymaganie
+      // Bezpośrednie sprawdzenie localStorage (bez circular dependency)
+      try {
+        const stored = localStorage.getItem('st_kratos_consent')
+        if (stored) {
+          const parsed = JSON.parse(stored)
+          if (parsed.analytics !== true) {
+            console.log('[Analytics] Tracking skipped - no consent')
+            return
+          }
+        } else {
+          // Jeśli nie ma zgody zapisanej - nie trackuj
+          console.log('[Analytics] Tracking skipped - no consent stored')
+          return
+        }
+      } catch (e) {
+        // Jeśli błąd odczytu - nie trackuj (bezpieczniejsze)
+        console.log('[Analytics] Tracking skipped - consent check failed')
+        return
+      }
+
       const now = new Date()
       const date = now.toLocaleDateString('pl-PL')
       const device = this.detectDevice()
