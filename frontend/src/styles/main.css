@@ -534,13 +534,16 @@ ul.nav-menu.mobile-menu {
         pointer-events: all !important;
     }
     
-    /* Menu items */
-    ul.nav-menu.mobile-menu.active li {
+    /* Menu items - podstawowe style */
+    ul.nav-menu.mobile-menu li {
         width: 100%;
         display: block;
+        margin: 0;
+        padding: 0;
+        list-style: none;
     }
     
-    ul.nav-menu.mobile-menu.active a {
+    ul.nav-menu.mobile-menu a {
         display: flex;
         width: 100%;
         padding: 1rem;
@@ -548,20 +551,23 @@ ul.nav-menu.mobile-menu {
         color: var(--color-text-muted);
         border-bottom: 1px solid rgba(255, 215, 0, 0.1);
         align-items: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
     }
     
-    ul.nav-menu.mobile-menu.active a:hover {
+    ul.nav-menu.mobile-menu a:hover {
         color: var(--color-primary);
         background: rgba(255, 215, 0, 0.05);
     }
     
-    ul.nav-menu.mobile-menu.active a::after {
-        display: none;
+    ul.nav-menu.mobile-menu a::after {
+        display: none !important;
     }
     
-    /* Overlay */
+    /* Overlay - ukryty domyślnie, pokazuje się tylko gdy menu aktywne */
     .mobile-menu-overlay {
-        display: block !important;
+        display: none !important;
         position: fixed;
         top: 0;
         left: 0;
@@ -572,11 +578,12 @@ ul.nav-menu.mobile-menu {
         z-index: 999 !important; /* Niższe niż menu (1000) */
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
         visibility: hidden;
     }
     
     .mobile-menu-overlay.active {
+        display: block !important;
         opacity: 1;
         pointer-events: all;
         visibility: visible;
