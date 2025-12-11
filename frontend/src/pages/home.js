@@ -28,6 +28,18 @@ const createFeatureCard = (icon, titleKey, descKey) => createCard('feature', {ic
 const createServiceCard = (icon, titleKey, descKey, forKey, forLabel) => createCard('service', {icon, titleKey, descKey, forKey, forLabel})
 const createPortfolioItem = (icon, titleKey, descKey) => createCard('portfolio', {icon, titleKey, descKey})
 export function renderHome(container) {
+  if (!container) return
+  
+  const hasPrivacyPage = container.querySelector('.privacy-page')
+  const isRendering = container.getAttribute('data-privacy-rendering') === 'true' || window.isRenderingPrivacy
+  const hasRendered = container.getAttribute('data-privacy-rendered') === 'true'
+  const hash = window.location.hash
+  const isPrivacyRoute = hash === '#privacy-policy' || hash === '#polityka-prywatnosci'
+  
+  if (hasPrivacyPage || isRendering || hasRendered || isPrivacyRoute) {
+    return
+  }
+  
   const lang = getLang()
   const forLabel = lang === 'pl' ? 'Dla:' : 'For:'
   updateSEO(t('seo.title'), t('seo.desc'), t('seo.keywords'))

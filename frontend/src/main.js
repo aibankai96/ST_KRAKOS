@@ -6,32 +6,23 @@ import {initCookieConsent} from './components/CookieConsent.js'
 import './utils/analytics.js'
 import {initSecretCode} from './utils/statsModal.js'
 
-// Global error handler
-window.addEventListener('error', (event) => {
-  console.error('Global error:', event.error)
+window.addEventListener('error', (e) => {
+  console.error('[Main] Error:', e.error)
   showError('Wystąpił nieoczekiwany błąd. Odśwież stronę jeśli problem się powtarza.')
 })
-
-window.addEventListener('unhandledrejection', (event) => {
-  console.error('Unhandled promise rejection:', event.reason)
+window.addEventListener('unhandledrejection', (e) => {
+  console.error('[Main] Promise rejection:', e.reason)
   showError('Wystąpił błąd podczas wykonywania operacji.')
 })
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = document.getElementById('app')
-  if (!app) {
-    return console.error('App container not found')
-  }
-
+  if (!app) return console.error('[Main] App container not found')
   initPuzzleLoader()
-
   setTimeout(() => {
     renderLayout(app)
     initRouter()
     initSecretCode()
-    // Inicjalizuj cookie consent po załadowaniu strony
-    setTimeout(() => {
-      initCookieConsent()
-    }, 3000)
+    setTimeout(() => initCookieConsent(), 3000)
   }, 2900)
 })

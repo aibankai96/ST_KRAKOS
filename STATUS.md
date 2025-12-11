@@ -30,6 +30,14 @@ https://github.com/aibankai96/ST_KRAKOS.git
 ## Notatki
 Projekt ST KRAKOS został zapisany w repozytorium GitHub. Wszystkie zmiany będą zapisywane w repozytorium ST_KRAKOS.
 
+### [2025-12-11] - Zabezpieczenie aplikacji - koniec sesji
+- ✅ Backup plików `privacy.js` i `home.js` do `BACKUPS/`
+- ✅ Usunięto logi diagnostyczne z `privacy.js` i `home.js`
+- ✅ Zachowano funkcjonalność (flagi, monitoring, retry)
+- ✅ Kod zoptymalizowany i gotowy do produkcji
+- ⏸️ Praca nad naprawą polityki prywatności wstrzymana na żądanie użytkownika
+- 📝 Dokumentacja: `ZABEZPIECZENIE_APLIKACJI_2025.md`
+
 ### [2025-11-25] - Ukończenie wszystkich etapów
 - ✅ ETAP 1: Backend - ZAKOŃCZONY
 - ✅ ETAP 2: Frontend - Struktura - ZAKOŃCZONY

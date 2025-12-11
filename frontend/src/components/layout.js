@@ -108,9 +108,11 @@ export const renderFooter = () => {
   const footer = document.getElementById('footer')
   if (footer) {
     const lang = getLang()
-    const privacyLink = lang === 'pl' ? '#polityka-prywatnosci' : '#privacy-policy'
+    const privacyHash = lang === 'pl' ? '#polityka-prywatnosci' : '#privacy-policy'
     const privacyText = lang === 'pl' ? 'Polityka Prywatności' : 'Privacy Policy'
-    footer.innerHTML = `<div class="footer-content"><p>&copy; ${CURRENT_YEAR} ST KRATOS. ${t('footer')}</p><p class="footer-links"><a href="${privacyLink}">${privacyText}</a></p></div>`
+    footer.innerHTML = `<div class="footer-content"><p>&copy; ${CURRENT_YEAR} ST KRATOS. ${t('footer')}</p><p class="footer-links"><a href="${privacyHash}" class="privacy-link" id="privacy-link">${privacyText}</a></p></div>`
+  } else {
+    console.warn('[Footer] Footer element not found')
   }
 }
 export function renderLayout(container) {

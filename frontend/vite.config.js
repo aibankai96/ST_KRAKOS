@@ -27,6 +27,7 @@ export default defineConfig({
     minify: 'esbuild'
   },
   esbuild: {
-    drop: ['console', 'debugger']
+    // Only drop console in production build, not in dev
+    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : []
   }
 })

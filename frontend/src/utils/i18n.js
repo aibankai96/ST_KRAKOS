@@ -291,13 +291,48 @@ const translations = {
 
 let currentLang = localStorage.getItem('lang') || 'pl'
 export const setLang = (lang) => {
-  currentLang = lang; localStorage.setItem('lang', lang); updatePage()
+  currentLang = lang
+  localStorage.setItem('lang', lang)
+  updatePage()
 }
 export const getLang = () => currentLang
 export const t = (path) => path.split('.').reduce((o, k) => o?.[k], translations[currentLang]) || path
 const updatePage = () => {
-  const content = document.getElementById('content'); if (content) {
-    renderHome(content)
-  } renderHeader(); renderFooter()
+  console.log('[i18n] updatePage() called')
+  const content = document.getElementById('content')
+  if (!content) {
+    console.warn('[i18n] Content container not found')
+    return
+  }
+  
+  // CRITICAL: Check if privacy page exists or is being rendered - DON'T overwrite it!
+  const hasPrivacyPage = content.querySelector('.privacy-page')
+  const isRenderingPrivacy = content.getAttribute('data-rendering-privacy') === 'true' || window.isRenderingPrivacy
+  const hasPrivacyRendered = content.getAttribute('data-privacy-rendered') === 'true'
+  const currentHash = window.location.hash
+  
+  console.log('[i18n] Privacy check:', {
+    hasPrivacyPage: !!hasPrivacyPage,
+    isRenderingPrivacy,
+    hasPrivacyRendered,
+    currentHash
+  })
+  
+  // Check if we're on privacy page (by hash, DOM element, or rendering flag)
+  const isPrivacyRoute = currentHash === '#privacy-policy' || currentHash === '#polityka-prywatnosci' || hasPrivacyPage || isRenderingPrivacy || hasPrivacyRendered
+  
+  if (isPrivacyRoute) {
+    console.log('[i18n] Privacy route detected - updating header/footer only')
+    // Just update header and footer, don't re-render privacy
+    renderHeader()
+    renderFooter()
+    return  // EXIT EARLY - don't render home!
+  }
+  
+  console.log('[i18n] Not on privacy route - rendering home')
+  // Only render home if NOT on privacy page
+  renderHome(content)
+  renderHeader()
+  renderFooter()
 }
 
