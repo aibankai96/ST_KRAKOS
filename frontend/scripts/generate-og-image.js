@@ -9,7 +9,7 @@ const __dirname = dirname(__filename)
 const width = 1200
 const height = 630
 
-// SVG z gradientem i tekstem
+// SVG z gradientem i samym tekstem (bez zdjęcia)
 const svg = `
 <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -31,11 +31,11 @@ const svg = `
     </filter>
   </defs>
   <rect width="${width}" height="${height}" fill="url(#bgGradient)"/>
-  <text x="${width/2}" y="250" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#FFD700" text-anchor="middle" filter="url(#shadow)">ST KRATOS</text>
-  <text x="${width/2}" y="340" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="rgba(255,255,255,0.95)" text-anchor="middle">Innowacyjne rozwiązania AI</text>
-  <text x="${width/2}" y="400" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.75)" text-anchor="middle">Strony internetowe • Aplikacje webowe • Rozwiązania IT</text>
-  <line x1="200" y1="480" x2="1000" y2="480" stroke="#FFD700" stroke-width="4" filter="url(#shadow)"/>
-  <text x="${width/2}" y="530" font-family="Arial, sans-serif" font-size="28" fill="rgba(255,255,255,0.6)" text-anchor="middle">Wykorzystujemy najnowsze technologie AI</text>
+  <text x="${width/2}" y="280" font-family="Arial, sans-serif" font-size="140" font-weight="bold" fill="#FFD700" text-anchor="middle" filter="url(#shadow)">ST KRATOS</text>
+  <text x="${width/2}" y="380" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="rgba(255,255,255,0.95)" text-anchor="middle">Innowacyjne rozwiązania AI</text>
+  <text x="${width/2}" y="450" font-family="Arial, sans-serif" font-size="36" fill="rgba(255,255,255,0.8)" text-anchor="middle">Strony internetowe • Aplikacje webowe • Rozwiązania IT</text>
+  <line x1="200" y1="500" x2="1000" y2="500" stroke="#FFD700" stroke-width="5" filter="url(#shadow)"/>
+  <text x="${width/2}" y="560" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.7)" text-anchor="middle">Wykorzystujemy najnowsze technologie AI</text>
 </svg>
 `
 
